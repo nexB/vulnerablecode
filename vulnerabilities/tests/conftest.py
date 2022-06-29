@@ -30,4 +30,5 @@ collect_ignore = [
     "test_suse_backports.py",
     "test_suse.py",
     "test_upstream.py",
+    "test_gsd.py",
 ]
