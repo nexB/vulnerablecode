@@ -7,10 +7,11 @@
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
-from vulnerabilities.importers import alpine_linux, gsd
+from vulnerabilities.importers import alpine_linux
 from vulnerabilities.importers import debian
 from vulnerabilities.importers import github
 from vulnerabilities.importers import gitlab
+from vulnerabilities.importers import gsd
 from vulnerabilities.importers import nginx
 from vulnerabilities.importers import nvd
 from vulnerabilities.importers import openssl
