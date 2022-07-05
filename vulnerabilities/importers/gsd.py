@@ -9,10 +9,13 @@
 import json
 import logging
 import os
+
+import dateparser
+from typing import Iterable
 from fetchcode.vcs.git import fetch_via_git
-from vulnerabilities.importer import AdvisoryData
+from vulnerabilities.importer import AdvisoryData, Reference
 from vulnerabilities.importer import Importer
-from vulnerabilities.importers.gitlab import ForkError
+
 
 logger = logging.getLogger(__name__)
 
@@ -22,7 +25,7 @@ class GSDImporter(Importer):
     license_url = "https://github.com/cloudsecurityalliance/gsd-database/blob/main/LICENSE"
     gsd_url = "git+https://github.com/cloudsecurityalliance/gsd-database"
 
-    def advisory_data(self):
+    def advisory_data(self) -> Iterable[AdvisoryData]:
         # for file in fork_and_get_files(self.gsd_url):
         #     print(file)
         x = '''{
@@ -221,96 +224,79 @@ class GSDImporter(Importer):
         cve_org = namespaces.get("cve.org") or {}
         nvd_nist_gov = namespaces.get("nvd.nist.gov") or {}
 
-        return AdvisoryData(aliases=aliases,
+        yield AdvisoryData( aliases=aliases,
                             summary=summary,
-                            affected_packages=affected_packages,
                             references=references,
-                            date_published=date_published, )
+                            date_published=get_published_date_nvd_nist_gov(nvd_nist_gov))
 
 
-def get_cve_org_details(cve_org):
-    CVE_data_meta = cve_org.get("CVE_data_meta") or {}
-    if CVE_data_meta:
-        ASSIGNER = CVE_data_meta.get("ASSIGNER") or ""
-        ID = CVE_data_meta.get("ID") or ""
-        STATE = CVE_data_meta.get("STATE") or ""
-
-    affects = cve_org.get("affects") or {}  # TODO
-
-    data_format = cve_org.get("data_format") or ""
-    data_type = cve_org.get("data_type") or ""
-    data_version = cve_org.get("data_version") or ""
-
-    description = cve_org.get("description") or {}
-    if description:
-        description_data = description.get("description_data") or {}
-        description_value = description_data.get("value") or ""
-
-    problem_type = cve_org.get("problemtype") or {}
-    if problem_type:
-        problemtype_data = problem_type.get("problemtype") or {}
-        description = problemtype_data.get("description") or {}
-        summary = description.get("value") or ""  # problemtype
-
-    references = cve_org.get("references") or {}
+def get_summary(cve) -> str:
+    CVE_data_meta = cve.get("CVE_data_meta") or {}
+    return CVE_data_meta.get("TITLE") or ""
 
 
-def get_cve_references(references):
-    pass
+def get_cvss_str_v_cve_org(cve) -> str:
+    impact = cve.get("impact") or {}
+    cvss = impact.get("cvss") or {}
+    return cvss.get("vectorString")
+
+
+def get_description(cve) -> [str]:
+    description = cve.get("description") or {}
+    description_data = description.get("description_data") or []
+    return [desc['value'] for desc in description_data if desc['value']]
+
+
+def get_references(cve,severities) -> [str]:
+    references = cve.get("references") or {}
+    reference_data = references.get("reference_data") or []
+    return [Reference(url=ref["url"]) for ref in reference_data if ref['url']]
+
+
+def get_aliases(cve) -> [str]:
+    CVE_data_meta = cve.get("CVE_data_meta") or {}
+    alias = CVE_data_meta.get("ID")
+
+    source = cve.get("source") or {}
+    advisory = source.get("advisory")
+
+    aliases = []
+    if alias:
+        aliases.append(alias)
+    if advisory:
+        aliases.append(advisory)
+    return aliases
+
+
+def get_published_date_nvd_nist_gov(nvd_nist_gov):
+    publishedDate = nvd_nist_gov.get("publishedDate")
+    return publishedDate and dateparser.parse(publishedDate)
 
 
 def get_nvd_nist_gov_details(nvd_nist_gov):
     configurations = nvd_nist_gov.get("configurations") or {}
-    cve = nvd_nist_gov.get("cve") or {}
+    lastModifiedDate = nvd_nist_gov.get("lastModifiedDate")
+
+
+def get_severities_nvd_nist_gov(nvd_nist_gov):
     impact = nvd_nist_gov.get("impact") or {}
+    baseMetricV2 = impact.get("baseMetricV2") or {}
+    cvssV2 =
+    severity = baseMetricV2.get("severity")
 
-    lastModifiedDate = nvd_nist_gov.get("lastModifiedDate")  # not used
-    publishedDate = nvd_nist_gov.get("publishedDate")
+    baseMetricV3 = impact.get("baseMetricV2") or {}
+    cvssV3 =
 
 
-def get_serverity():
+
+def get_severities_cve_org(cve_org):
+    impact = cve_org.get("impact") or {}
+
+
+
+def ForkError():
     pass
 
-
-def get_cwe():
-    pass
-
-
-def get_aliases_nvd():
-    """
-    >>> get_aliases()
-    Returns:
-
-    """
-
-    pass
-
-
-def get_description():
-    """
-    >>> get_description()
-    Returns:
-
-    """
-    pass
-
-
-def get_references(nvd_nist_gov_cve) -> [str]:
-    """
-    >>> get_description({"references": {
-          "reference_data": [
-            {
-              "name": "https://kc.mcafee.com/corporate/index?page=content&id=SB10198",
-              "refsource": "CONFIRM",
-              "tags": ["Vendor Advisory"],
-              "url": "https://kc.mcafee.com/corporate/index?page=content&id=SB10198"
-            }]
-        }})
-    >>> ["https://kc.mcafee.com/corporate/index?page=content&id=SB10198"]
-    """
-    references = nvd_nist_gov_cve.get("references") or {}
-    reference_data = references.get("reference_data") or []
-    return [ref['url'] for ref in reference_data if ref['url']]
 
 
 def fork_and_get_files(url) -> dict:
@@ -318,7 +304,7 @@ def fork_and_get_files(url) -> dict:
         fork_directory = fetch_via_git(url=url)
     except Exception as e:
         logger.error(f"Can't clone url {url}")
-        raise ForkError(url) from e
+        raise ForkError() from e
 
     advisory_dirs = os.path.join(fork_directory.dest_dir, "1999")
     for root, _, files in os.walk(advisory_dirs):
