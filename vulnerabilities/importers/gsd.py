@@ -31,32 +31,36 @@ class GSDImporter(Importer):
     def advisory_data(self) -> Iterable[AdvisoryData]:
         forked_dir = fork_and_get_dir(self.gsd_url)
         for file in get_files(forked_dir):
-            raw_data = json.loads(file)
+            yield parse_advisory_data(file)
 
-            namespaces = raw_data.get("namespaces") or {}
-            cve_org = namespaces.get("cve.org") or {}
-            nvd_nist_gov = namespaces.get("nvd.nist.gov") or {}
 
-            GSD = raw_data.get("GSD") or {}
-            GSD_alias = GSD.get("alias") or []
-            details = GSD.get("description") or get_description(cve_org)
-            GSD_id = GSD.get("id") or ""
+def parse_advisory_data(file):
+    raw_data = json.loads(file)
 
-            aliases_cve_org = get_aliases(cve_org)
-            aliases_nvd_nist_gov = get_aliases(nvd_nist_gov)
-            aliases = GSD_alias + GSD_id + aliases_cve_org + aliases_nvd_nist_gov
+    namespaces = raw_data.get("namespaces") or {}
+    cve_org = namespaces.get("cve.org") or {}
+    nvd_nist_gov = namespaces.get("nvd.nist.gov") or {}
 
-            summary = build_description(summary=get_summary(cve_org), description=details)
-            references = get_references(cve_org)
+    GSD = raw_data.get("GSD") or {}
+    GSD_alias = [].append(GSD.get("alias")) or []
+    details = GSD.get("description") or get_description(cve_org)
+    GSD_id = [].append(GSD.get("id")) or []
 
-            date_published = get_published_date_nvd_nist_gov(nvd_nist_gov)
+    aliases_cve_org = get_aliases(cve_org)
+    aliases_nvd_nist_gov = get_aliases(nvd_nist_gov)
+    aliases = GSD_alias + GSD_id + aliases_cve_org + aliases_nvd_nist_gov
 
-            yield AdvisoryData(
-                aliases=dedupe(aliases),
-                summary=summary,
-                references=references,
-                date_published=date_published,
-            )
+    summary = build_description(summary=get_summary(cve_org), description=details)
+    references = get_references(cve_org)
+
+    date_published = get_published_date_nvd_nist_gov(nvd_nist_gov)
+
+    return AdvisoryData(
+        aliases=dedupe(aliases),
+        summary=summary,
+        references=references,
+        date_published=date_published,
+    )
 
 
 def get_summary(cve) -> str:

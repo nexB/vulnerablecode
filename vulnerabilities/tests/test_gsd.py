@@ -7,6 +7,8 @@
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 import datetime
+import json
+import os
 from unittest import TestCase
 
 from vulnerabilities.importer import Reference
@@ -16,9 +18,21 @@ from vulnerabilities.importers.gsd import get_description
 from vulnerabilities.importers.gsd import get_published_date_nvd_nist_gov
 from vulnerabilities.importers.gsd import get_references
 from vulnerabilities.importers.gsd import get_summary
+from vulnerabilities.importers.gsd import parse_advisory_data
+from vulnerabilities.tests import util_tests
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+TEST_DATA = os.path.join(BASE_DIR, "test_data/gsd")
 
 
 class TestGSDImporter(TestCase):
+    def test_to_advisories(self):
+        with open(os.path.join(TEST_DATA, "GSD-2016-20005.json")) as f:
+            imported_data = parse_advisory_data(f.read())
+        expected_file = os.path.join(TEST_DATA, f"GSD-2016-20005-expected.json")
+        result = imported_data.to_dict()
+        util_tests.check_results_against_json(result, expected_file)
+
     def test_get_references(self):
         assert get_references(
             {
