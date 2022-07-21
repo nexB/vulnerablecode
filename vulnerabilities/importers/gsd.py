@@ -35,6 +35,10 @@ class GSDImporter(Importer):
 
 
 def parse_advisory_data(file):
+    """
+    Parse a GSD advisory file and return an AdvisoryData.
+    Each advisory file contains the advisory information in JSON format.
+    """
     raw_data = json.loads(file)
 
     namespaces = raw_data.get("namespaces") or {}
@@ -64,29 +68,72 @@ def parse_advisory_data(file):
 
 
 def get_summary(cve) -> str:
+    """
+    Args:
+        cve: json object have a CVE_data_meta key
+        {"CVE_data_meta": {"TITLE": "DoS vulnerability: Invalid Accent Colors"}
+    Returns:
+        a TITLE value as summary
+    """
     CVE_data_meta = cve.get("CVE_data_meta") or {}
     return CVE_data_meta.get("TITLE") or ""
 
 
 def get_cvss_str_v_cve_org(cve) -> str:
+    """
+    Args:
+        cve: a json object have impact key , CVSS key and vectorString
+        {"impact": {"cvss": {"vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:N/I:N/A:H"}}}
+    Returns:
+        vectorString of cvss "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:N/I:N/A:H"
+    """
     impact = cve.get("impact") or {}
     cvss = impact.get("cvss") or {}
     return cvss.get("vectorString")
 
 
 def get_description(cve) -> [str]:
+    """
+    Get a list description value from description object
+    >>> get_description({"description": {"description_data": [{"lang": "eng","value": "the description"}]}})
+    ['the description']
+
+    """
     description = cve.get("description") or {}
     description_data = description.get("description_data") or []
     return [desc["value"] for desc in description_data if desc["value"]]
 
 
 def get_references(cve):
+    """
+    Args:
+        cve: json object with a references key
+    Returns:
+        list of Reference assigned with url
+    >>> get_references({"references": {
+    ...      "reference_data": [{
+    ...            "name": "https://kc.mcafee.com/corporate/index?page=content&id=SB10198",
+    ...             "refsource": "CONFIRM",
+    ...             "tags": ["Vendor Advisory"],
+    ...             "url": "https://kc.mcafee.com/corporate/index?page=content&id=SB10198"}]}})
+    [Reference(reference_id='', url='https://kc.mcafee.com/corporate/index?page=content&id=SB10198', severities=[])]
+
+    """
     references = cve.get("references") or {}
     reference_data = references.get("reference_data") or []
     return [Reference(url=ref["url"]) for ref in reference_data if ref["url"]]
 
 
 def get_aliases(cve) -> [str]:
+    """
+    Args:
+        cve:
+    Returns:
+        list of aliases
+
+    >>> get_aliases({"CVE_data_meta": {"ID": "CVE-2017-4017"},"source": {"advisory": "GHSA-v8x6-59g4-5g3w"}})
+    ['CVE-2017-4017', 'GHSA-v8x6-59g4-5g3w']
+    """
     CVE_data_meta = cve.get("CVE_data_meta") or {}
     alias = CVE_data_meta.get("ID")
 
@@ -102,6 +149,15 @@ def get_aliases(cve) -> [str]:
 
 
 def get_published_date_nvd_nist_gov(nvd_nist_gov):
+    """
+    Args:
+        nvd_nist_gov: json object have a publishedDate as a key
+    Returns:
+        a published date
+    >>> get_published_date_nvd_nist_gov({"publishedDate": "2022-06-23T07:15Z"})
+    datetime.datetime(2022, 6, 23, 7, 15, tzinfo=<StaticTzInfo 'Z'>)
+
+    """
     publishedDate = nvd_nist_gov.get("publishedDate")
     return publishedDate and dateparser.parse(publishedDate)
 
