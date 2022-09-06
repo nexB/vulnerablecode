@@ -31,7 +31,10 @@ class GSDImporter(Importer):
     def advisory_data(self) -> Iterable[AdvisoryData]:
         forked_dir = fork_and_get_dir(self.gsd_url)
         for file in get_files(forked_dir):
-            yield parse_advisory_data(file)
+            try:
+                yield parse_advisory_data(file)
+            except Exception as e:
+                logger.error(f"{e !r}")
 
 
 def parse_advisory_data(file):
@@ -47,7 +50,7 @@ def parse_advisory_data(file):
 
     GSD = raw_data.get("GSD") or {}
     GSD_alias = [].append(GSD.get("alias")) or []
-    details = GSD.get("description") or get_description(cve_org)
+    details = GSD.get("description") or "".join(get_description(cve_org))
     GSD_id = [].append(GSD.get("id")) or []
 
     aliases_cve_org = get_aliases(cve_org)
@@ -188,5 +191,5 @@ def get_files(fork_directory):
             continue
         for root, _, files in os.walk(os.path.join(fork_directory, root_dir)):
             for file in files:
-                with open(os.path.join(root, file), "r") as f:
+                with open(os.path.join(root, file), "r", encoding="ISO-8859-1") as f:
                     yield f.read()
