@@ -33,6 +33,8 @@ class DepsDataSource(DataSource):
 
     def datasource_advisory(self, purl) -> Iterable[VendorData]:
         payload = generate_meta_payload(purl)
+        if not payload:
+            return
         response = self.fetch_json_response(payload)
         if response:
             advisories = parse_advisories_from_meta(response)
