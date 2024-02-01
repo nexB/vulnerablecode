@@ -18,6 +18,7 @@ import pytz
 import saneyaml
 from dateutil import parser as dateparser
 from packageurl import PackageURL
+from progress.bar import ChargingBar
 from univers.version_range import RANGE_CLASS_BY_SCHEMES
 from univers.version_range import VersionRange
 from univers.version_range import from_gitlab_native
@@ -55,11 +56,14 @@ class GitLabAPIImporter(Importer):
     repo_url = "git+https://gitlab.com/gitlab-org/advisories-community/"
 
     def advisory_data(self, _keep_clone=False) -> Iterable[AdvisoryData]:
+        progress_bar_for_package_fetch = ChargingBar("\tFetching Packages")
         try:
             self.clone(repo_url=self.repo_url)
             base_path = Path(self.vcs_response.dest_dir)
-
-            for file_path in base_path.glob("**/*.yml"):
+            file_paths_for_fetched_files = list(base_path.glob("**/*.yml"))
+            progress_bar_for_package_fetch.max = len(file_paths_for_fetched_files)
+            progress_bar_for_package_fetch.start()
+            for file_path in file_paths_for_fetched_files:
                 gitlab_type, package_slug, vuln_id = parse_advisory_path(
                     base_path=base_path,
                     file_path=file_path,
@@ -71,7 +75,9 @@ class GitLabAPIImporter(Importer):
                 else:
                     logger.error(f"Unknow package type {gitlab_type!r} in {file_path!r}")
                     continue
+                progress_bar_for_package_fetch.next()
         finally:
+            progress_bar_for_package_fetch.finish()
             if self.vcs_response and not _keep_clone:
                 self.vcs_response.delete()
 

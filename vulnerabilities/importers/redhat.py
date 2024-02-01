@@ -15,6 +15,7 @@ from typing import List
 
 import requests
 from packageurl import PackageURL
+from progress.bar import ChargingBar
 from univers.version_range import RpmVersionRange
 
 from vulnerabilities import severity_systems
@@ -68,9 +69,16 @@ class RedhatImporter(Importer):
     importer_name = "RedHat Importer"
 
     def advisory_data(self) -> Iterable[AdvisoryData]:
+        page_no = 1
         for redhat_cves in fetch_cves():
+            progress_bar_for_cve_fetch = ChargingBar(
+                f"\tFetching CVE Set-{page_no}", max=len(redhat_cves)
+            )
             for redhat_cve in redhat_cves:
                 yield to_advisory(redhat_cve)
+                progress_bar_for_cve_fetch.next()
+            progress_bar_for_cve_fetch.finish()
+            page_no += 1
 
 
 def to_advisory(advisory_data):

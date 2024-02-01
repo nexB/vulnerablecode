@@ -14,6 +14,7 @@ from datetime import date
 import attr
 import requests
 from dateutil import parser as dateparser
+from progress.bar import ChargingBar
 
 from vulnerabilities import severity_systems
 from vulnerabilities.importer import AdvisoryData
@@ -79,10 +80,16 @@ def fetch_cve_data_1_1(starting_year=2002):
     year since ``starting_year`` defaulting to 2002.
     """
     current_year = date.today().year
+    progress_bar_for_records_fetched = ChargingBar(
+        "\tRecords fetched", max=(current_year - starting_year) + 1
+    )
+    progress_bar_for_records_fetched.start()
     # NVD json feeds start from 2002.
     for year in range(starting_year, current_year + 1):
         download_url = f"https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-{year}.json.gz"
         yield year, fetch(url=download_url)
+        progress_bar_for_records_fetched.next()
+    progress_bar_for_records_fetched.finish()
 
 
 def to_advisories(cve_data):

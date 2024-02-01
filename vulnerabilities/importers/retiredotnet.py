@@ -14,6 +14,7 @@ from typing import Iterable
 from typing import List
 
 from packageurl import PackageURL
+from progress.bar import ChargingBar
 from univers.version_range import NugetVersionRange
 from univers.versions import NugetVersion
 
@@ -31,16 +32,23 @@ class RetireDotnetImporter(Importer):
     importer_name = "RetireDotNet Importer"
 
     def advisory_data(self) -> Iterable[AdvisoryData]:
+        progress_bar_for_fetched_files: ChargingBar
         try:
             self.clone(repo_url=self.repo_url)
             base_path = Path(self.vcs_response.dest_dir)
-
             vuln = base_path / "Content"
-            for file in vuln.glob("*.json"):
+            paths_for_vulnerabilities = list(vuln.glob("*.json"))
+            progress_bar_for_fetched_files = ChargingBar(
+                "\tFetching Vulnerabilities", max=len(paths_for_vulnerabilities)
+            )
+            progress_bar_for_fetched_files.start()
+            for file in paths_for_vulnerabilities:
                 advisory = self.process_file(file, base_path)
                 if advisory:
                     yield advisory
+                progress_bar_for_fetched_files.next()
         finally:
+            progress_bar_for_fetched_files.finish()
             if self.vcs_response:
                 self.vcs_response.delete()
 

@@ -11,6 +11,7 @@ import bz2
 import json
 
 import requests
+from progress.bar import ChargingBar
 
 from vulnerabilities.importer import AdvisoryData
 from vulnerabilities.importer import Importer
@@ -69,6 +70,8 @@ class UbuntuUSNImporter(Importer):
         yield from self.to_advisories(usn_db=usn_db)
 
     def to_advisories(self, usn_db):
+        progress_bar_for_advisory_fetch = ChargingBar("\tFetching Advisories", max=len(usn_db))
+        progress_bar_for_advisory_fetch.start()
         for usn in usn_db:
             usn_data = usn_db[usn]
             usn_reference = get_usn_reference(usn_data.get("id"))
@@ -88,6 +91,9 @@ class UbuntuUSNImporter(Importer):
                     references=usn_references,
                     url=usn_reference.url or self.db_url,
                 )
+                progress_bar_for_advisory_fetch.next()
+
+        progress_bar_for_advisory_fetch.finish()
 
 
 def get_usn_reference(usn_id):

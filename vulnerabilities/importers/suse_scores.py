@@ -9,6 +9,8 @@
 
 from typing import Iterable
 
+from progress.bar import ChargingBar
+
 from vulnerabilities import severity_systems
 from vulnerabilities.importer import AdvisoryData
 from vulnerabilities.importer import Importer
@@ -36,7 +38,8 @@ class SUSESeverityScoreImporter(Importer):
             "3": severity_systems.CVSSV3,
             "3.1": severity_systems.CVSSV31,
         }
-
+        progress_bar_for_cve_fetch = ChargingBar("\tFetching CVEs", max=len(score_data or []))
+        progress_bar_for_cve_fetch.start()
         for cve_id in score_data or []:
             severities = []
             for cvss_score in score_data[cve_id].get("cvss") or []:
@@ -52,7 +55,6 @@ class SUSESeverityScoreImporter(Importer):
                     scoring_elements=vector,
                 )
                 severities.append(score)
-
             if not is_cve(cve_id):
                 continue
 
@@ -62,3 +64,5 @@ class SUSESeverityScoreImporter(Importer):
                 references=[Reference(url=URL, severities=severities)],
                 url=URL,
             )
+            progress_bar_for_cve_fetch.next()
+        progress_bar_for_cve_fetch.finish()

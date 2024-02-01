@@ -12,6 +12,7 @@ from typing import List
 from typing import Mapping
 
 from packageurl import PackageURL
+from progress.bar import ChargingBar
 from univers.version_range import ArchLinuxVersionRange
 from univers.versions import ArchLinuxVersion
 
@@ -35,8 +36,13 @@ class ArchlinuxImporter(Importer):
         return response.json()
 
     def advisory_data(self) -> Iterable[AdvisoryData]:
-        for record in self.fetch():
+        records = self.fetch()
+        progress_bar_for_package_fetch = ChargingBar("\tFetching Packages", max=len(records or []))
+        progress_bar_for_package_fetch.start()
+        for record in records:
             yield from self.parse_advisory(record)
+            progress_bar_for_package_fetch.next()
+        progress_bar_for_package_fetch.finish()
 
     def parse_advisory(self, record) -> List[AdvisoryData]:
         advisories = []

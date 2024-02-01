@@ -12,6 +12,7 @@ import logging
 import xml.etree.ElementTree as ET
 
 import requests
+from progress.bar import ChargingBar
 
 from vulnerabilities.importer import OvalImporter
 
@@ -73,6 +74,8 @@ class UbuntuImporter(OvalImporter):
     def _fetch(self):
         base_url = "https://people.canonical.com/~ubuntu-security/oval"
         releases = ["bionic", "trusty", "focal", "eoan", "xenial"]
+        progress_bar_for_package_fetch = ChargingBar("\tFetching Packages", max=len(releases))
+        progress_bar_for_package_fetch.start()
         for release in releases:
             file_url = f"{base_url}/com.ubuntu.{release}.cve.oval.xml.bz2"  # nopep8
             self.data_url = file_url
@@ -83,9 +86,10 @@ class UbuntuImporter(OvalImporter):
                     f"Failed to fetch Ubuntu Oval: HTTP {response.status_code} : {file_url}"
                 )
                 continue
-
             extracted = bz2.decompress(response.content)
             yield (
                 {"type": "deb", "namespace": "ubuntu"},
                 ET.ElementTree(ET.fromstring(extracted.decode("utf-8"))),
             )
+            progress_bar_for_package_fetch.next()
+        progress_bar_for_package_fetch.finish()

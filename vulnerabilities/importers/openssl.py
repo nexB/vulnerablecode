@@ -16,6 +16,7 @@ import defusedxml.ElementTree as DET
 import requests
 from dateutil import parser as dateparser
 from packageurl import PackageURL
+from progress.bar import ChargingBar
 from univers.version_range import OpensslVersionRange
 from univers.versions import OpensslVersion
 
@@ -49,11 +50,15 @@ class OpensslImporter(Importer):
 
 def parse_vulnerabilities(xml_response) -> Iterable[AdvisoryData]:
     root = DET.fromstring(xml_response)
+    progress_bar_for_vulnerability_fetch = ChargingBar("\tFetching Vulnerabilities", max=len(root))
+    progress_bar_for_vulnerability_fetch.start()
     for xml_issue in root:
         if xml_issue.tag == "issue":
             advisory = to_advisory_data(xml_issue)
             if advisory:
                 yield advisory
+        progress_bar_for_vulnerability_fetch.next()
+    progress_bar_for_vulnerability_fetch.finish()
 
 
 def to_advisory_data(xml_issue) -> AdvisoryData:
