@@ -32,6 +32,7 @@ from vulnerabilities.importers import project_kb_msr2019
 from vulnerabilities.importers import pypa
 from vulnerabilities.importers import pysec
 from vulnerabilities.importers import redhat
+from vulnerabilities.importers import liferay
 from vulnerabilities.importers import retiredotnet
 from vulnerabilities.importers import ruby
 from vulnerabilities.importers import suse_scores
@@ -71,6 +72,7 @@ IMPORTERS_REGISTRY = [
     oss_fuzz.OSSFuzzImporter,
     ruby.RubyImporter,
     github_osv.GithubOSVImporter,
+    liferay.LifeRayImporter,
 ]
 
 IMPORTERS_REGISTRY = {x.qualified_name: x for x in IMPORTERS_REGISTRY}
