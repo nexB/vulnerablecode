@@ -193,6 +193,10 @@ class Vulnerability(models.Model):
         choices=VulnerabilityStatusType.choices, default=VulnerabilityStatusType.PUBLISHED
     )
 
+    date_published = models.DateTimeField(
+        blank=True, null=True, help_text="UTC Date of publication of the vulnerability"
+    )
+
     objects = VulnerabilityQuerySet.as_manager()
 
     class Meta:
@@ -201,6 +205,34 @@ class Vulnerability(models.Model):
 
     def __str__(self):
         return self.vulnerability_id
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+    @property
+    def get_date_published(self):
+        """
+        Return datetime object ``date_published`` for a vulnerability
+        If a vulnerability is created by NVD Importer then use NVD Importer's
+        date of publication as the publishing date of vulnerability.
+        Otherwise get the oldest date of publication.
+        """
+        from vulnerabilities.importers.nvd import NVDImporter
+        nvd_date = None
+        date_published = None
+        for advisory in self.advisories.all():
+            if advisory.created_by == NVDImporter.__qualname__:
+                nvd_date = advisory.date_published
+        if nvd_date:
+            return nvd_date
+        for advisory in self.advisories.all():
+            if not advisory.date_published:
+                continue
+            if not date_published:
+                date_published = advisory.date_published
+            if advisory.date_published < date_published:
+                date_published = advisory.date_published
+        return date_published.isoformat()
 
     @property
     def vcid(self):
@@ -1030,6 +1062,7 @@ class Advisory(models.Model):
         help_text="Link to the advisory on the upstream website",
     )
 
+    vulnerabilities = models.ManyToManyField(Vulnerability, related_name="advisories")
     objects = AdvisoryQuerySet.as_manager()
 
     class Meta:
