@@ -12,6 +12,11 @@ tab.Site {
     color: #f7bf3c;
 }
 
+.nexb-blue {
+    color: #3298dc;
+}
+
+
 .container.max-desktop-width {
     width: 100%;
     max-width: 100%;
