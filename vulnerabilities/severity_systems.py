@@ -11,6 +11,7 @@ import dataclasses
 
 from cvss import CVSS2
 from cvss import CVSS3
+from cvss import CVSS4
 
 """
 Vulnerability scoring systems define scales, values and approach to score a
@@ -83,6 +84,22 @@ class Cvssv3ScoringSystem(ScoringSystem):
         return CVSS3(vector=scoring_elements).as_json()
 
 
+@dataclasses.dataclass(order=True)
+class Cvssv4ScoringSystem(ScoringSystem):
+    def compute(self, scoring_elements: str) -> str:
+        """
+        Return a CVSSv4 base score
+
+        >>> CVSSV4.compute('CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:N')
+        '9.9'
+        """
+        return str(CVSS4(vector=scoring_elements).base_score)
+
+    def get(self, scoring_elements: str) -> dict:
+        scoring_elements = scoring_elements.strip()
+        return CVSS4(vector=scoring_elements).as_json()
+
+
 CVSSV3 = Cvssv3ScoringSystem(
     identifier="cvssv3",
     name="CVSSv3 Base Score",
@@ -95,6 +112,13 @@ CVSSV31 = Cvssv3ScoringSystem(
     name="CVSSv3.1 Base Score",
     url="https://www.first.org/cvss/v3-1/",
     notes="CVSSv3.1 base score and vector",
+)
+
+CVSSV4 = Cvssv4ScoringSystem(
+    identifier="cvssv4",
+    name="CVSSv4 Base Score",
+    url="https://www.first.org/cvss/v4-0/",
+    notes="CVSSv4 base score and vector",
 )
 
 REDHAT_BUGZILLA = ScoringSystem(
@@ -163,6 +187,7 @@ SCORING_SYSTEMS = {
         CVSSV2,
         CVSSV3,
         CVSSV31,
+        CVSSV4,
         REDHAT_BUGZILLA,
         REDHAT_AGGREGATE,
         ARCHLINUX,
