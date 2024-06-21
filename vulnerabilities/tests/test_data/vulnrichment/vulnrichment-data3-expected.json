@@ -1,0 +1,56 @@
+{
+  "aliases": [
+    "CVE-2023-31698"
+  ],
+  "summary": "Bludit v3.14.1 is vulnerable to Stored Cross Site Scripting (XSS) via SVG file on site logo. NOTE: the product's security model is that users are trusted by the administrator to insert arbitrary content (users cannot create their own accounts through self-registration).",
+  "affected_packages": [],
+  "references": [
+    {
+      "reference_id": "",
+      "url": "https://github.com/bludit/bludit/issues/1509",
+      "severities": [
+        {
+          "system": "ssvc",
+          "value": "Track",
+          "scoring_elements": "SSVCv2/E:P/A:N/T:P/P:M/B:A/M:M/D:T/2024-05-23T19:57:26Z/"
+        }
+      ]
+    },
+    {
+      "reference_id": "",
+      "url": "http://packetstormsecurity.com/files/172462/Bludit-CMS-3.14.1-Cross-Site-Scripting.html",
+      "severities": [
+        {
+          "system": "ssvc",
+          "value": "Track",
+          "scoring_elements": "SSVCv2/E:P/A:N/T:P/P:M/B:A/M:M/D:T/2024-05-23T19:57:26Z/"
+        }
+      ]
+    },
+    {
+      "reference_id": "",
+      "url": "https://github.com/bludit/bludit/issues/1212#issuecomment-649514491",
+      "severities": [
+        {
+          "system": "ssvc",
+          "value": "Track",
+          "scoring_elements": "SSVCv2/E:P/A:N/T:P/P:M/B:A/M:M/D:T/2024-05-23T19:57:26Z/"
+        }
+      ]
+    },
+    {
+      "reference_id": "",
+      "url": "https://github.com/bludit/bludit/issues/1369#issuecomment-940806199",
+      "severities": [
+        {
+          "system": "ssvc",
+          "value": "Track",
+          "scoring_elements": "SSVCv2/E:P/A:N/T:P/P:M/B:A/M:M/D:T/2024-05-23T19:57:26Z/"
+        }
+      ]
+    }
+  ],
+  "date_published": "2023-05-17T00:00:00",
+  "weaknesses": [],
+  "url": "http://test.com"
+}

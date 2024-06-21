@@ -8,6 +8,7 @@
 #
 
 import dataclasses
+from datetime import datetime
 
 from cvss import CVSS2
 from cvss import CVSS3
@@ -181,6 +182,12 @@ APACHE_TOMCAT.choices = [
     "Low",
 ]
 
+SSVC = ScoringSystem(
+    identifier="ssvc",
+    name="Stakeholder-Specific Vulnerability Categorization",
+    url="https://www.cisa.gov/stakeholder-specific-vulnerability-categorization-ssvc",
+)
+
 SCORING_SYSTEMS = {
     system.identifier: system
     for system in (
@@ -195,5 +202,6 @@ SCORING_SYSTEMS = {
         GENERIC,
         APACHE_HTTPD,
         APACHE_TOMCAT,
+        SSVC,
     )
 }

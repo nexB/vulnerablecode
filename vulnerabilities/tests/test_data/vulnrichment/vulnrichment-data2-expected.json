@@ -1,0 +1,28 @@
+{
+  "aliases": [
+    "CVE-2022-26915"
+  ],
+  "summary": "",
+  "affected_packages": [],
+  "references": [
+    {
+      "reference_id": "",
+      "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2022-26915",
+      "severities": [
+        {
+          "system": "cvssv3.1",
+          "value": 7.5,
+          "scoring_elements": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H/E:U/RL:O/RC:C"
+        },
+        {
+          "system": "ssvc",
+          "value": "Track",
+          "scoring_elements": "SSVCv2/E:N/A:Y/T:P/P:M/B:A/M:M/D:T/2024-05-30T18:43:59Z/"
+        }
+      ]
+    }
+  ],
+  "date_published": "2022-04-15T19:05:52",
+  "weaknesses": [],
+  "url": "http://test.com"
+}
