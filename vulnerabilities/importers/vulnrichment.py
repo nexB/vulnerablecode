@@ -1,5 +1,6 @@
 import json
 import logging
+import re
 from datetime import datetime
 from pathlib import Path
 from typing import Iterable
@@ -8,7 +9,24 @@ from typing import Optional
 
 import dateparser
 from packageurl import PackageURL
+from univers.version_constraint import VersionConstraint
+from univers.version_range import RANGE_CLASS_BY_SCHEMES
+from univers.version_range import VersionRange
+from univers.versions import AlpineLinuxVersion
+from univers.versions import ArchLinuxVersion
+from univers.versions import ComposerVersion
+from univers.versions import DebianVersion
+from univers.versions import GenericVersion
+from univers.versions import GentooVersion
+from univers.versions import GolangVersion
 from univers.versions import InvalidVersion
+from univers.versions import LegacyOpensslVersion
+from univers.versions import MavenVersion
+from univers.versions import NginxVersion
+from univers.versions import NugetVersion
+from univers.versions import OpensslVersion
+from univers.versions import PypiVersion
+from univers.versions import RpmVersion
 from univers.versions import SemverVersion
 from univers.versions import Version
 
@@ -22,6 +40,16 @@ from vulnerabilities.utils import build_description
 from vulnerabilities.utils import dedupe
 from vulnerabilities.utils import get_advisory_url
 from vulnerabilities.utils import get_cwe_id
+
+logger = logging.getLogger(__name__)
+
+VULNRICH_VERSION_CLASS_SCHEMES = {
+    "semver": SemverVersion,
+    "python": PypiVersion,
+    "custom": GenericVersion,
+    "rpm": RpmVersion,
+    "maven": MavenVersion,
+}
 
 
 class VulnrichImporter(Importer):
@@ -44,7 +72,7 @@ class VulnrichImporter(Importer):
                 advisory_url = get_advisory_url(
                     file=file_path,
                     base_path=base_path,
-                    url="https://github.com/rubysec/ruby-advisory-db/blob/master/",
+                    url="https://github.com/cisagov/vulnrichment/blob/develop/",
                 )
                 yield parse_cve_advisory(raw_data, advisory_url)
         finally:
@@ -53,12 +81,12 @@ class VulnrichImporter(Importer):
 
 
 def parse_cve_advisory(raw_data, advisory_url):
-    """"""
-
+    """ """
     # Extract CVE Metadata
     cve_metadata = raw_data.get("cveMetadata", {})
     cve_id = cve_metadata.get("cveId")
     state = cve_metadata.get("state")
+
     date_published = cve_metadata.get("datePublished")
     date_published = dateparser.parse(date_published)
 
@@ -68,25 +96,75 @@ def parse_cve_advisory(raw_data, advisory_url):
     adp_data = containers.get("adp", {})
 
     # Extract affected products
-    # affected_products = cna_data.get("affected", [])
-    # products = []
-    # for product in affected_products:
-    #     product_info = {
-    #         "default_status": product.get("defaultStatus"),
-    #         "platforms": product.get("platforms", []),
-    #         "product": product.get("product"),
-    #         "vendor": product.get("vendor"),
-    #         "versions": product.get("versions", [])
-    #     }
-    #     products.append(product_info)
+    affected_packages = []
+    for affected_product in cna_data.get("affected", []):
+        if type(affected_product) != dict:
+            continue
+        cpes = affected_product.get("cpes")  # TODO Add references cpes
+
+        vendor = affected_product.get("vendor") or ""
+        collection_url = affected_product.get("collectionURL") or ""
+        product = affected_product.get("product") or ""
+        package_name = affected_product.get("packageName") or ""
+
+        platforms = affected_product.get("platforms", [])
+        default_status = affected_product.get("defaultStatus")
+
+        affected_packages = []
+        # purl (vendor, collection_url, product, package_name, platforms)
+        purl = PackageURL(
+            type=vendor,
+            name=product,
+            namespace=package_name,
+        )
+
+        versions = affected_product.get("versions", [])
+        for version_data in versions:
+            # version ≤ V ≤ (lessThanOrEqual/lessThan)
+            # right_version ≤ V ≤ left_version
+            version_constraints = []
+            r_version = version_data.get("version")
+            version_type = version_data.get("versionType")
+            version_class = VULNRICH_VERSION_CLASS_SCHEMES.get(version_type)
+            if not version_class:
+                logger.error(f"Invalid version_class type: {version_type}")
+                continue
+
+            l_version, l_comparator = None, ""
+            if "lessThan" in version_data:
+                l_version = version_data.get("lessThan")
+                l_comparator = "<"
+            elif "lessThanOrEqual" in version_data:
+                l_version = version_data.get("lessThanOrEqual")
+                l_comparator = "<="
+            try:
+                if l_version and l_comparator:
+                    version_constraints.append(
+                        VersionConstraint(comparator=l_comparator, version=version_class(l_version))
+                    )
+                if r_version:
+                    version_constraints.append(
+                        VersionConstraint(comparator=">", version=version_class(r_version))
+                    )
+            except InvalidVersion:
+                logger.error(f"InvalidVersion: {l_version}-{r_version}")
+                continue
+
+            affected_packages.append(
+                AffectedPackage(
+                    purl,
+                    affected_version_range=VersionRange(constraints=version_constraints),
+                )
+            )
+            status = version_data.get("status")
 
     # Extract descriptions
-    description = ""
+    summary = ""
     description_list = cna_data.get("descriptions", [])
     for description_dict in description_list:
-        if description_dict.get("lang") != "en":
+        if not description_dict.get("lang") in ["en", "en-US"]:
             continue
-        description = description_dict.get("value")
+        summary = description_dict.get("value")
 
     # Extract metrics
     severities = []
@@ -98,7 +176,7 @@ def parse_cve_advisory(raw_data, advisory_url):
         "cvssV2_0": SCORING_SYSTEMS["cvssv2"],
         "other": {
             "ssvc": SCORING_SYSTEMS["ssvc"],
-        },
+        },  # ignore kev
     }
 
     for metric in metrics:
@@ -127,35 +205,34 @@ def parse_cve_advisory(raw_data, advisory_url):
                 severities.append(severity)
 
     # Extract references
+    # TODO ADD reference type
     references = [
         Reference(url=ref.get("url"), severities=severities)
         for ref in cna_data.get("references", [])
     ]
 
-    # Extract problem types
     weaknesses = []
-    # problem_types = cna_data.get("problemTypes", [])
-    # for problem in problem_types:
-    #     descriptions = problem.get("descriptions", [])
-    #     for description in descriptions:
-    #         weaknesses.append(
-    #             description.get("cweId")
-    # "description": description.get("description"),
-    # "lang": description.get("lang"),
-    # "type": description.get("type")
-    #         )
-    #
-    # #         cwe_id = description.get("cweId")
-    # #         cwe_id = get_cwe_id(cwe_id)
-    # #         weaknesses.append(cwe_id)
+    for problem_type in cna_data.get("problemTypes", []):
+        descriptions = problem_type.get("descriptions", [])
+        for description in descriptions:
+            cwe_id = description.get("cweId")
+            if cwe_id:
+                weaknesses.append(get_cwe_id(cwe_id))
+
+            description_text = description.get("description")
+            if description_text:
+                pattern = r"CWE-(\d{3})"
+                match = re.search(pattern, description_text)
+                if match:
+                    weaknesses.append(match.group(1))
 
     return AdvisoryData(
         aliases=[cve_id],
-        summary=description,
-        # affected_packages=affected_products,
+        summary=summary,
+        affected_packages=affected_packages,
         references=references,
-        date_published=date_published,
-        # weaknesses=weaknesses,
+        # date_published=dateparser.parse(self.cve_item.get("publishedDate")),
+        weaknesses=weaknesses,
         url=advisory_url,
     )
 
@@ -218,6 +295,7 @@ def ssvc_calculator(ssvc_data):
 
     # "Decision": {"D": {"Track": "T", "Track*": "R", "Attend": "A", "Act": "C"}},
     decision_values = {"Track": "T", "Track*": "R", "Attend": "A", "Act": "C"}
+
     decision_lookup = {
         ("none", "no", "partial", "low"): "Track",
         ("none", "no", "partial", "medium"): "Track",
@@ -262,8 +340,8 @@ def ssvc_calculator(ssvc_data):
     if decision:
         ssvc_vector += f"D:{decision_values.get(decision)}/"
 
-    timestamp_formatted = datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%fZ").strftime(
-        "%Y-%m-%dT%H:%M:%SZ"
-    )
-    ssvc_vector += f"{timestamp_formatted}/"
+    if timestamp:
+        timestamp_formatted = dateparser.parse(timestamp).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+        ssvc_vector += f"{timestamp_formatted}/"
     return ssvc_vector, decision

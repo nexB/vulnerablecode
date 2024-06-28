@@ -17,8 +17,7 @@ class TestVulnrichmentImporter(TestCase):
         expected_file = os.path.join(TEST_DATA, "vulnrichment-data1-expected.json")
         imported_data = parse_cve_advisory(mock_response, advisory_url="http://test.com")
         result = imported_data.to_dict()
-        w = 1
-        # util_tests.check_results_against_json(result, expected_file)
+        util_tests.check_results_against_json(result, expected_file)
 
     def test_to_advisorie2(self):
         with open(os.path.join(TEST_DATA, "vulnrichment-data2.json")) as f:
@@ -26,8 +25,7 @@ class TestVulnrichmentImporter(TestCase):
         expected_file = os.path.join(TEST_DATA, "vulnrichment-data2-expected.json")
         imported_data = parse_cve_advisory(mock_response, advisory_url="http://test.com")
         result = imported_data.to_dict()
-        q = 1
-        # util_tests.check_results_against_json(result, expected_file)
+        util_tests.check_results_against_json(result, expected_file)
 
     def test_to_advisorie3(self):
         with open(os.path.join(TEST_DATA, "vulnrichment-data3.json")) as f:
@@ -35,8 +33,7 @@ class TestVulnrichmentImporter(TestCase):
         expected_file = os.path.join(TEST_DATA, "vulnrichment-data3-expected.json")
         imported_data = parse_cve_advisory(mock_response, advisory_url="http://test.com")
         result = imported_data.to_dict()
-        q = 1
-        # util_tests.check_results_against_json(result, expected_file)
+        util_tests.check_results_against_json(result, expected_file)
 
     def test_make_ssvc_vector1(self):
         assert ssvc_calculator(

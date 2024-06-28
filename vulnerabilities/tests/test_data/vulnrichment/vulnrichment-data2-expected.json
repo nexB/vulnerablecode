@@ -2,8 +2,21 @@
   "aliases": [
     "CVE-2022-26915"
   ],
-  "summary": "",
-  "affected_packages": [],
+  "summary": "Windows Secure Channel Denial of Service Vulnerability",
+  "affected_packages": [
+    {
+      "package": {
+        "type": "microsoft",
+        "namespace": "",
+        "name": "Windows Server 2012 R2 (Server Core installation)",
+        "version": "",
+        "qualifiers": "",
+        "subpath": ""
+      },
+      "affected_version_range": "vers:None/>6.3.0|<6.3.9600.20337",
+      "fixed_version": null
+    }
+  ],
   "references": [
     {
       "reference_id": "",
@@ -22,7 +35,7 @@
       ]
     }
   ],
-  "date_published": "2022-04-15T19:05:52",
+  "date_published": null,
   "weaknesses": [],
   "url": "http://test.com"
 }

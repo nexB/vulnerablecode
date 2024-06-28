@@ -182,7 +182,14 @@ APACHE_TOMCAT.choices = [
     "Low",
 ]
 
-SSVC = ScoringSystem(
+
+@dataclasses.dataclass(order=True)
+class SSVCScoringSystem(ScoringSystem):
+    def get(self, scoring_elements: str):
+        return {"version": "ssvc", "vectorString": scoring_elements}
+
+
+SSVC = SSVCScoringSystem(
     identifier="ssvc",
     name="Stakeholder-Specific Vulnerability Categorization",
     url="https://www.cisa.gov/stakeholder-specific-vulnerability-categorization-ssvc",
