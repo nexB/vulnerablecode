@@ -3,44 +3,7 @@
     "CVE-2024-4901"
   ],
   "summary": "An issue was discovered in GitLab CE/EE affecting all versions starting from 16.9 prior to 16.11.5, starting from 17.0 prior to 17.0.3, and starting from 17.1 prior to 17.1.1, where a stored XSS vulnerability could be imported from a project with malicious commit notes.",
-  "affected_packages": [
-    {
-      "package": {
-        "type": "gitlab",
-        "namespace": "",
-        "name": "gitlab",
-        "version": "",
-        "qualifiers": "",
-        "subpath": ""
-      },
-      "affected_version_range": "vers:None/>16.9.0|<16.11.5",
-      "fixed_version": null
-    },
-    {
-      "package": {
-        "type": "gitlab",
-        "namespace": "",
-        "name": "gitlab",
-        "version": "",
-        "qualifiers": "",
-        "subpath": ""
-      },
-      "affected_version_range": "vers:None/>17.0.0|<17.0.3",
-      "fixed_version": null
-    },
-    {
-      "package": {
-        "type": "gitlab",
-        "namespace": "",
-        "name": "gitlab",
-        "version": "",
-        "qualifiers": "",
-        "subpath": ""
-      },
-      "affected_version_range": "vers:None/>17.1.0|<17.1.1",
-      "fixed_version": null
-    }
-  ],
+  "affected_packages": [],
   "references": [
     {
       "reference_id": "",
@@ -75,7 +38,7 @@
       ]
     }
   ],
-  "date_published": null,
+  "date_published": "2024-06-26T23:31:05.422000+00:00",
   "weaknesses": [
     79
   ],
