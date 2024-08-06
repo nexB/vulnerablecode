@@ -37,6 +37,7 @@ from vulnerabilities.importers import ruby
 from vulnerabilities.importers import suse_scores
 from vulnerabilities.importers import ubuntu
 from vulnerabilities.importers import ubuntu_usn
+from vulnerabilities.importers import vulnrichment
 from vulnerabilities.importers import xen
 
 IMPORTERS_REGISTRY = [
@@ -71,6 +72,7 @@ IMPORTERS_REGISTRY = [
     oss_fuzz.OSSFuzzImporter,
     ruby.RubyImporter,
     github_osv.GithubOSVImporter,
+    vulnrichment.VulnrichImporter,
 ]
 
 IMPORTERS_REGISTRY = {x.qualified_name: x for x in IMPORTERS_REGISTRY}
