@@ -5,12 +5,12 @@ VulnerableCode
 |Build Status| |Code License| |Data License| |Python 3.8+| |stability-wip| |Gitter chat|
 
 
-.. |Build Status| image:: https://github.com/nexB/vulnerablecode/actions/workflows/main.yml/badge.svg?branch=main
-   :target: https://github.com/nexB/vulnerablecode/actions?query=workflow%3ACI
+.. |Build Status| image:: https://github.com/aboutcode-org/vulnerablecode/actions/workflows/main.yml/badge.svg?branch=main
+   :target: https://github.com/aboutcode-org/vulnerablecode/actions?query=workflow%3ACI
 .. |Code License| image:: https://img.shields.io/badge/Code%20License-Apache--2.0-green.svg
    :target: https://opensource.org/licenses/Apache-2.0
 .. |Data License| image:: https://img.shields.io/badge/Data%20License-CC--BY--SA--4.0-green.svg
-   :target: https://creativecommons.org/licenses/by-sa/4.0/legalcode 
+   :target: https://creativecommons.org/licenses/by-sa/4.0/legalcode
 .. |Python 3.8+| image:: https://img.shields.io/badge/python-3.8+-green.svg
    :target: https://www.python.org/downloads/release/python-380/
 .. |stability-wip| image:: https://img.shields.io/badge/stability-work_in_progress-lightgrey.svg
@@ -25,7 +25,7 @@ should be free and open source themselves**:
 we are trying to change this and evolve the status quo in a few other areas!
 
 - Vulnerability databases have been **traditionally proprietary** even though they
-  are mostly about free and open source software. 
+  are mostly about free and open source software.
 
 - Vulnerability databases also often contain a lot of lesser value data which
   means a lot of false positive signals that require extensive expert reviews.
@@ -45,7 +45,7 @@ The VulnerableCode project is a FOSS community resource to help improve the
 security of the open source software ecosystem and its users at large.
 
 VulnerableCode consists of a database and the tools to collect, refine and keep
-the database current. 
+the database current.
 
 .. warning::
     VulnerableCode is under active development and is not yet fully
@@ -68,7 +68,7 @@ Run with Docker
 
 First install docker and docker-compose, then run::
 
-    git clone https://github.com/nexB/vulnerablecode.git && cd vulnerablecode
+    git clone https://github.com/aboutcode-org/vulnerablecode.git && cd vulnerablecode
     make envfile
     docker-compose build
     docker-compose up -d
@@ -102,7 +102,7 @@ Local development installation
 On a Debian system, use this::
 
     sudo apt-get install  python3-venv python3-dev postgresql libpq-dev build-essential
-    git clone https://github.com/nexB/vulnerablecode.git && cd vulnerablecode
+    git clone https://github.com/aboutcode-org/vulnerablecode.git && cd vulnerablecode
     make dev envfile postgres
     make test
     source venv/bin/activate
@@ -143,7 +143,7 @@ See https://www.apache.org/licenses/LICENSE-2.0 for the license text.
 
 See https://creativecommons.org/licenses/by-sa/4.0/legalcode for the license text.
 
-See https://github.com/nexB/vulnerablecode for support or download. 
+See https://github.com/aboutcode-org/vulnerablecode for support or download.
 
 See https://aboutcode.org for more information about nexB OSS projects.
 

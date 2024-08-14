@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 import os
@@ -124,8 +124,10 @@ class TestFireeyeImporter(TestCase):
             ]
         ) == [
             Reference(url="http://1-4a.com/cgi-bin/alienform/af.cgi"),
-            Reference(url="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2002-0934"),
-            Reference(url="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-10948"),
+            Reference(
+                url="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2002-0934"),
+            Reference(
+                url="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-10948"),
         ]
         assert get_references(
             [

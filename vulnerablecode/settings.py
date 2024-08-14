@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -32,9 +32,11 @@ environ.Env.read_env(str(ENV_FILE))
 
 SECRET_KEY = env.str("SECRET_KEY")
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[".localhost", "127.0.0.1", "[::1]"])
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[
+                         ".localhost", "127.0.0.1", "[::1]"])
 
-VULNERABLECODE_PASSWORD_MIN_LENGTH = env.int("VULNERABLECODE_PASSWORD_MIN_LENGTH", default=14)
+VULNERABLECODE_PASSWORD_MIN_LENGTH = env.int(
+    "VULNERABLECODE_PASSWORD_MIN_LENGTH", default=14)
 
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
 
@@ -173,11 +175,13 @@ VULNERABLECODEIO_REQUIRE_AUTHENTICATION = env.bool(
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
-REST_FRAMEWORK_DEFAULT_THROTTLE_RATES = {"anon": "3600/hour", "user": "10800/hour"}
+REST_FRAMEWORK_DEFAULT_THROTTLE_RATES = {
+    "anon": "3600/hour", "user": "10800/hour"}
 
 if IS_TESTS:
     VULNERABLECODEIO_REQUIRE_AUTHENTICATION = False
-    REST_FRAMEWORK_DEFAULT_THROTTLE_RATES = {"anon": "10/day", "user": "20/day"}
+    REST_FRAMEWORK_DEFAULT_THROTTLE_RATES = {
+        "anon": "10/day", "user": "20/day"}
 
 
 USE_L10N = True
@@ -221,7 +225,7 @@ REST_FRAMEWORK = {
     "DEFAULT_THROTTLE_RATES": REST_FRAMEWORK_DEFAULT_THROTTLE_RATES,
     "EXCEPTION_HANDLER": "vulnerabilities.throttling.throttled_exception_handler",
     "DEFAULT_PAGINATION_CLASS": "vulnerabilities.pagination.SmallResultSetPagination",
-    # Limit the load on the Database returning a small number of records by default. https://github.com/nexB/vulnerablecode/issues/819
+    # Limit the load on the Database returning a small number of records by default. https://github.com/aboutcode-org/vulnerablecode/issues/819
     "PAGE_SIZE": 10,
     # for API docs
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
@@ -230,7 +234,7 @@ REST_FRAMEWORK = {
 api_doc_intro = """
 <div>
     <p><strong>VulnerableCode</strong> is open data and free software by
-    <a href="https://github.com/nexB/vulnerablecode"> nexB Inc. and others.</a>
+    <a href="https://github.com/aboutcode-org/vulnerablecode"> nexB Inc. and others.</a>
     </p>
     <p>The VulnerableCode API exposes these endpoints:</p>
     <ul>
@@ -283,7 +287,8 @@ SPECTACULAR_SETTINGS = {
 
 
 if not VULNERABLECODEIO_REQUIRE_AUTHENTICATION:
-    REST_FRAMEWORK["DEFAULT_PERMISSION_CLASSES"] = ("rest_framework.permissions.AllowAny",)
+    REST_FRAMEWORK["DEFAULT_PERMISSION_CLASSES"] = (
+        "rest_framework.permissions.AllowAny",)
 
 
 if DEBUG_TOOLBAR:

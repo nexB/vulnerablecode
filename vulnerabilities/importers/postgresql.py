@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -54,7 +54,8 @@ def to_advisories(data):
     soup = BeautifulSoup(data, features="lxml")
     table = soup.select("table")[0]
     for row in table.select("tbody tr"):
-        ref_col, affected_col, fixed_col, severity_score_col, desc_col = row.select("td")
+        ref_col, affected_col, fixed_col, severity_score_col, desc_col = row.select(
+            "td")
         summary = desc_col.text
         pkg_qualifiers = {}
         if "windows" in summary.lower():
@@ -70,7 +71,7 @@ def to_advisories(data):
                     AffectedPackage(
                         package=PackageURL(
                             name="postgresql",
-                            # TODO: See https://github.com/nexB/vulnerablecode/issues/990
+                            # TODO: See https://github.com/aboutcode-org/vulnerablecode/issues/990
                             type="generic",
                             qualifiers=pkg_qualifiers,
                         ),
@@ -79,7 +80,8 @@ def to_advisories(data):
                         )
                         if affected_version_list
                         else None,
-                        fixed_version=GenericVersion(fixed_version) if fixed_version else None,
+                        fixed_version=GenericVersion(
+                            fixed_version) if fixed_version else None,
                     )
                 )
         elif affected_version_list:
@@ -87,11 +89,12 @@ def to_advisories(data):
                 AffectedPackage(
                     package=PackageURL(
                         name="postgresql",
-                        # TODO: See https://github.com/nexB/vulnerablecode/issues/990
+                        # TODO: See https://github.com/aboutcode-org/vulnerablecode/issues/990
                         type="generic",
                         qualifiers=pkg_qualifiers,
                     ),
-                    affected_version_range=GenericVersionRange.from_versions(affected_version_list),
+                    affected_version_range=GenericVersionRange.from_versions(
+                        affected_version_list),
                 )
             )
         cve_id = ""
@@ -113,7 +116,8 @@ def to_advisories(data):
                 severities = []
                 if "support/security/CVE" in link and vector_link_tag:
                     parsed_link = urlparse.urlparse(vector_link_tag["href"])
-                    cvss3_vector = urlparse.parse_qs(parsed_link.query)["vector"]
+                    cvss3_vector = urlparse.parse_qs(
+                        parsed_link.query)["vector"]
                     cvss3_base_score = vector_link_tag.text
                     severity = VulnerabilitySeverity(
                         system=severity_systems.CVSSV3,

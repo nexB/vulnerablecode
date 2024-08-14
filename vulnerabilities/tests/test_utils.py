@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -108,7 +108,8 @@ def test_resolve_version_range():
     assert (["1.0.0", "2.0.0"], ["10.0.0"]) == resolve_version_range(
         GemVersionRange(
             constraints=(
-                VersionConstraint(comparator="<", version=RubygemsVersion(string="9.0.0")),
+                VersionConstraint(
+                    comparator="<", version=RubygemsVersion(string="9.0.0")),
             )
         ),
         [
@@ -137,7 +138,8 @@ def test_resolve_version_range_without_ignorable_versions():
     assert (["1.0.0", "2.0.0"], ["10.0.0"]) == resolve_version_range(
         GemVersionRange(
             constraints=(
-                VersionConstraint(comparator="<", version=RubygemsVersion(string="9.0.0")),
+                VersionConstraint(
+                    comparator="<", version=RubygemsVersion(string="9.0.0")),
             )
         ),
         [

@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -55,7 +55,8 @@ def test_elixir_improver(mock_response):
     result = []
     for improver in improvers:
         for advisory in advisories:
-            inference = [data.to_dict() for data in improver.get_inferences(advisory)]
+            inference = [data.to_dict()
+                         for data in improver.get_inferences(advisory)]
             result.extend(inference)
     expected_file = os.path.join(TEST_DIR, f"elixir-improver-expected.json")
     util_tests.check_results_against_json(result, expected_file)

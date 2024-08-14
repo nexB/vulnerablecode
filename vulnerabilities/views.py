@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 import logging
@@ -74,7 +74,8 @@ class VulnerabilitySearch(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         request_query = self.request.GET
-        context["vulnerability_search_form"] = VulnerabilitySearchForm(request_query)
+        context["vulnerability_search_form"] = VulnerabilitySearchForm(
+            request_query)
         context["search"] = request_query.get("search")
         return context
 
@@ -93,8 +94,10 @@ class PackageDetails(DetailView):
         context = super().get_context_data(**kwargs)
         package = self.object
         context["package"] = package
-        context["affected_by_vulnerabilities"] = package.affected_by.order_by("vulnerability_id")
-        context["fixing_vulnerabilities"] = package.fixing.order_by("vulnerability_id")
+        context["affected_by_vulnerabilities"] = package.affected_by.order_by(
+            "vulnerability_id")
+        context["fixing_vulnerabilities"] = package.fixing.order_by(
+            "vulnerability_id")
         context["package_search_form"] = PackageSearchForm(self.request.GET)
         context["fixed_package_details"] = package.fixed_package_details
 
@@ -146,7 +149,8 @@ class VulnerabilityDetails(DetailView):
 
             if s.scoring_elements and s.scoring_system in SCORING_SYSTEMS:
                 try:
-                    vector_values = SCORING_SYSTEMS[s.scoring_system].get(s.scoring_elements)
+                    vector_values = SCORING_SYSTEMS[s.scoring_system].get(
+                        s.scoring_elements)
                     severity_vectors.append(vector_values)
                 except (
                     CVSS2MalformedError,
@@ -154,7 +158,8 @@ class VulnerabilityDetails(DetailView):
                     CVSS4MalformedError,
                     NotImplementedError,
                 ):
-                    logging.error(f"CVSSMalformedError for {s.scoring_elements}")
+                    logging.error(
+                        f"CVSSMalformedError for {s.scoring_elements}")
 
             if s.value:
                 severity_values.add(s.value)
@@ -213,7 +218,7 @@ and the tools to aggregate and correlate these vulnerabilities.
 
 Chat at https://gitter.im/aboutcode-org/vulnerablecode
 Docs at https://vulnerablecode.readthedocs.org/
-Source code and issues at https://github.com/nexB/vulnerablecode
+Source code and issues at https://github.com/aboutcode-org/vulnerablecode
 """
 
 

@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 import logging
@@ -35,7 +35,8 @@ class Command(BaseCommand):
 
             self.export_data(git_path)
 
-        self.stdout.write(self.style.SUCCESS("Successfully exported vulnerablecode data"))
+        self.stdout.write(self.style.SUCCESS(
+            "Successfully exported vulnerablecode data"))
 
     def export_data(self, git_path):
         """
@@ -76,7 +77,8 @@ class Command(BaseCommand):
                 }
 
                 if pkg_filepath in package_files:
-                    package_files[pkg_filepath]["versions"].append(package_data)
+                    package_files[pkg_filepath]["versions"].append(
+                        package_data)
                 else:
                     package_files[pkg_filepath] = {
                         "package": str(purl_without_version),
@@ -126,7 +128,7 @@ def create_file(filepath, git_path, data):
 def get_purl_hash(purl: PackageURL, length: int = 3) -> str:
     """
     Return a short lower cased hash of a purl.
-    https://github.com/nexB/purldb/pull/235/files#diff-a1fd023bd42d73f56019d540f38be711255403547add15108540d70f9948dd40R154
+    https://github.com/aboutcode-org/purldb/pull/235/files#diff-a1fd023bd42d73f56019d540f38be711255403547add15108540d70f9948dd40R154
     """
     purl_bytes = str(purl).encode("utf-8")
     short_hash = sha512(purl_bytes).hexdigest()[:length]

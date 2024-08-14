@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -39,14 +39,16 @@ class OptionalSlashRouter(DefaultRouter):
 api_router = OptionalSlashRouter()
 api_router.register("packages", PackageViewSet)
 # `DefaultRouter` requires `basename` when registering viewsets that don't define a queryset.
-api_router.register("vulnerabilities", VulnerabilityViewSet, basename="vulnerability")
+api_router.register("vulnerabilities", VulnerabilityViewSet,
+                    basename="vulnerability")
 api_router.register("cpes", CPEViewSet, basename="cpe")
 api_router.register("aliases", AliasViewSet, basename="alias")
 
 urlpatterns = [
     path(
         "robots.txt",
-        TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
+        TemplateView.as_view(template_name="robots.txt",
+                             content_type="text/plain"),
     ),
     path(
         "",

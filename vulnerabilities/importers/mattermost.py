@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -39,7 +39,8 @@ class MattermostDataSource(Importer):
         # FIXME: Change after this https://forum.mattermost.org/t/mattermost-website-returning-403-when-headers-contain-the-word-python/11412
         self.set_api()
         data = requests.get(
-            SECURITY_UPDATES_URL, headers={"user-agent": "aboutcode/vulnerablecode"}
+            SECURITY_UPDATES_URL, headers={
+                "user-agent": "aboutcode/vulnerablecode"}
         ).content
         return self.batch_advisories(self.to_advisories(data))
 
@@ -165,7 +166,7 @@ def to_affected_version_ranges(
     affected_col could be of type "v5.20.x to v5.26.x, excluding v5.25.5 and v5.26.2"
     fixed_col is only relevent in case affected_col is "all"
     "all" means all the versions before the only present fixed. If there are many fixed versions, it doesn't return anything.
-    Needs to be improved after https://github.com/nexB/vulnerablecode/issues/119
+    Needs to be improved after https://github.com/aboutcode-org/vulnerablecode/issues/119
     According to https://forum.mattermost.org/t/all-affected-versions-in-the-mattermost-advisory/11423,
 
     Returns affected version included_ranges, excluded_ranges
@@ -193,12 +194,14 @@ def to_affected_version_ranges(
             lower_bound, upper_bound = range_expression.split("to")
             lower_bound = f">={lower_bound}"
             upper_bound = f"<={upper_bound}"
-            included_ranges.append(RangeSpecifier(f"{lower_bound},{upper_bound}"))
+            included_ranges.append(RangeSpecifier(
+                f"{lower_bound},{upper_bound}"))
         else:
             included_ranges.append(RangeSpecifier(range_expression))
 
     excluded_ranges = []
     if len(excluded):
-        excluded_ranges = [RangeSpecifier(v) for v in split_versions(excluded[0])]
+        excluded_ranges = [RangeSpecifier(v)
+                           for v in split_versions(excluded[0])]
 
     return included_ranges, excluded_ranges

@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 import os
@@ -22,7 +22,8 @@ class TestOSSFuzzImporter(TestCase):
     def test_to_advisories1(self):
         with open(os.path.join(TEST_DATA, "oss-fuzz-data1.yaml")) as f:
             mock_response = saneyaml.load(f)
-        expected_file = os.path.join(TEST_DATA, "oss-fuzz-data1.yaml-expected.json")
+        expected_file = os.path.join(
+            TEST_DATA, "oss-fuzz-data1.yaml-expected.json")
         imported_data = parse_advisory_data(
             mock_response, "oss-fuzz", advisory_url="http://test.com"
         )
@@ -32,7 +33,8 @@ class TestOSSFuzzImporter(TestCase):
     def test_to_advisorie2(self):
         with open(os.path.join(TEST_DATA, "oss-fuzz-data2.yaml")) as f:
             mock_response = saneyaml.load(f)
-        expected_file = os.path.join(TEST_DATA, "oss-fuzz-data2.yaml-expected.json")
+        expected_file = os.path.join(
+            TEST_DATA, "oss-fuzz-data2.yaml-expected.json")
         imported_data = parse_advisory_data(
             mock_response, "oss-fuzz", advisory_url="http://test.com"
         )

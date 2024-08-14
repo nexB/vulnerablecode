@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -33,4 +33,5 @@ def test_import_yml():
     advisories_from_yml = [
         adv.to_dict() for adv in to_advisories(Path(yml_file), Path(yml_file).parent)
     ]
-    util_tests.check_results_against_json(advisories_from_yml, expected_file_yml)
+    util_tests.check_results_against_json(
+        advisories_from_yml, expected_file_yml)

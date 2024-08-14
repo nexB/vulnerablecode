@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 import csv
@@ -38,7 +38,8 @@ class EPSSImporter(Importer):
         model_version, score_date = next(
             epss_reader
         )  # score_date='score_date:2024-05-19T00:00:00+0000'
-        published_at = datetime.strptime(score_date[11::], "%Y-%m-%dT%H:%M:%S%z")
+        published_at = datetime.strptime(
+            score_date[11::], "%Y-%m-%dT%H:%M:%S%z")
 
         next(epss_reader)  # skip the header row
         for epss_row in epss_reader:

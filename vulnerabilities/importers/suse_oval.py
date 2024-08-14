@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -24,7 +24,8 @@ class SuseOvalImporter(OvalImporter):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.translations = {"less than": "<", "equals": "=", "greater than or equal": ">="}
+        self.translations = {"less than": "<",
+                             "equals": "=", "greater than or equal": ">="}
 
     def _fetch(self):
         page = requests.get(self.base_url).text

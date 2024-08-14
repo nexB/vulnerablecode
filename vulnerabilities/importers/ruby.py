@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -39,8 +39,8 @@ class RubyImporter(Importer):
     yourself, upon submission you hereby agree to release it into the public
     domain.
 
-    The data imported from the ruby-advisory-db have been filtered to exclude 
-    any non-public domain data from the data copyrighted by the Open 
+    The data imported from the ruby-advisory-db have been filtered to exclude
+    any non-public domain data from the data copyrighted by the Open
     Source Vulnerability Database (http://osvdb.org).
 
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
@@ -163,7 +163,8 @@ def get_references(record) -> [Reference]:
                 Reference(
                     url=record.get("url"),
                     severities=[
-                        VulnerabilitySeverity(system=SCORING_SYSTEMS["cvssv3"], value=cvss_v3)
+                        VulnerabilitySeverity(
+                            system=SCORING_SYSTEMS["cvssv3"], value=cvss_v3)
                     ],
                 )
             )

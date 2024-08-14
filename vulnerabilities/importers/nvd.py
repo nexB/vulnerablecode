@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -25,7 +25,7 @@ from vulnerabilities.utils import get_item
 
 
 class NVDImporter(Importer):
-    # See https://github.com/nexB/vulnerablecode/issues/665 for follow up
+    # See https://github.com/aboutcode-org/vulnerablecode/issues/665 for follow up
     spdx_license_expression = (
         "LicenseRef-scancode-us-govt-public-domain  AND LicenseRef-scancode-cve-tou"
     )
@@ -255,12 +255,14 @@ class CveItem:
         """
         weaknesses = []
         for weaknesses_item in (
-            get_item(self.cve_item, "cve", "problemtype", "problemtype_data") or []
+            get_item(self.cve_item, "cve", "problemtype",
+                     "problemtype_data") or []
         ):
             weaknesses_description = weaknesses_item.get("description") or []
             for weaknesses_value in weaknesses_description:
                 cwe_id = (
-                    weaknesses_value.get("value") if weaknesses_value.get("lang") == "en" else None
+                    weaknesses_value.get("value") if weaknesses_value.get(
+                        "lang") == "en" else None
                 )
                 if cwe_id in ["NVD-CWE-Other", "NVD-CWE-noinfo"] or not cwe_id:
                     continue  # Skip Invalid CWE
@@ -275,7 +277,8 @@ class CveItem:
             aliases=[self.cve_id],
             summary=self.summary,
             references=self.references,
-            date_published=dateparser.parse(self.cve_item.get("publishedDate")),
+            date_published=dateparser.parse(
+                self.cve_item.get("publishedDate")),
             weaknesses=self.weaknesses,
             url=f"https://nvd.nist.gov/vuln/detail/{self.cve_id}",
         )

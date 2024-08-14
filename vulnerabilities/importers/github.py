@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -46,8 +46,8 @@ GITHUB_ECOSYSTEM_BY_PACKAGE_TYPE = {
 }
 
 # TODO: We will try to gather more info from GH API
-# Check https://github.com/nexB/vulnerablecode/issues/1039#issuecomment-1366458885
-# Check https://github.com/nexB/vulnerablecode/issues/645
+# Check https://github.com/aboutcode-org/vulnerablecode/issues/1039#issuecomment-1366458885
+# Check https://github.com/aboutcode-org/vulnerablecode/issues/645
 # set of all possible values of first '%s' = {'MAVEN','COMPOSER', 'NUGET', 'RUBYGEMS', 'PYPI', 'NPM', 'RUST'}
 # second '%s' is interesting, it will have the value '' for the first request,
 GRAPHQL_QUERY_TEMPLATE = """
@@ -65,9 +65,9 @@ query{
                         url
                     }
                     severity
-                    cwes(first: 10){ 
+                    cwes(first: 10){
                         nodes {
-                            cweId       
+                            cweId
                         }
                     }
                     publishedAt
@@ -99,10 +99,12 @@ class GitHubAPIImporter(Importer):
         for ecosystem, package_type in PACKAGE_TYPE_BY_GITHUB_ECOSYSTEM.items():
             end_cursor_exp = ""
             while True:
-                graphql_query = {"query": GRAPHQL_QUERY_TEMPLATE % (ecosystem, end_cursor_exp)}
+                graphql_query = {"query": GRAPHQL_QUERY_TEMPLATE %
+                                 (ecosystem, end_cursor_exp)}
                 response = utils.fetch_github_graphql_query(graphql_query)
 
-                page_info = get_item(response, "data", "securityVulnerabilities", "pageInfo")
+                page_info = get_item(
+                    response, "data", "securityVulnerabilities", "pageInfo")
                 end_cursor = get_item(page_info, "endCursor")
                 if end_cursor:
                     end_cursor = f'"{end_cursor}"'
@@ -150,7 +152,8 @@ def process_response(resp: dict, package_type: str) -> Iterable[AdvisoryData]:
     """
     Yield `AdvisoryData` by taking `resp` and `ecosystem` as input
     """
-    vulnerabilities = get_item(resp, "data", "securityVulnerabilities", "edges") or []
+    vulnerabilities = get_item(
+        resp, "data", "securityVulnerabilities", "edges") or []
     if not vulnerabilities:
         logger.error(
             f"No vulnerabilities found for package_type: {package_type!r} in response: {resp!r}"
@@ -185,15 +188,18 @@ def process_response(resp: dict, package_type: str) -> Iterable[AdvisoryData]:
         if name:
             purl = get_purl(pkg_type=package_type, github_name=name)
         if purl:
-            affected_range = get_item(github_advisory, "vulnerableVersionRange")
-            fixed_version = get_item(github_advisory, "firstPatchedVersion", "identifier")
+            affected_range = get_item(
+                github_advisory, "vulnerableVersionRange")
+            fixed_version = get_item(
+                github_advisory, "firstPatchedVersion", "identifier")
             if affected_range:
                 try:
                     affected_range = build_range_from_github_advisory_constraint(
                         package_type, affected_range
                     )
                 except Exception as e:
-                    logger.error(f"Could not parse affected range {affected_range!r} {e!r}")
+                    logger.error(
+                        f"Could not parse affected range {affected_range!r} {e!r}")
                     affected_range = None
             if fixed_version:
                 try:
@@ -201,7 +207,8 @@ def process_response(resp: dict, package_type: str) -> Iterable[AdvisoryData]:
                         fixed_version
                     )
                 except Exception as e:
-                    logger.error(f"Invalid fixed version {fixed_version!r} {e!r}")
+                    logger.error(
+                        f"Invalid fixed version {fixed_version!r} {e!r}")
                     fixed_version = None
             if affected_range or fixed_version:
                 affected_packages.append(
@@ -236,7 +243,8 @@ def process_response(resp: dict, package_type: str) -> Iterable[AdvisoryData]:
             elif identifier_type == "CVE":
                 pass
             else:
-                logger.error(f"Unknown identifier type {identifier_type!r} and value {value!r}")
+                logger.error(
+                    f"Unknown identifier type {identifier_type!r} and value {value!r}")
 
         weaknesses = get_cwes_from_github_advisory(advisory)
 

@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -19,7 +19,8 @@ Shared testing utilities
 # Used for tests to regenerate fixtures with regen=True: run a test with this
 # env. var set to any value to regenarte expected result files. For example with:
 # "VULNERABLECODE_REGEN_TEST_FIXTURES=yes pytest -vvs vulnerabilities/tests"
-VULNERABLECODE_REGEN_TEST_FIXTURES = os.getenv("VULNERABLECODE_REGEN_TEST_FIXTURES", False)
+VULNERABLECODE_REGEN_TEST_FIXTURES = os.getenv(
+    "VULNERABLECODE_REGEN_TEST_FIXTURES", False)
 
 
 def check_results_against_json(

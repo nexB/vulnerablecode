@@ -18,9 +18,9 @@ Do Your Homework
 ----------------
 
 Before adding a contribution or create a new issue, take a look at the project’s
-`README <https://github.com/nexB/vulnerablecode>`_, read through our
+`README <https://github.com/aboutcode-org/vulnerablecode>`_, read through our
 `documentation <https://vulnerablecode.readthedocs.io/en/latest/>`_,
-and browse existing `issues <https://github.com/nexB/vulnerablecode/issues>`_,
+and browse existing `issues <https://github.com/aboutcode-org/vulnerablecode/issues>`_,
 to develop some understanding of the project and confirm whether a given
 issue/feature has previously been discussed.
 
@@ -35,7 +35,7 @@ First Timers
 
 You are here to help, but you are a new contributor! No worries, we always
 welcome newcomer contributors. We maintain some
-`good first issues <https://github.com/nexB/vulnerablecode/labels/good%20first%20issue>`_
+`good first issues <https://github.com/aboutcode-org/vulnerablecode/labels/good%20first%20issue>`_
 and encourage new contributors to work on those issues for a smooth start.
 
 .. tip::
@@ -47,15 +47,15 @@ Code Contributions
 
 For more established contributors, you can contribute to the codebase in several ways:
 
-- Report a `bug <https://github.com/nexB/vulnerablecode/issues>`_; just remember to be as
+- Report a `bug <https://github.com/aboutcode-org/vulnerablecode/issues>`_; just remember to be as
   specific as possible.
-- Submit a `bug fix <https://github.com/nexB/vulnerablecode/labels/bug>`_ for any existing
+- Submit a `bug fix <https://github.com/aboutcode-org/vulnerablecode/labels/bug>`_ for any existing
   issue.
-- Create a `new issue <https://github.com/nexB/vulnerablecode/issues>`_ to request a
+- Create a `new issue <https://github.com/aboutcode-org/vulnerablecode/issues>`_ to request a
   feature, submit a feedback, or ask a question.
 
 .. note::
-    Make sure to check existing `issues <https://github.com/nexB/vulnerablecode/issues>`_,
+    Make sure to check existing `issues <https://github.com/aboutcode-org/vulnerablecode/issues>`_,
     to confirm whether a given issue or a question has previously been
     discussed.
 

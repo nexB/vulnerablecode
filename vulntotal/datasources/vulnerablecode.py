@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 class VulnerableCodeDataSource(DataSource):
     spdx_license_expression = "CC-BY-SA-4.0"
-    license_url = "https://github.com/nexB/vulnerablecode/blob/main/cc-by-sa-4.0.LICENSE"
+    license_url = "https://github.com/aboutcode-org/vulnerablecode/blob/main/cc-by-sa-4.0.LICENSE"
 
     global_instance = "https://public.vulnerablecode.io/"
     vc_purl_search_api_path = "api/packages/bulk_search/"
@@ -139,7 +139,8 @@ def fetch_vulnerablecode_query(url: str, payload: dict):
         raise VCIOTokenError(msg)
 
     response = (
-        requests.post(url, headers={"Authorization": f"Token {vcio_token}"}, json=payload)
+        requests.post(
+            url, headers={"Authorization": f"Token {vcio_token}"}, json=payload)
         if payload is not None
         else requests.get(url, headers={"Authorization": f"Token {vcio_token}"})
     )

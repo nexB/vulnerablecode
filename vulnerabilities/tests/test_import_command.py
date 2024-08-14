@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -78,6 +78,7 @@ class TestImportCommand(TestCase):
     def test_bad_importer_fail_error(self):
         buf = StringIO()
         with pytest.raises(CommandError):
-            call_command("import", UnLicensedImporter.qualified_name, stdout=buf)
+            call_command(
+                "import", UnLicensedImporter.qualified_name, stdout=buf)
         out = buf.getvalue()
         assert "Failed to run importer" in out

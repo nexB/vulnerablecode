@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -27,7 +27,8 @@ def test_to_advisories():
         raw_data = f.read()
     advisories = to_advisories(raw_data)
     result = [data.to_dict() for data in advisories]
-    expected_file = os.path.join(TEST_DATA, f"parse-advisory-postgresql-expected.json")
+    expected_file = os.path.join(
+        TEST_DATA, f"parse-advisory-postgresql-expected.json")
     util_tests.check_results_against_json(result, expected_file)
 
 

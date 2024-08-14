@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 import logging
@@ -38,7 +38,8 @@ class FireyeImporter(Importer):
             self.vcs_response = self.clone(repo_url=self.repo_url)
             base_path = Path(self.vcs_response.dest_dir)
             files = filter(
-                lambda p: p.suffix in [".md", ".MD"], Path(self.vcs_response.dest_dir).glob("**/*")
+                lambda p: p.suffix in [".md", ".MD"], Path(
+                    self.vcs_response.dest_dir).glob("**/*")
             )
             for file in files:
                 if Path(file).stem == "README":
@@ -69,7 +70,8 @@ def parse_advisory_data(raw_data, file, base_path) -> AdvisoryData:
     database_id = md_list[0][1::]
     summary = md_dict.get(database_id[1::]) or []
     description = md_dict.get("## Description") or []
-    impact = md_dict.get("## Impact")  # not used but can be used to get severity
+    # not used but can be used to get severity
+    impact = md_dict.get("## Impact")
     exploit_ability = md_dict.get("## Exploitability")  # not used
     cve_ref = md_dict.get("## CVE Reference") or []
     tech_details = md_dict.get("## Technical Details")  # not used

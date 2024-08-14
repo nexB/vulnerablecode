@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -18,7 +18,8 @@ from vulntotal.datasources import github
 
 
 class TestGithub(testcase.FileBasedTesting):
-    test_data_dir = str(Path(__file__).resolve().parent / "test_data" / "github")
+    test_data_dir = str(Path(__file__).resolve().parent /
+                        "test_data" / "github")
 
     def test_generate_graphql_payload_from_purl(self):
         purls = [
@@ -33,10 +34,12 @@ class TestGithub(testcase.FileBasedTesting):
             "pkg:gem/ftpd@0.0.1",
         ]
         results = [
-            github.generate_graphql_payload_from_purl(PackageURL.from_string(purl), "")
+            github.generate_graphql_payload_from_purl(
+                PackageURL.from_string(purl), "")
             for purl in purls
         ]
-        expected_file = self.get_test_loc("graphql_payload-expected.json", must_exist=False)
+        expected_file = self.get_test_loc(
+            "graphql_payload-expected.json", must_exist=False)
         util_tests.check_results_against_json(results, expected_file)
 
     def test_extract_interesting_edge(self):
@@ -59,12 +62,14 @@ class TestGithub(testcase.FileBasedTesting):
             adv.to_dict()
             for adv in github.parse_advisory(advisory, PackageURL("generic", "namespace", "test"))
         ]
-        expected_file = self.get_test_loc("parse_advisory-expected.json", must_exist=False)
+        expected_file = self.get_test_loc(
+            "parse_advisory-expected.json", must_exist=False)
         util_tests.check_results_against_json(results, expected_file)
 
     def test_generate_graphql_payload_from_cve(self):
         results = github.generate_graphql_payload_from_cve("CVE-2022-2922")
-        expected_file = self.get_test_loc("graphql_pyaload_cve-expected.json", must_exist=False)
+        expected_file = self.get_test_loc(
+            "graphql_pyaload_cve-expected.json", must_exist=False)
         util_tests.check_results_against_json(results, expected_file)
 
     def test_group_advisory_by_package(self):

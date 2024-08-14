@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -54,7 +54,8 @@ def test_process_record(caplog):
                         namespace=None,
                         name="xen",
                         version=None,
-                        qualifiers={"arch": "armhf", "distroversion": "v3.11", "reponame": "main"},
+                        qualifiers={"arch": "armhf",
+                                    "distroversion": "v3.11", "reponame": "main"},
                         subpath=None,
                     ),
                     affected_version_range=None,
@@ -66,7 +67,8 @@ def test_process_record(caplog):
                         namespace=None,
                         name="xen",
                         version=None,
-                        qualifiers={"arch": "armv7", "distroversion": "v3.11", "reponame": "main"},
+                        qualifiers={"arch": "armv7",
+                                    "distroversion": "v3.11", "reponame": "main"},
                         subpath=None,
                     ),
                     affected_version_range=None,
@@ -94,7 +96,8 @@ def test_process_record(caplog):
                         namespace=None,
                         name="xen",
                         version=None,
-                        qualifiers={"arch": "s390x", "distroversion": "v3.11", "reponame": "main"},
+                        qualifiers={"arch": "s390x",
+                                    "distroversion": "v3.11", "reponame": "main"},
                         subpath=None,
                     ),
                     affected_version_range=None,
@@ -106,7 +109,8 @@ def test_process_record(caplog):
                         namespace=None,
                         name="xen",
                         version=None,
-                        qualifiers={"arch": "x86", "distroversion": "v3.11", "reponame": "main"},
+                        qualifiers={
+                            "arch": "x86", "distroversion": "v3.11", "reponame": "main"},
                         subpath=None,
                     ),
                     affected_version_range=None,
@@ -118,7 +122,8 @@ def test_process_record(caplog):
                         namespace=None,
                         name="xen",
                         version=None,
-                        qualifiers={"arch": "x86_64", "distroversion": "v3.11", "reponame": "main"},
+                        qualifiers={"arch": "x86_64",
+                                    "distroversion": "v3.11", "reponame": "main"},
                         subpath=None,
                     ),
                     affected_version_range=None,
@@ -161,7 +166,8 @@ def test_process_record(caplog):
                         namespace=None,
                         name="xen",
                         version=None,
-                        qualifiers={"arch": "armhf", "distroversion": "v3.11", "reponame": "main"},
+                        qualifiers={"arch": "armhf",
+                                    "distroversion": "v3.11", "reponame": "main"},
                         subpath=None,
                     ),
                     affected_version_range=None,
@@ -173,7 +179,8 @@ def test_process_record(caplog):
                         namespace=None,
                         name="xen",
                         version=None,
-                        qualifiers={"arch": "armv7", "distroversion": "v3.11", "reponame": "main"},
+                        qualifiers={"arch": "armv7",
+                                    "distroversion": "v3.11", "reponame": "main"},
                         subpath=None,
                     ),
                     affected_version_range=None,
@@ -201,7 +208,8 @@ def test_process_record(caplog):
                         namespace=None,
                         name="xen",
                         version=None,
-                        qualifiers={"arch": "s390x", "distroversion": "v3.11", "reponame": "main"},
+                        qualifiers={"arch": "s390x",
+                                    "distroversion": "v3.11", "reponame": "main"},
                         subpath=None,
                     ),
                     affected_version_range=None,
@@ -213,7 +221,8 @@ def test_process_record(caplog):
                         namespace=None,
                         name="xen",
                         version=None,
-                        qualifiers={"arch": "x86", "distroversion": "v3.11", "reponame": "main"},
+                        qualifiers={
+                            "arch": "x86", "distroversion": "v3.11", "reponame": "main"},
                         subpath=None,
                     ),
                     affected_version_range=None,
@@ -225,7 +234,8 @@ def test_process_record(caplog):
                         namespace=None,
                         name="xen",
                         version=None,
-                        qualifiers={"arch": "x86_64", "distroversion": "v3.11", "reponame": "main"},
+                        qualifiers={"arch": "x86_64",
+                                    "distroversion": "v3.11", "reponame": "main"},
                         subpath=None,
                     ),
                     affected_version_range=None,
@@ -268,7 +278,8 @@ def test_process_record(caplog):
                         namespace=None,
                         name="apk-tools",
                         version=None,
-                        qualifiers={"arch": "armhf", "distroversion": "v3.11", "reponame": "main"},
+                        qualifiers={"arch": "armhf",
+                                    "distroversion": "v3.11", "reponame": "main"},
                         subpath=None,
                     ),
                     affected_version_range=None,
@@ -280,7 +291,8 @@ def test_process_record(caplog):
                         namespace=None,
                         name="apk-tools",
                         version=None,
-                        qualifiers={"arch": "armv7", "distroversion": "v3.11", "reponame": "main"},
+                        qualifiers={"arch": "armv7",
+                                    "distroversion": "v3.11", "reponame": "main"},
                         subpath=None,
                     ),
                     affected_version_range=None,
@@ -308,7 +320,8 @@ def test_process_record(caplog):
                         namespace=None,
                         name="apk-tools",
                         version=None,
-                        qualifiers={"arch": "s390x", "distroversion": "v3.11", "reponame": "main"},
+                        qualifiers={"arch": "s390x",
+                                    "distroversion": "v3.11", "reponame": "main"},
                         subpath=None,
                     ),
                     affected_version_range=None,
@@ -320,7 +333,8 @@ def test_process_record(caplog):
                         namespace=None,
                         name="apk-tools",
                         version=None,
-                        qualifiers={"arch": "x86", "distroversion": "v3.11", "reponame": "main"},
+                        qualifiers={
+                            "arch": "x86", "distroversion": "v3.11", "reponame": "main"},
                         subpath=None,
                     ),
                     affected_version_range=None,
@@ -332,7 +346,8 @@ def test_process_record(caplog):
                         namespace=None,
                         name="apk-tools",
                         version=None,
-                        qualifiers={"arch": "x86_64", "distroversion": "v3.11", "reponame": "main"},
+                        qualifiers={"arch": "x86_64",
+                                    "distroversion": "v3.11", "reponame": "main"},
                         subpath=None,
                     ),
                     affected_version_range=None,
@@ -369,7 +384,8 @@ def test_process_record(caplog):
                         namespace=None,
                         name="apk-tools",
                         version=None,
-                        qualifiers={"arch": "armhf", "distroversion": "v3.11", "reponame": "main"},
+                        qualifiers={"arch": "armhf",
+                                    "distroversion": "v3.11", "reponame": "main"},
                         subpath=None,
                     ),
                     affected_version_range=None,
@@ -381,7 +397,8 @@ def test_process_record(caplog):
                         namespace=None,
                         name="apk-tools",
                         version=None,
-                        qualifiers={"arch": "armv7", "distroversion": "v3.11", "reponame": "main"},
+                        qualifiers={"arch": "armv7",
+                                    "distroversion": "v3.11", "reponame": "main"},
                         subpath=None,
                     ),
                     affected_version_range=None,
@@ -409,7 +426,8 @@ def test_process_record(caplog):
                         namespace=None,
                         name="apk-tools",
                         version=None,
-                        qualifiers={"arch": "s390x", "distroversion": "v3.11", "reponame": "main"},
+                        qualifiers={"arch": "s390x",
+                                    "distroversion": "v3.11", "reponame": "main"},
                         subpath=None,
                     ),
                     affected_version_range=None,
@@ -421,7 +439,8 @@ def test_process_record(caplog):
                         namespace=None,
                         name="apk-tools",
                         version=None,
-                        qualifiers={"arch": "x86", "distroversion": "v3.11", "reponame": "main"},
+                        qualifiers={
+                            "arch": "x86", "distroversion": "v3.11", "reponame": "main"},
                         subpath=None,
                     ),
                     affected_version_range=None,
@@ -433,7 +452,8 @@ def test_process_record(caplog):
                         namespace=None,
                         name="apk-tools",
                         version=None,
-                        qualifiers={"arch": "x86_64", "distroversion": "v3.11", "reponame": "main"},
+                        qualifiers={"arch": "x86_64",
+                                    "distroversion": "v3.11", "reponame": "main"},
                         subpath=None,
                     ),
                     affected_version_range=None,
@@ -447,7 +467,8 @@ def test_process_record(caplog):
     ]
     with open(os.path.join(TEST_DATA, os.path.join(TEST_DATA, "v3.11", "main.json"))) as f:
         found_advisories = list(
-            process_record(json.loads(f.read()), "https://secdb.alpinelinux.org/v3.11/")
+            process_record(json.loads(f.read()),
+                           "https://secdb.alpinelinux.org/v3.11/")
         )
         assert found_advisories == expected_advisories
     assert (
@@ -491,7 +512,8 @@ def test_fetch_advisory_links():
     ]
     with open(os.path.join(TEST_DATA, "web_pages", "v3.11.html")) as f:
         assert (
-            list(fetch_advisory_links(f.read(), "https://secdb.alpinelinux.org/v3.11/")) == expected
+            list(fetch_advisory_links(
+                f.read(), "https://secdb.alpinelinux.org/v3.11/")) == expected
         )
 
 

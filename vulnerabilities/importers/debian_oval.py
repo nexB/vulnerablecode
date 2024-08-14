@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -32,8 +32,8 @@ class DebianOvalImporter(OvalImporter):
     be grateful to have your acknowledgement over usage of the debian
     security data in vulnerablecode and have some kind of licensing
     declaration from your side.
-    [1] - https://github.com/nexB/vulnerablecode
-    [2] - https://github.com/nexB/vulnerablecode/pull/723
+    [1] - https://github.com/aboutcode-org/vulnerablecode
+    [2] - https://github.com/aboutcode-org/vulnerablecode/pull/723
     Regards,
     From: Moritz Mühlenhoff <jmm@inutil.org>
     Date: Wed, May 17, 2022, 19:12 PM +00:00
@@ -71,6 +71,7 @@ class DebianOvalImporter(OvalImporter):
             resp = requests.get(file_url).content
             extracted = bz2.decompress(resp)
             yield (
-                {"type": "deb", "namespace": "debian", "qualifiers": {"distro": release}},
+                {"type": "deb", "namespace": "debian",
+                    "qualifiers": {"distro": release}},
                 ET.ElementTree(ET.fromstring(extracted.decode("utf-8"))),
             )

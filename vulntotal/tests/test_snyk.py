@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -109,7 +109,8 @@ class TestSnyk(testcase.FileBasedTesting):
         with open(file) as f:
             page = f.read()
         result = snyk.parse_html_advisory(
-            page, "TEST-SNYKID", ["TEST-AFFECTED"], PackageURL("generic", "namespace", "test")
+            page, "TEST-SNYKID", ["TEST-AFFECTED"], PackageURL(
+                "generic", "namespace", "test")
         ).to_dict()
         expected_file = f"{file}-expected.json"
         util_tests.check_results_against_json(result, expected_file)
@@ -119,7 +120,8 @@ class TestSnyk(testcase.FileBasedTesting):
         with open(file) as f:
             page = f.read()
         result = snyk.parse_html_advisory(
-            page, "TEST-SNYKID", ["TEST-AFFECTED"], PackageURL("generic", "namespace", "test")
+            page, "TEST-SNYKID", ["TEST-AFFECTED"], PackageURL(
+                "generic", "namespace", "test")
         ).to_dict()
         expected_file = f"{file}-expected.json"
         util_tests.check_results_against_json(result, expected_file)
@@ -129,7 +131,8 @@ class TestSnyk(testcase.FileBasedTesting):
         with open(file) as f:
             page = f.read()
         result = snyk.parse_html_advisory(
-            page, "TEST-SNYKID", ["TEST-AFFECTED"], PackageURL("generic", "namespace", "test")
+            page, "TEST-SNYKID", ["TEST-AFFECTED"], PackageURL(
+                "generic", "namespace", "test")
         ).to_dict()
         expected_file = f"{file}-expected.json"
         util_tests.check_results_against_json(result, expected_file)
@@ -139,7 +142,8 @@ class TestSnyk(testcase.FileBasedTesting):
         with open(file) as f:
             page = f.read()
         result = snyk.parse_html_advisory(
-            page, "TEST-SNYKID", ["TEST-AFFECTED"], PackageURL("generic", "namespace", "test")
+            page, "TEST-SNYKID", ["TEST-AFFECTED"], PackageURL(
+                "generic", "namespace", "test")
         ).to_dict()
         expected_file = f"{file}-expected.json"
         util_tests.check_results_against_json(result, expected_file)

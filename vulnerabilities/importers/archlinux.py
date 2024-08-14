@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -49,7 +49,8 @@ class ArchlinuxImporter(Importer):
                     summary = ""
                 affected = record.get("affected") or ""
                 affected_version_range = (
-                    ArchLinuxVersionRange.from_versions([affected]) if affected else None
+                    ArchLinuxVersionRange.from_versions(
+                        [affected]) if affected else None
                 )
                 fixed = record.get("fixed") or ""
                 fixed_version = ArchLinuxVersion(fixed) if fixed else None
@@ -69,7 +70,8 @@ class ArchlinuxImporter(Importer):
             references.append(
                 Reference(
                     reference_id=record["name"],
-                    url="https://security.archlinux.org/{}".format(record["name"]),
+                    url="https://security.archlinux.org/{}".format(
+                        record["name"]),
                     severities=[
                         VulnerabilitySeverity(
                             system=severity_systems.ARCHLINUX, value=record["severity"]

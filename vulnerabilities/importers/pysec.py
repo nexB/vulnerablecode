@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 import json
@@ -35,7 +35,8 @@ class PyPIImporter(Importer):
         with ZipFile(BytesIO(response)) as zip_file:
             for file_name in zip_file.namelist():
                 if not file_name.startswith("PYSEC-"):
-                    logger.error(f"Unsupported PyPI advisory data file: {file_name}")
+                    logger.error(
+                        f"Unsupported PyPI advisory data file: {file_name}")
                     continue
                 with zip_file.open(file_name) as f:
                     vul_info = json.load(f)

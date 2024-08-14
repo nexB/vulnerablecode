@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -101,23 +101,27 @@ class GentooImporter(Importer):
                 continue
             pkg_ns, _, pkg_name = name.rpartition("/")
             purl = PackageURL(type="ebuild", name=pkg_name, namespace=pkg_ns)
-            safe_versions, affected_versions = GentooImporter.get_safe_and_affected_versions(pkg)
+            safe_versions, affected_versions = GentooImporter.get_safe_and_affected_versions(
+                pkg)
 
             for version in safe_versions:
                 constraints.append(
-                    VersionConstraint(version=GentooVersion(version), comparator="=").invert()
+                    VersionConstraint(version=GentooVersion(
+                        version), comparator="=").invert()
                 )
 
             for version in affected_versions:
                 constraints.append(
-                    VersionConstraint(version=GentooVersion(version), comparator="=")
+                    VersionConstraint(version=GentooVersion(
+                        version), comparator="=")
                 )
 
             if not constraints:
                 continue
 
             yield AffectedPackage(
-                package=purl, affected_version_range=EbuildVersionRange(constraints=constraints)
+                package=purl, affected_version_range=EbuildVersionRange(
+                    constraints=constraints)
             )
 
     @staticmethod

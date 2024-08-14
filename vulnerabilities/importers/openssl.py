@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -38,7 +38,8 @@ class OpensslImporter(Importer):
     def fetch(self):
         response = requests.get(url=self.url)
         if not response.status_code == 200:
-            logger.error(f"Error while fetching {self.url}: {response.status_code}")
+            logger.error(
+                f"Error while fetching {self.url}: {response.status_code}")
             return
         return response.content
 
@@ -90,7 +91,8 @@ def to_advisory_data(xml_issue) -> AdvisoryData:
                 madeup_alias = f"{madeup_alias}-{cve}"
                 aliases.append(cve)
                 references.append(
-                    Reference(reference_id=cve, url=f"https://nvd.nist.gov/vuln/detail/{cve}")
+                    Reference(reference_id=cve,
+                              url=f"https://nvd.nist.gov/vuln/detail/{cve}")
                 )
             aliases.append(madeup_alias)
 
@@ -103,9 +105,11 @@ def to_advisory_data(xml_issue) -> AdvisoryData:
                 )
                 return
             if affected_base in vuln_pkg_versions_by_base_version:
-                vuln_pkg_versions_by_base_version[affected_base].append(affected_version)
+                vuln_pkg_versions_by_base_version[affected_base].append(
+                    affected_version)
             else:
-                vuln_pkg_versions_by_base_version[affected_base] = [affected_version]
+                vuln_pkg_versions_by_base_version[affected_base] = [
+                    affected_version]
 
         elif info.tag == "fixed":
             fixed_base = info.attrib["base"]
@@ -115,7 +119,8 @@ def to_advisory_data(xml_issue) -> AdvisoryData:
                 commit_hash = commit.attrib["hash"]
                 references.append(
                     Reference(
-                        url=urljoin("https://github.com/openssl/openssl/commit/", commit_hash)
+                        url=urljoin(
+                            "https://github.com/openssl/openssl/commit/", commit_hash)
                     )
                 )
 
@@ -124,7 +129,7 @@ def to_advisory_data(xml_issue) -> AdvisoryData:
 
         elif info.tag in ("reported", "problemtype", "title"):
             # as of now, these info isn't useful for AdvisoryData
-            # for more see: https://github.com/nexB/vulnerablecode/issues/688
+            # for more see: https://github.com/aboutcode-org/vulnerablecode/issues/688
             continue
         else:
             logger.error(
@@ -132,7 +137,8 @@ def to_advisory_data(xml_issue) -> AdvisoryData:
             )
 
     for base_version, affected_versions in vuln_pkg_versions_by_base_version.items():
-        affected_version_range = OpensslVersionRange.from_versions(affected_versions)
+        affected_version_range = OpensslVersionRange.from_versions(
+            affected_versions)
         fixed_version = None
         if base_version in safe_pkg_versions:
             fixed_version = OpensslVersion(safe_pkg_versions[base_version])

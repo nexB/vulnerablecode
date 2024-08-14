@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 from datetime import datetime
@@ -43,7 +43,8 @@ def test_package_changelog():
     ImportRunner(NpmImporter).do_import([adv])
     assert PackageChangeLog.objects.filter(package=pkg).count() == 1
     assert (
-        PackageChangeLog.objects.filter(action_type=PackageChangeLog.FIXING, package=pkg).count()
+        PackageChangeLog.objects.filter(
+            action_type=PackageChangeLog.FIXING, package=pkg).count()
         == 1
     )
     pkg1, _ = Package.objects.get_or_create_from_purl("pkg:npm/foo@2.0.0")
@@ -101,6 +102,7 @@ def test_vulnerability_changelog():
     ImportRunner(NpmImporter).do_import([adv])
     assert VulnerabilityChangeLog.objects.count() == 1
     assert (
-        VulnerabilityChangeLog.objects.filter(action_type=VulnerabilityChangeLog.IMPORT).count()
+        VulnerabilityChangeLog.objects.filter(
+            action_type=VulnerabilityChangeLog.IMPORT).count()
         == 1
     )

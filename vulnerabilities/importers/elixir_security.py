@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 import urllib.parse as urlparse
@@ -81,13 +81,15 @@ class ElixirSecurityImporter(Importer):
         vrc = HexVersionRange.version_class
 
         for version in unaffected_versions:
-            constraints.append(VersionConstraint.from_string(version_class=vrc, string=version))
+            constraints.append(VersionConstraint.from_string(
+                version_class=vrc, string=version))
 
         for version in patched_versions:
             if version.startswith("~>"):
                 version = version[2:]
             constraints.append(
-                VersionConstraint.from_string(version_class=vrc, string=version).invert()
+                VersionConstraint.from_string(
+                    version_class=vrc, string=version).invert()
             )
 
         if pkg_name:
@@ -97,7 +99,8 @@ class ElixirSecurityImporter(Importer):
                         type="hex",
                         name=pkg_name,
                     ),
-                    affected_version_range=HexVersionRange(constraints=constraints),
+                    affected_version_range=HexVersionRange(
+                        constraints=constraints),
                 )
             )
 

@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -69,7 +69,8 @@ def parse_advisory_data(raw_data) -> AdvisoryData:
     Return AdvisoryData build from a mapping of ``raw_data`` example advisory.
     """
     purl = PackageURL(type="example", name="dummy_package")
-    affected_version_range = NginxVersionRange.from_native(raw_data["vulnerable"])
+    affected_version_range = NginxVersionRange.from_native(
+        raw_data["vulnerable"])
     fixed_version = SemverVersion(raw_data["fixed"])
     affected_package = AffectedPackage(
         package=purl, affected_version_range=affected_version_range, fixed_version=fixed_version

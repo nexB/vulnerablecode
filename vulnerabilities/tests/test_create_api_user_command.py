@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -19,7 +19,8 @@ from django.test import TestCase
 class TestCreateApiUserCommand(TestCase):
     def test_create_simple_user(self):
         buf = StringIO()
-        call_command("create_api_user", "--email", "foo@example.com", stdout=buf)
+        call_command("create_api_user", "--email",
+                     "foo@example.com", stdout=buf)
         output = buf.getvalue()
         User = get_user_model()
         user = User.objects.get(username="foo@example.com")

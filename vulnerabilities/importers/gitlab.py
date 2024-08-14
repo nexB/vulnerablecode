@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -36,7 +36,7 @@ logger = logging.getLogger(__name__)
 PURL_TYPE_BY_GITLAB_SCHEME = {
     "conan": "conan",
     "gem": "gem",
-    # Entering issue to parse go package names https://github.com/nexB/vulnerablecode/issues/742
+    # Entering issue to parse go package names https://github.com/aboutcode-org/vulnerablecode/issues/742
     # "go": "golang",
     "maven": "maven",
     "npm": "npm",
@@ -45,7 +45,8 @@ PURL_TYPE_BY_GITLAB_SCHEME = {
     "pypi": "pypi",
 }
 
-GITLAB_SCHEME_BY_PURL_TYPE = {v: k for k, v in PURL_TYPE_BY_GITLAB_SCHEME.items()}
+GITLAB_SCHEME_BY_PURL_TYPE = {v: k for k,
+                              v in PURL_TYPE_BY_GITLAB_SCHEME.items()}
 
 
 class GitLabAPIImporter(Importer):
@@ -69,7 +70,8 @@ class GitLabAPIImporter(Importer):
                     yield parse_gitlab_advisory(file=file_path, base_path=base_path)
 
                 else:
-                    logger.error(f"Unknow package type {gitlab_type!r} in {file_path!r}")
+                    logger.error(
+                        f"Unknow package type {gitlab_type!r} in {file_path!r}")
                     continue
         finally:
             if self.vcs_response and not _keep_clone:
@@ -96,7 +98,8 @@ def parse_advisory_path(base_path: Path, file_path: Path) -> Optional[AdvisoryDa
     >>> parse_advisory_path(base_path=base_path, file_path=file_path)
     ('npm', '@express/beego/beego/v2', 'CVE-2021-43831')
     """
-    relative_path_segments = str(file_path.relative_to(base_path)).strip("/").split("/")
+    relative_path_segments = str(
+        file_path.relative_to(base_path)).strip("/").split("/")
     gitlab_type = relative_path_segments[0]
     vuln_id = relative_path_segments[-1].replace(".yml", "")
     package_slug = "/".join(relative_path_segments[1:-1])
@@ -184,7 +187,8 @@ def parse_gitlab_advisory(file, base_path):
 
     # refer to schema here https://gitlab.com/gitlab-org/advisories-community/-/blob/main/ci/schema/schema.json
     aliases = gitlab_advisory.get("identifiers")
-    summary = build_description(gitlab_advisory.get("title"), gitlab_advisory.get("description"))
+    summary = build_description(gitlab_advisory.get(
+        "title"), gitlab_advisory.get("description"))
     urls = gitlab_advisory.get("urls")
     references = [Reference.from_url(u) for u in urls]
 
@@ -201,7 +205,8 @@ def parse_gitlab_advisory(file, base_path):
     )
     purl: PackageURL = get_purl(package_slug=package_slug)
     if not purl:
-        logger.error(f"parse_yaml_file: purl is not valid: {file!r} {package_slug!r}")
+        logger.error(
+            f"parse_yaml_file: purl is not valid: {file!r} {package_slug!r}")
         return AdvisoryData(
             aliases=aliases,
             summary=summary,
@@ -212,7 +217,8 @@ def parse_gitlab_advisory(file, base_path):
     affected_version_range = None
     fixed_versions = gitlab_advisory.get("fixed_versions") or []
     affected_range = gitlab_advisory.get("affected_range")
-    gitlab_native_schemes = set(["pypi", "gem", "npm", "go", "packagist", "conan"])
+    gitlab_native_schemes = set(
+        ["pypi", "gem", "npm", "go", "packagist", "conan"])
     vrc: VersionRange = RANGE_CLASS_BY_SCHEMES[purl.type]
     gitlab_scheme = GITLAB_SCHEME_BY_PURL_TYPE[purl.type]
     try:

@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -39,7 +39,8 @@ class Inference:
     aliases: Optional[List[str]] = dataclasses.field(default_factory=list)
     confidence: int = MAX_CONFIDENCE
     summary: Optional[str] = ""
-    affected_purls: Optional[List[PackageURL]] = dataclasses.field(default_factory=list)
+    affected_purls: Optional[List[PackageURL]
+                             ] = dataclasses.field(default_factory=list)
     fixed_purl: PackageURL = None
     references: List[Reference] = dataclasses.field(default_factory=list)
     weaknesses: List[int] = dataclasses.field(default_factory=list)

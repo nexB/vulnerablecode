@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -35,7 +35,8 @@ TEST_DATA = os.path.join(BASE_DIR, "test_data", "github_api")
 
 
 @pytest.mark.parametrize(
-    "pkg_type", ["maven", "nuget", "gem", "golang", "composer", "pypi", "npm", "cargo"]
+    "pkg_type", ["maven", "nuget", "gem", "golang",
+                 "composer", "pypi", "npm", "cargo"]
 )
 def test_process_response_github_importer(pkg_type, regen=REGEN):
     response_file = os.path.join(TEST_DATA, f"{pkg_type}.json")
@@ -43,7 +44,8 @@ def test_process_response_github_importer(pkg_type, regen=REGEN):
     with open(response_file) as f:
         response = json.load(f)
 
-    result = [data.to_dict() for data in process_response(resp=response, package_type=pkg_type)]
+    result = [data.to_dict() for data in process_response(
+        resp=response, package_type=pkg_type)]
 
     if regen:
         with open(expected_file, "w") as f:
@@ -57,14 +59,16 @@ def test_process_response_github_importer(pkg_type, regen=REGEN):
 
 
 def test_process_response_with_empty_vulnaribilities(caplog):
-    list(process_response({"data": {"securityVulnerabilities": {"edges": []}}}, "maven"))
+    list(process_response(
+        {"data": {"securityVulnerabilities": {"edges": []}}}, "maven"))
     assert "No vulnerabilities found for package_type: 'maven'" in caplog.text
 
 
 def test_process_response_with_empty_vulnaribilities_2(caplog):
     list(
         process_response(
-            {"data": {"securityVulnerabilities": {"edges": [{"node": {}}, None]}}}, "maven"
+            {"data": {"securityVulnerabilities": {
+                "edges": [{"node": {}}, None]}}}, "maven"
         )
     )
     assert "No node found" in caplog.text
@@ -197,11 +201,13 @@ def test_github_improver(mock_response, regen=REGEN):
                 ),
                 affected_version_range=GemVersionRange(
                     constraints=(
-                        VersionConstraint(comparator=">=", version=RubygemsVersion(string="5.2.0")),
+                        VersionConstraint(
+                            comparator=">=", version=RubygemsVersion(string="5.2.0")),
                         VersionConstraint(
                             comparator="<=", version=RubygemsVersion(string="5.2.6.2")
                         ),
-                        VersionConstraint(comparator=">=", version=RubygemsVersion(string="6.0.1")),
+                        VersionConstraint(
+                            comparator=">=", version=RubygemsVersion(string="6.0.1")),
                         VersionConstraint(
                             comparator="<=", version=RubygemsVersion(string="6.0.4.3")
                         ),
@@ -268,7 +274,8 @@ def test_github_improver(mock_response, regen=REGEN):
     improver = GitHubBasicImprover()
     expected_file = os.path.join(TEST_DATA, "inference-expected.json")
 
-    result = [data.to_dict() for data in improver.get_inferences(advisory_data=advisory_data)]
+    result = [data.to_dict()
+              for data in improver.get_inferences(advisory_data=advisory_data)]
 
     if regen:
         with open(expected_file, "w") as f:
@@ -304,7 +311,8 @@ def test_get_package_versions(mock_response):
         "1.10rc1",
     ]
     result = sorted(
-        improver.get_package_versions(package_url=PackageURL(type="pypi", name="django"))
+        improver.get_package_versions(
+            package_url=PackageURL(type="pypi", name="django"))
     )
     expected = sorted(valid_versions)
     assert result == expected
@@ -327,5 +335,7 @@ def test_get_cwes_from_github_advisory():
         }
     ) == [173, 200, 378, 732]
     assert get_cwes_from_github_advisory(
-        {"cwes": {"nodes": [{"cweId": "CWE-11111111111"}, {"cweId": "CWE-200"}]}}  # invalid cwe-id
+        # invalid cwe-id
+        {"cwes": {
+            "nodes": [{"cweId": "CWE-11111111111"}, {"cweId": "CWE-200"}]}}
     ) == [200]

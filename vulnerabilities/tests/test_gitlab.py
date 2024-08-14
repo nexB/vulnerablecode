@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -28,7 +28,8 @@ TEST_DATA = os.path.join(BASE_DIR, "test_data", "gitlab")
 def test_parse_yaml_file(pkg_type):
     response_file = os.path.join(TEST_DATA, f"{pkg_type}.yaml")
     expected_file = os.path.join(TEST_DATA, f"{pkg_type}-expected.json")
-    advisory = parse_gitlab_advisory(Path(response_file), Path(response_file).parent)
+    advisory = parse_gitlab_advisory(
+        Path(response_file), Path(response_file).parent)
     util_tests.check_results_against_json(advisory.to_dict(), expected_file)
 
 
@@ -75,13 +76,15 @@ def valid_versions(pkg_type):
 @pytest.mark.parametrize("pkg_type", ["maven", "nuget", "gem", "composer", "pypi", "npm"])
 def test_gitlab_improver(mock_response, pkg_type):
     advisory_file = os.path.join(TEST_DATA, f"{pkg_type}-expected.json")
-    expected_file = os.path.join(TEST_DATA, f"{pkg_type}-improver-expected.json")
+    expected_file = os.path.join(
+        TEST_DATA, f"{pkg_type}-improver-expected.json")
     with open(advisory_file) as exp:
         advisory = AdvisoryData.from_dict(json.load(exp))
     mock_response.return_value = list(valid_versions(pkg_type))
     improvers = [GitLabBasicImprover(), DefaultImprover()]
     result = []
     for improver in improvers:
-        inference = [data.to_dict() for data in improver.get_inferences(advisory)]
+        inference = [data.to_dict()
+                     for data in improver.get_inferences(advisory)]
         result.extend(inference)
     util_tests.check_results_against_json(result, expected_file)

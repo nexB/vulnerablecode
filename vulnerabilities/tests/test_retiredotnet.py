@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -31,6 +31,7 @@ def test_vuln_id_from_desc():
 def test_process_file():
     path = os.path.join(BASE_DIR, "test_data/retiredotnet/test_file.json")
     importer = RetireDotnetImporter()
-    expected_file = os.path.join(BASE_DIR, "test_data/retiredotnet/expected_file.json")
+    expected_file = os.path.join(
+        BASE_DIR, "test_data/retiredotnet/expected_file.json")
     advisory = importer.process_file(Path(path), Path(path).parent)
     util_tests.check_results_against_json(advisory.to_dict(), expected_file)

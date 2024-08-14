@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -89,7 +89,8 @@ def get_advisories_from_yml(mfsa_id, lines, advisory_url) -> List[AdvisoryData]:
 
     for cve, advisory in data["advisories"].items():
         # These may contain HTML tags
-        summary = BeautifulSoup(advisory.get("description", ""), features="lxml").get_text()
+        summary = BeautifulSoup(advisory.get(
+            "description", ""), features="lxml").get_text()
         if is_cve(cve):
             yield AdvisoryData(
                 summary=summary,
@@ -191,7 +192,9 @@ def get_yml_references(data: any) -> List[Reference]:
     return [
         Reference(
             reference_id=data["mfsa_id"],
-            url="https://www.mozilla.org/en-US/security/advisories/{}".format(data["mfsa_id"]),
-            severities=[VulnerabilitySeverity(system=severity_systems.GENERIC, value=severity)],
+            url="https://www.mozilla.org/en-US/security/advisories/{}".format(
+                data["mfsa_id"]),
+            severities=[VulnerabilitySeverity(
+                system=severity_systems.GENERIC, value=severity)],
         )
     ]

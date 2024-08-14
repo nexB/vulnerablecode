@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -84,7 +84,8 @@ class Reference:
     reference_id: str = ""
     reference_type: str = ""
     url: str = ""
-    severities: List[VulnerabilitySeverity] = dataclasses.field(default_factory=list)
+    severities: List[VulnerabilitySeverity] = dataclasses.field(
+        default_factory=list)
 
     def __post_init__(self):
         if not self.url:
@@ -154,7 +155,8 @@ class AffectedPackage:
 
     def __post_init__(self):
         if self.package.version:
-            raise ValueError(f"Affected Package URL {self.package!r} cannot have a version.")
+            raise ValueError(
+                f"Affected Package URL {self.package!r} cannot have a version.")
 
         if not (self.affected_version_range or self.fixed_version):
             raise ValueError(
@@ -167,7 +169,8 @@ class AffectedPackage:
         Return a Package URL corresponding to object's fixed_version
         """
         if not self.fixed_version:
-            raise ValueError(f"Affected Package {self.package!r} does not have a fixed version")
+            raise ValueError(
+                f"Affected Package {self.package!r} does not have a fixed version")
         return update_purl_version(purl=self.package, version=str(self.fixed_version))
 
     @classmethod
@@ -200,7 +203,8 @@ class AffectedPackage:
                     fixed_versions.append(pkg.fixed_version)
             purls.add(pkg.package)
         if len(purls) > 1:
-            raise UnMergeablePackageError("Cannot merge with different purls", purls)
+            raise UnMergeablePackageError(
+                "Cannot merge with different purls", purls)
         return purls.pop(), list(affected_version_ranges), sorted(fixed_versions)
 
     def to_dict(self):
@@ -257,7 +261,8 @@ class AdvisoryData:
 
     aliases: List[str] = dataclasses.field(default_factory=list)
     summary: Optional[str] = ""
-    affected_packages: List[AffectedPackage] = dataclasses.field(default_factory=list)
+    affected_packages: List[AffectedPackage] = dataclasses.field(
+        default_factory=list)
     references: List[Reference] = dataclasses.field(default_factory=list)
     date_published: Optional[datetime.datetime] = None
     weaknesses: List[int] = dataclasses.field(default_factory=list)
@@ -462,7 +467,8 @@ class OvalImporter(Importer):
                 severity = definition_data.get("severity")
                 if severity:
                     severities.append(
-                        VulnerabilitySeverity(system=severity_systems.GENERIC, value=severity)
+                        VulnerabilitySeverity(
+                            system=severity_systems.GENERIC, value=severity)
                     )
                 references = [
                     Reference(url=url, severities=severities)
@@ -476,7 +482,8 @@ class OvalImporter(Importer):
                         vrc = RANGE_CLASS_BY_SCHEMES[pkg_metadata["type"]]
                         if affected_version_range:
                             try:
-                                affected_version_range = vrc.from_native(affected_version_range)
+                                affected_version_range = vrc.from_native(
+                                    affected_version_range)
                             except Exception as e:
                                 logger.error(
                                     f"Failed to parse version range {affected_version_range!r} "
@@ -486,7 +493,8 @@ class OvalImporter(Importer):
                         if package_name:
                             affected_packages.append(
                                 AffectedPackage(
-                                    package=self.create_purl(package_name, pkg_metadata),
+                                    package=self.create_purl(
+                                        package_name, pkg_metadata),
                                     affected_version_range=affected_version_range,
                                 )
                             )

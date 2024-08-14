@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -55,7 +55,8 @@ class NpmImporter(Importer):
         summary = data.get("title") or ""
         date_published = None
         if isinstance(data.get("created_at"), str):
-            date_published = parse(data.get("created_at")).replace(tzinfo=pytz.UTC)
+            date_published = parse(data.get("created_at")
+                                   ).replace(tzinfo=pytz.UTC)
         references = []
         cvss_vector = data.get("cvss_vector")
         cvss_score = data.get("cvss_score")
@@ -95,12 +96,14 @@ class NpmImporter(Importer):
         package_name = data.get("module_name")
         affected_packages = []
         if package_name:
-            affected_packages.append(self.get_affected_package(data, package_name))
+            affected_packages.append(
+                self.get_affected_package(data, package_name))
         advsisory_aliases = data.get("cves") or []
 
         for alias in advsisory_aliases:
             yield AdvisoryData(
-                summary=build_description(summary=summary, description=description),
+                summary=build_description(
+                    summary=summary, description=description),
                 references=references,
                 date_published=date_published,
                 affected_packages=affected_packages,
@@ -120,13 +123,15 @@ class NpmImporter(Importer):
         if vulnerable_range == "<=99.999.99999":
             vulnerable_range = "*"
         if vulnerable_range:
-            affected_version_range = NpmVersionRange.from_native(vulnerable_range)
+            affected_version_range = NpmVersionRange.from_native(
+                vulnerable_range)
 
         # https://github.com/nodejs/security-wg/blob/cfaa51cc5c83f01eea61b69658f7bc76a77c5979/vuln/npm/213.json#L15
         if patched_range == "<0.0.0":
             patched_range = None
         if patched_range:
-            unaffected_version_range = NpmVersionRange.from_native(patched_range)
+            unaffected_version_range = NpmVersionRange.from_native(
+                patched_range)
 
         # We only store single fixed versions and not a range of fixed versions
         # If there is a single constraint in the unaffected_version_range

@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -77,7 +77,7 @@ class XenImporter(Importer):
             references.append(xsa_reference)
         title = xsa.get("title")
         for cve in xsa.get("cve") or []:
-            # TODO: https://github.com/nexB/vulnerablecode/issues/981
+            # TODO: https://github.com/aboutcode-org/vulnerablecode/issues/981
             if not is_cve(cve):
                 continue
             yield AdvisoryData(

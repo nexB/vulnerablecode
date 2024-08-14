@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -28,15 +28,18 @@ def test_suse_oval_importer_CVE_2008_5679():
         ET.parse(os.path.join(TEST_DATA, "org.opensuse.CVE-2008-5679.xml")),
         {"type": "rpm", "namespace": "opensuse"},
     )
-    expected_file = os.path.join(TEST_DATA, f"suse-oval-CVE-2008-5679-expected.json")
+    expected_file = os.path.join(
+        TEST_DATA, f"suse-oval-CVE-2008-5679-expected.json")
     util_tests.check_results_against_json(
         [advisory.to_dict() for advisory in advisories], expected_file
     )
 
 
 def test_suse_oval_parse_CVE_2008_5679():
-    xml_doc = ET.parse(os.path.join(TEST_DATA, "org.opensuse.CVE-2008-5679.xml"))
-    translations = {"less than": "<", "equals": "=", "greater than or equal": ">="}
+    xml_doc = ET.parse(os.path.join(
+        TEST_DATA, "org.opensuse.CVE-2008-5679.xml"))
+    translations = {"less than": "<", "equals": "=",
+                    "greater than or equal": ">="}
     parsed_oval = OvalParser(translations, xml_doc)
 
     # Get total number of definitions
@@ -44,7 +47,8 @@ def test_suse_oval_parse_CVE_2008_5679():
 
     # Get definition `id`: the `<definition>` element.
     definition_1 = parsed_oval.all_definitions[0]
-    assert parsed_oval.all_definitions[0].getId() == "oval:org.opensuse.security:def:2009030400"
+    assert parsed_oval.all_definitions[0].getId(
+    ) == "oval:org.opensuse.security:def:2009030400"
 
     # Get definition `test_ref`: the `<criterion>` element.
     definition_1_test_ids = {
@@ -136,7 +140,8 @@ def test_filter_suse_gz_files():
 
 def test_cve_prefix_filter():
     xml_doc = ET.parse(os.path.join(TEST_DATA, "mock-definitions-only.xml"))
-    translations = {"less than": "<", "equals": "=", "greater than or equal": ">="}
+    translations = {"less than": "<", "equals": "=",
+                    "greater than or equal": ">="}
     parsed_oval = OvalParser(translations, xml_doc)
 
     assert len(parsed_oval.all_definitions) == 3

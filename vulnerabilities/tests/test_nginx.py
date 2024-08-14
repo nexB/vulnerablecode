@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -40,54 +40,69 @@ ADVISORY_FIELDS_TO_TEST = (
 
 
 class TestNginxImporterAndImprover(testcase.FileBasedTesting):
-    test_data_dir = str(Path(__file__).resolve().parent / "test_data" / "nginx")
+    test_data_dir = str(Path(__file__).resolve().parent /
+                        "test_data" / "nginx")
 
     def test_is_vulnerable(self):
         # Not vulnerable: 1.17.3+, 1.16.1+
         # Vulnerable: 1.9.5-1.17.2
 
         vcls = nginx.NginxVersionRange.version_class
-        affected_version_range = nginx.NginxVersionRange.from_native("1.9.5-1.17.2")
+        affected_version_range = nginx.NginxVersionRange.from_native(
+            "1.9.5-1.17.2")
         fixed_versions = [vcls("1.17.3"), vcls("1.16.1")]
 
         version = vcls("1.9.4")
-        assert not is_vulnerable_nginx_version(version, affected_version_range, fixed_versions)
+        assert not is_vulnerable_nginx_version(
+            version, affected_version_range, fixed_versions)
 
         version = vcls("1.9.5")
-        assert is_vulnerable_nginx_version(version, affected_version_range, fixed_versions)
+        assert is_vulnerable_nginx_version(
+            version, affected_version_range, fixed_versions)
 
         version = vcls("1.9.6")
-        assert is_vulnerable_nginx_version(version, affected_version_range, fixed_versions)
+        assert is_vulnerable_nginx_version(
+            version, affected_version_range, fixed_versions)
 
         version = vcls("1.16.0")
-        assert is_vulnerable_nginx_version(version, affected_version_range, fixed_versions)
+        assert is_vulnerable_nginx_version(
+            version, affected_version_range, fixed_versions)
 
         version = vcls("1.16.1")
-        assert not is_vulnerable_nginx_version(version, affected_version_range, fixed_versions)
+        assert not is_vulnerable_nginx_version(
+            version, affected_version_range, fixed_versions)
 
         version = vcls("1.16.2")
-        assert not is_vulnerable_nginx_version(version, affected_version_range, fixed_versions)
+        assert not is_vulnerable_nginx_version(
+            version, affected_version_range, fixed_versions)
 
         version = vcls("1.16.99")
-        assert not is_vulnerable_nginx_version(version, affected_version_range, fixed_versions)
+        assert not is_vulnerable_nginx_version(
+            version, affected_version_range, fixed_versions)
 
         version = vcls("1.17.0")
-        assert is_vulnerable_nginx_version(version, affected_version_range, fixed_versions)
+        assert is_vulnerable_nginx_version(
+            version, affected_version_range, fixed_versions)
 
         version = vcls("1.17.1")
-        assert is_vulnerable_nginx_version(version, affected_version_range, fixed_versions)
+        assert is_vulnerable_nginx_version(
+            version, affected_version_range, fixed_versions)
 
         version = vcls("1.17.2")
-        assert is_vulnerable_nginx_version(version, affected_version_range, fixed_versions)
+        assert is_vulnerable_nginx_version(
+            version, affected_version_range, fixed_versions)
 
         version = vcls("1.17.3")
-        assert not is_vulnerable_nginx_version(version, affected_version_range, fixed_versions)
+        assert not is_vulnerable_nginx_version(
+            version, affected_version_range, fixed_versions)
 
         version = vcls("1.17.4")
-        assert not is_vulnerable_nginx_version(version, affected_version_range, fixed_versions)
+        assert not is_vulnerable_nginx_version(
+            version, affected_version_range, fixed_versions)
 
         version = vcls("1.18.0")
-        assert not is_vulnerable_nginx_version(version, affected_version_range, fixed_versions)
+        assert not is_vulnerable_nginx_version(
+            version, affected_version_range, fixed_versions)
 
     def test_parse_advisory_data_from_paragraph(self):
         paragraph = (
@@ -116,7 +131,8 @@ class TestNginxImporterAndImprover(testcase.FileBasedTesting):
                     reference_id="",
                     url="http://mailman.nginx.org/pipermail/nginx-announce/2021/000300.html",
                     severities=[
-                        VulnerabilitySeverity(system=severity_systems.GENERIC, value="medium")
+                        VulnerabilitySeverity(
+                            system=severity_systems.GENERIC, value="medium")
                     ],
                 ),
                 Reference(
@@ -145,7 +161,8 @@ class TestNginxImporterAndImprover(testcase.FileBasedTesting):
             "security_advisories-advisory_data-expected.json", must_exist=False
         )
 
-        results = [na.to_dict() for na in nginx.advisory_data_from_text(test_text)]
+        results = [na.to_dict()
+                   for na in nginx.advisory_data_from_text(test_text)]
         util_tests.check_results_against_json(results, expected_file)
 
     @pytest.mark.django_db(transaction=True)
@@ -214,8 +231,10 @@ class TestNginxImporterAndImprover(testcase.FileBasedTesting):
                 side_effects.append(json.load(f))
         mock_fetcher.side_effect = side_effects
 
-        results = list(NginxBasicImprover().fetch_nginx_version_from_git_tags())
-        expected_file = self.get_test_loc("improver/nginx-versions-expected.json", must_exist=False)
+        results = list(NginxBasicImprover(
+        ).fetch_nginx_version_from_git_tags())
+        expected_file = self.get_test_loc(
+            "improver/nginx-versions-expected.json", must_exist=False)
         util_tests.check_results_against_json(results, expected_file)
 
     @pytest.mark.django_db(transaction=True)

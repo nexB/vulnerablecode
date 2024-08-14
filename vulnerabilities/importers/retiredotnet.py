@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -49,7 +49,7 @@ class RetireDotnetImporter(Importer):
         cve_regex = re.compile(r"CVE-\d+-\d+")
         res = cve_regex.search(desc)
         if res:
-            return desc[res.start() : res.end()]
+            return desc[res.start(): res.end()]
         else:
             return None
 
@@ -69,7 +69,8 @@ class RetireDotnetImporter(Importer):
                 affected_version_range = None
                 fixed_version = None
                 if pkg.get("affected"):
-                    affected_version_range = NugetVersionRange.from_versions([pkg["affected"]])
+                    affected_version_range = NugetVersionRange.from_versions(
+                        [pkg["affected"]])
                 if pkg.get("fix"):
                     fixed_version = NugetVersion(pkg["fix"])
                 if not affected_version_range and not fixed_version:

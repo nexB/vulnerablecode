@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -58,8 +58,10 @@ class ImportRunner:
         importer_class = self.importer_class
         logger.info(f"Starting import for {importer_name}")
         advisory_datas = importer_class().advisory_data()
-        count = self.process_advisories(advisory_datas=advisory_datas, importer_name=importer_name)
-        logger.info(f"Finished import for {importer_name}. Imported {count} advisories.")
+        count = self.process_advisories(
+            advisory_datas=advisory_datas, importer_name=importer_name)
+        logger.info(
+            f"Finished import for {importer_name}. Imported {count} advisories.")
 
     def do_import(self, advisories) -> None:
         advisory_importer = DefaultImporter(advisories=advisories)
@@ -80,8 +82,10 @@ class ImportRunner:
                     improver_name=importer_name,
                 )
             except Exception as e:
-                logger.info(f"Failed to process advisory: {advisory!r} with error {e!r}")
-        logger.info("Finished importing using %s.", advisory_importer.__class__.qualified_name)
+                logger.info(
+                    f"Failed to process advisory: {advisory!r} with error {e!r}")
+        logger.info("Finished importing using %s.",
+                    advisory_importer.__class__.qualified_name)
 
     def process_advisories(
         self, advisory_datas: Iterable[AdvisoryData], importer_name: str
@@ -97,7 +101,8 @@ class ImportRunner:
                 obj, created = Advisory.objects.get_or_create(
                     aliases=data.aliases,
                     summary=data.summary,
-                    affected_packages=[pkg.to_dict() for pkg in data.affected_packages],
+                    affected_packages=[pkg.to_dict()
+                                       for pkg in data.affected_packages],
                     references=[ref.to_dict() for ref in data.references],
                     date_published=data.date_published,
                     weaknesses=data.weaknesses,
@@ -120,7 +125,8 @@ class ImportRunner:
                 )
                 count += 1
             else:
-                logger.debug(f"Advisory with aliases: {obj.aliases!r} already exists.")
+                logger.debug(
+                    f"Advisory with aliases: {obj.aliases!r} already exists.")
         try:
             self.do_import(advisories)
         except Exception as e:
@@ -145,7 +151,8 @@ def process_inferences(inferences: List[Inference], advisory: Advisory, improver
     inferences_processed_count = 0
 
     if not inferences:
-        logger.warning(f"Nothing to improve. Source: {improver_name} Advisory id: {advisory.id}")
+        logger.warning(
+            f"Nothing to improve. Source: {improver_name} Advisory id: {advisory.id}")
         return inferences_processed_count
 
     logger.info(f"Improving advisory id: {advisory.id}")
@@ -159,7 +166,8 @@ def process_inferences(inferences: List[Inference], advisory: Advisory, improver
         )
 
         if not vulnerability:
-            logger.warning(f"Unable to get vulnerability for inference: {inference!r}")
+            logger.warning(
+                f"Unable to get vulnerability for inference: {inference!r}")
             continue
 
         for ref in inference.references:
@@ -199,7 +207,8 @@ def process_inferences(inferences: List[Inference], advisory: Advisory, improver
                     )
 
         for affected_purl in inference.affected_purls or []:
-            vulnerable_package, _ = Package.objects.get_or_create_from_purl(purl=affected_purl)
+            vulnerable_package, _ = Package.objects.get_or_create_from_purl(
+                purl=affected_purl)
             PackageRelatedVulnerability(
                 vulnerability=vulnerability,
                 package=vulnerable_package,
@@ -209,7 +218,8 @@ def process_inferences(inferences: List[Inference], advisory: Advisory, improver
             ).update_or_create(advisory=advisory)
 
         if inference.fixed_purl:
-            fixed_package, _ = Package.objects.get_or_create_from_purl(purl=inference.fixed_purl)
+            fixed_package, _ = Package.objects.get_or_create_from_purl(
+                purl=inference.fixed_purl)
             PackageRelatedVulnerability(
                 vulnerability=vulnerability,
                 package=fixed_package,
@@ -220,7 +230,8 @@ def process_inferences(inferences: List[Inference], advisory: Advisory, improver
 
         if inference.weaknesses and vulnerability:
             for cwe_id in inference.weaknesses:
-                cwe_obj, created = Weakness.objects.get_or_create(cwe_id=cwe_id)
+                cwe_obj, created = Weakness.objects.get_or_create(
+                    cwe_id=cwe_id)
                 cwe_obj.vulnerabilities.add(vulnerability)
                 cwe_obj.save()
         inferences_processed_count += 1
@@ -258,8 +269,10 @@ def get_or_create_vulnerability_and_aliases(
     Get or create vulnerabilitiy and aliases such that all existing and new
     aliases point to the same vulnerability
     """
-    aliases = set(alias.strip() for alias in aliases if alias and alias.strip())
-    new_alias_names, existing_vulns = get_vulns_for_aliases_and_get_new_aliases(aliases)
+    aliases = set(alias.strip()
+                  for alias in aliases if alias and alias.strip())
+    new_alias_names, existing_vulns = get_vulns_for_aliases_and_get_new_aliases(
+        aliases)
 
     # All aliases must point to the same vulnerability
     vulnerability = None
@@ -286,9 +299,11 @@ def get_or_create_vulnerability_and_aliases(
 
     if vulnerability_id and not vulnerability:
         try:
-            vulnerability = Vulnerability.objects.get(vulnerability_id=vulnerability_id)
+            vulnerability = Vulnerability.objects.get(
+                vulnerability_id=vulnerability_id)
         except Vulnerability.DoesNotExist:
-            logger.error(f"Cannot get requested vulnerability {vulnerability_id}.")
+            logger.error(
+                f"Cannot get requested vulnerability {vulnerability_id}.")
             return
     if vulnerability:
         # TODO: We should keep multiple summaries, one for each advisory
@@ -297,7 +312,8 @@ def get_or_create_vulnerability_and_aliases(
         #         f"Inconsistent summary for {vulnerability.vulnerability_id}. "
         #         f"Existing: {vulnerability.summary!r}, provided: {summary!r}"
         #     )
-        associate_vulnerability_with_aliases(vulnerability=vulnerability, aliases=new_alias_names)
+        associate_vulnerability_with_aliases(
+            vulnerability=vulnerability, aliases=new_alias_names)
     else:
         try:
             vulnerability = create_vulnerability_and_add_aliases(
@@ -342,7 +358,8 @@ def create_vulnerability_and_add_aliases(aliases, summary):
     vulnerability.save()
     associate_vulnerability_with_aliases(aliases, vulnerability)
     if not vulnerability.aliases.count():
-        raise Exception(f"Vulnerability {vulnerability.vcid} must have one or more aliases")
+        raise Exception(
+            f"Vulnerability {vulnerability.vcid} must have one or more aliases")
     return vulnerability
 
 

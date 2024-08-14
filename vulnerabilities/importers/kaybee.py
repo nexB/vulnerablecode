@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -52,11 +52,13 @@ def yaml_file_to_advisory(yaml_path):
 
     for fix in data.get("fixes", []):
         for commit in fix["commits"]:
-            references.append(Reference(url=f"{commit['repository']}/{commit['id']}"))
+            references.append(
+                Reference(url=f"{commit['repository']}/{commit['id']}"))
 
     return AdvisoryData(
         vulnerability_id=vuln_id,
         summary=summary,
-        affected_packages=nearest_patched_package(impacted_packages, resolved_packages),
+        affected_packages=nearest_patched_package(
+            impacted_packages, resolved_packages),
         references=references,
     )

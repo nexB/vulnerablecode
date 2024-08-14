@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -33,7 +33,8 @@ class TestVulnerabilityModel(TestCase):
     @pytest.mark.django_db
     def test_vulnerability_save_with_vulnerability_id(self):
         models.Vulnerability(vulnerability_id="CVE-2020-7965").save()
-        assert models.Vulnerability.objects.filter(vulnerability_id="CVE-2020-7965").count() == 1
+        assert models.Vulnerability.objects.filter(
+            vulnerability_id="CVE-2020-7965").count() == 1
 
     @pytest.mark.django_db
     def test_cwe_not_present_in_weaknesses_db(self):
@@ -47,9 +48,12 @@ class TestVulnerabilityModel(TestCase):
 @pytest.mark.django_db
 class TestPackageRelatedVulnerablity(TestCase):
     def test_package_to_vulnerability(self):
-        p1 = models.Package.objects.create(type="deb", name="git", version="2.30.1")
-        p2 = models.Package.objects.create(type="deb", name="git", version="2.31.1")
-        v1 = models.Vulnerability.objects.create(vulnerability_id="CVE-123-2002")
+        p1 = models.Package.objects.create(
+            type="deb", name="git", version="2.30.1")
+        p2 = models.Package.objects.create(
+            type="deb", name="git", version="2.31.1")
+        v1 = models.Vulnerability.objects.create(
+            vulnerability_id="CVE-123-2002")
 
         prv1 = models.PackageRelatedVulnerability.objects.create(
             package=p1, vulnerability=v1, fix=False
@@ -64,9 +68,12 @@ class TestPackageRelatedVulnerablity(TestCase):
         assert p2.fixing_vulnerabilities[0] == v1
 
     def test_vulnerability_package(self):
-        p1 = models.Package.objects.create(type="deb", name="git", version="2.30.1")
-        p2 = models.Package.objects.create(type="deb", name="git", version="2.31.1")
-        v1 = models.Vulnerability.objects.create(vulnerability_id="CVE-123-2002")
+        p1 = models.Package.objects.create(
+            type="deb", name="git", version="2.30.1")
+        p2 = models.Package.objects.create(
+            type="deb", name="git", version="2.31.1")
+        v1 = models.Vulnerability.objects.create(
+            vulnerability_id="CVE-123-2002")
 
         prv1 = models.PackageRelatedVulnerability.objects.create(
             package=p1, vulnerability=v1, fix=False
@@ -117,7 +124,8 @@ class TestPackageModel(TestCase):
         )
 
         # aliases
-        Alias.objects.create(alias="CVE-2023-28858", vulnerability=self.vuln_VCID_g2fu_45jw_aaan)
+        Alias.objects.create(alias="CVE-2023-28858",
+                             vulnerability=self.vuln_VCID_g2fu_45jw_aaan)
         Alias.objects.create(
             alias="GHSA-24wv-mv5m-xv4h", vulnerability=self.vuln_VCID_g2fu_45jw_aaan
         )
@@ -153,7 +161,8 @@ class TestPackageModel(TestCase):
         )
 
         # aliases
-        Alias.objects.create(alias="CVE-2023-28859", vulnerability=self.vuln_VCID_rqe1_dkmg_aaad)
+        Alias.objects.create(alias="CVE-2023-28859",
+                             vulnerability=self.vuln_VCID_rqe1_dkmg_aaad)
         Alias.objects.create(
             alias="GHSA-8fww-64cx-x8p5", vulnerability=self.vuln_VCID_rqe1_dkmg_aaad
         )
@@ -321,7 +330,8 @@ class TestPackageModel(TestCase):
         assert second_vulnerable_package.purl == "pkg:pypi/redis@4.1.1"
 
         second_vulnerable_package_matching_fixed_packages = (
-            Package.objects.get_fixed_by_package_versions(second_vulnerable_package, fix=True)
+            Package.objects.get_fixed_by_package_versions(
+                second_vulnerable_package, fix=True)
         )
         first_fixed_by_package = second_vulnerable_package_matching_fixed_packages[0]
 
@@ -361,9 +371,12 @@ class TestPackageModel(TestCase):
         assert versions.PypiVersion("1.2.3") < versions.PypiVersion("1.2.4")
         assert versions.PypiVersion("0.9") < versions.PypiVersion("0.10")
 
-        deb01 = models.Package.objects.create(type="deb", name="git", version="2.30.1")
-        deb02 = models.Package.objects.create(type="deb", name="git", version="2.31.1")
-        assert versions.DebianVersion(deb01.version) < versions.DebianVersion(deb02.version)
+        deb01 = models.Package.objects.create(
+            type="deb", name="git", version="2.30.1")
+        deb02 = models.Package.objects.create(
+            type="deb", name="git", version="2.31.1")
+        assert versions.DebianVersion(
+            deb01.version) < versions.DebianVersion(deb02.version)
 
         # pkg:deb/debian/jackson-databind@2.12.1-1%2Bdeb11u1 is a real PURL in the DB
         # But we need to replace/delete the "%".  Test the error:
@@ -389,25 +402,29 @@ class TestPackageModel(TestCase):
         gem_version = RANGE_CLASS_BY_SCHEMES["gem"].version_class
         assert gem_version == versions.RubygemsVersion
 
-        gem_package = models.Package.objects.create(type="gem", name="sidekiq", version="0.9")
+        gem_package = models.Package.objects.create(
+            type="gem", name="sidekiq", version="0.9")
         gem_package_version = RANGE_CLASS_BY_SCHEMES[gem_package.type].version_class
         assert gem_package_version == versions.RubygemsVersion
 
         deb_version = RANGE_CLASS_BY_SCHEMES["deb"].version_class
         assert deb_version == versions.DebianVersion
 
-        deb_package = models.Package.objects.create(type="deb", name="git", version="2.31.1")
+        deb_package = models.Package.objects.create(
+            type="deb", name="git", version="2.31.1")
         deb_package_version = RANGE_CLASS_BY_SCHEMES[deb_package.type].version_class
         assert deb_package_version == versions.DebianVersion
 
         pypi_version = RANGE_CLASS_BY_SCHEMES["pypi"].version_class
         assert pypi_version == versions.PypiVersion
 
-        pypi_package = models.Package.objects.create(type="pypi", name="pyopenssl", version="0.9")
+        pypi_package = models.Package.objects.create(
+            type="pypi", name="pyopenssl", version="0.9")
         pypi_package_version = RANGE_CLASS_BY_SCHEMES[pypi_package.type].version_class
         assert pypi_package_version == versions.PypiVersion
 
-        alpine_package = models.Package.objects.create(type="alpine", name="lxml", version="0.9")
+        alpine_package = models.Package.objects.create(
+            type="alpine", name="lxml", version="0.9")
         alpine_version = RANGE_CLASS_BY_SCHEMES[alpine_package.type].version_class
         assert alpine_version == versions.AlpineLinuxVersion
 

@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 import logging
@@ -55,7 +55,8 @@ def fork_and_get_files(base_path) -> dict:
         for file in files:
             path = os.path.join(root, file)
             if not file.endswith(".yaml"):
-                logger.warning(f"Unsupported non-YAML PyPA advisory file: {path}")
+                logger.warning(
+                    f"Unsupported non-YAML PyPA advisory file: {path}")
                 continue
             advisory_url = get_advisory_url(
                 file=Path(path),

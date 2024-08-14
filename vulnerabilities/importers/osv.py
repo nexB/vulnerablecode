@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -70,7 +70,8 @@ def parse_advisory_data(
         purl = get_affected_purl(affected_pkg=affected_pkg, raw_id=raw_id)
 
         if not purl or purl.type not in supported_ecosystems:
-            logger.error(f"Unsupported package type: {affected_pkg!r} in OSV: {raw_id!r}")
+            logger.error(
+                f"Unsupported package type: {affected_pkg!r} in OSV: {raw_id!r}")
             continue
 
         affected_version_range = get_affected_version_range(
@@ -141,7 +142,8 @@ def get_severities(raw_data) -> Iterable[VulnerabilitySeverity]:
             if severity.get("type") == "CVSS_V3":
                 vector = severity.get("score")
                 # remove the / from the end of the vector if / exist
-                valid_vector = vector[:-1] if vector and vector[-1] == "/" else vector
+                valid_vector = vector[:-
+                                      1] if vector and vector[-1] == "/" else vector
                 system = SCORING_SYSTEMS["cvssv3.1"]
                 score = system.compute(valid_vector)
                 yield VulnerabilitySeverity(system=system, value=score, scoring_elements=vector)
@@ -181,7 +183,8 @@ def get_references(raw_data, severities) -> List[Reference]:
             continue
         url = ref["url"]
         if not url:
-            logger.error(f"Reference without URL : {ref!r} for OSV id: {raw_data['id']!r}")
+            logger.error(
+                f"Reference without URL : {ref!r} for OSV id: {raw_data['id']!r}")
             continue
         references.append(Reference(url=ref["url"], severities=severities))
     return references
@@ -255,7 +258,8 @@ def get_fixed_versions(fixed_range, raw_id, supported_ecosystem) -> List[Version
     """
     fixed_versions = []
     if "type" not in fixed_range:
-        logger.error(f"Invalid fixed_range type for: {fixed_range} for OSV id: {raw_id!r}")
+        logger.error(
+            f"Invalid fixed_range type for: {fixed_range} for OSV id: {raw_id!r}")
         return []
 
     fixed_range_type = fixed_range["type"]
@@ -280,9 +284,11 @@ def get_fixed_versions(fixed_range, raw_id, supported_ecosystem) -> List[Version
             try:
                 fixed_versions.append(SemverVersion(version))
             except InvalidVersion:
-                logger.error(f"Invalid SemverVersion: {version!r} for OSV id: {raw_id!r}")
+                logger.error(
+                    f"Invalid SemverVersion: {version!r} for OSV id: {raw_id!r}")
         else:
-            logger.error(f"Unsupported fixed version type: {version!r} for OSV id: {raw_id!r}")
+            logger.error(
+                f"Unsupported fixed version type: {version!r} for OSV id: {raw_id!r}")
 
         # if fixed_range_type == "GIT":
         # TODO add GitHubVersion univers fix_version

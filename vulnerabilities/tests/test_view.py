@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -61,7 +61,8 @@ class PackageSearchTestCase(TestCase):
         self.assertEqual(pkgs[0].purl, "pkg:nginx/nginx@1.0.15")
 
     def test_package_detail_view(self):
-        package = PackageDetails(kwargs={"purl": "pkg:nginx/nginx@1.0.15"}).get_object()
+        package = PackageDetails(
+            kwargs={"purl": "pkg:nginx/nginx@1.0.15"}).get_object()
         assert package.purl == "pkg:nginx/nginx@1.0.15"
 
     def test_package_view_with_purl_fragment(self):
@@ -158,7 +159,8 @@ class VulnerabilitySearchTestCase(TestCase):
     def test_vulnerabilties_search_view_with_vcid_works_and_pk_does_not(self):
         response = self.client.get(f"/vulnerabilities/{self.vulnerability.pk}")
         self.assertEqual(response.status_code, 404)
-        response = self.client.get(f"/vulnerabilities/{self.vulnerability.vulnerability_id}")
+        response = self.client.get(
+            f"/vulnerabilities/{self.vulnerability.vulnerability_id}")
         self.assertEqual(response.status_code, 200)
 
     def test_vulnerabilties_search_view_with_empty(self):

@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -31,5 +31,6 @@ def test_kbmsr_to_advisories():
         lines = [l for l in f.readlines()]
         test_data = csv.reader(lines)
     expected_file = os.path.join(TEST_DIR, f"kbmsr2019-expected.json")
-    result = [data.to_dict() for data in list(ProjectKBMSRImporter().to_advisories(test_data))]
+    result = [data.to_dict() for data in list(
+        ProjectKBMSRImporter().to_advisories(test_data))]
     util_tests.check_results_against_json(result, expected_file)

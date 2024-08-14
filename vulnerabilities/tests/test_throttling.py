@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -24,7 +24,8 @@ class ThrottleApiTests(APITestCase):
         self.csrf_client.credentials(HTTP_AUTHORIZATION=self.auth)
 
         # create a staff user
-        self.staff_user = ApiUser.objects.create_api_user(username="staff@mail.com", is_staff=True)
+        self.staff_user = ApiUser.objects.create_api_user(
+            username="staff@mail.com", is_staff=True)
         self.staff_auth = f"Token {self.staff_user.auth_token.key}"
         self.staff_csrf_client = APIClient(enforce_csrf_checks=True)
         self.staff_csrf_client.credentials(HTTP_AUTHORIZATION=self.staff_auth)

@@ -4,7 +4,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -39,12 +39,15 @@ class AlpineImporter(Importer):
 
     def advisory_data(self) -> Iterable[AdvisoryData]:
         page_response_content = fetch_response(BASE_URL).content
-        advisory_directory_links = fetch_advisory_directory_links(page_response_content)
+        advisory_directory_links = fetch_advisory_directory_links(
+            page_response_content)
         advisory_links = []
         for advisory_directory_link in advisory_directory_links:
-            advisory_directory_page = fetch_response(advisory_directory_link).content
+            advisory_directory_page = fetch_response(
+                advisory_directory_link).content
             advisory_links.extend(
-                fetch_advisory_links(advisory_directory_page, advisory_directory_link)
+                fetch_advisory_links(
+                    advisory_directory_page, advisory_directory_link)
             )
         for link in advisory_links:
             record = fetch_response(link).json()
@@ -69,7 +72,8 @@ def fetch_advisory_directory_links(page_response_content: str) -> List[str]:
         LOGGER.error(f"No versions found in {BASE_URL!r}")
         return []
 
-    advisory_directory_links = [urljoin(BASE_URL, version) for version in alpine_versions]
+    advisory_directory_links = [
+        urljoin(BASE_URL, version) for version in alpine_versions]
 
     return advisory_directory_links
 
@@ -80,7 +84,8 @@ def fetch_advisory_links(
     """
     Yield json file urls present in `advisory_directory_page`
     """
-    advisory_directory_page = BeautifulSoup(advisory_directory_page, features="lxml")
+    advisory_directory_page = BeautifulSoup(
+        advisory_directory_page, features="lxml")
     anchor_tags = advisory_directory_page.find_all("a")
     if not anchor_tags:
         LOGGER.error(f"No anchor tags found in {advisory_directory_link!r}")
@@ -161,13 +166,16 @@ def load_advisories(
             for reference_id in vuln_ids:
 
                 if reference_id.startswith("XSA"):
-                    references.append(XsaReference.from_id(xsa_id=reference_id))
+                    references.append(
+                        XsaReference.from_id(xsa_id=reference_id))
 
                 elif reference_id.startswith("ZBX"):
-                    references.append(ZbxReference.from_id(zbx_id=reference_id))
+                    references.append(
+                        ZbxReference.from_id(zbx_id=reference_id))
 
                 elif reference_id.startswith("wnpa-sec"):
-                    references.append(WireSharkReference.from_id(wnpa_sec_id=reference_id))
+                    references.append(WireSharkReference.from_id(
+                        wnpa_sec_id=reference_id))
 
             qualifiers = {
                 "distroversion": distroversion,

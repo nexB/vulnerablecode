@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -45,7 +45,8 @@ class GitlabDataSource(DataSource):
         if not location:
             clear_download(location)
             path = self.supported_ecosystem()[purl.type]
-            casesensitive_package_slug = get_casesensitive_slug(path, package_slug)
+            casesensitive_package_slug = get_casesensitive_slug(
+                path, package_slug)
             location = download_subtree(casesensitive_package_slug)
         if location:
             interesting_advisories = parse_interesting_advisories(
@@ -141,28 +142,28 @@ def get_casesensitive_slug(path, package_slug):
                 "pageSize": 100,
             },
             "query": """
-            fragment TreeEntry on Entry { 
-                flatPath 
-            } 
-            query getPaginatedTree($projectPath: ID!, $path: String, $ref: String!, $nextPageCursor: String) { 
-                project(fullPath: $projectPath) { 
-                    repository { 
-                        paginatedTree(path: $path, ref: $ref, after: $nextPageCursor) { 
-                            pageInfo { 
+            fragment TreeEntry on Entry {
+                flatPath
+            }
+            query getPaginatedTree($projectPath: ID!, $path: String, $ref: String!, $nextPageCursor: String) {
+                project(fullPath: $projectPath) {
+                    repository {
+                        paginatedTree(path: $path, ref: $ref, after: $nextPageCursor) {
+                            pageInfo {
                             endCursor
                             startCursor
-                            hasNextPage 
-                            } 
-                        nodes { 
-                            trees { 
-                                nodes { 
-                                    ...TreeEntry 
-                                    } 
-                                } 
-                            } 
-                        } 
-                    } 
-                } 
+                            hasNextPage
+                            }
+                        nodes {
+                            trees {
+                                nodes {
+                                    ...TreeEntry
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             } """,
         }
     ]

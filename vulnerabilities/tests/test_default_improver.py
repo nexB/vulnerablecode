@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -55,7 +55,8 @@ def test_default_improver_with_empty_affected_packages():
         summary="Test summary",
         affected_purls=[],
         fixed_purl=None,
-        references=[Reference(reference_id="", url="https://www.example.com/", severities=[])],
+        references=[
+            Reference(reference_id="", url="https://www.example.com/", severities=[])],
     )
     expected = [expected_inference]
     result = list(default_improver.get_inferences(advisory_data))
@@ -101,7 +102,8 @@ def test_default_improver_with_affected_packages():
             qualifiers={},
             subpath=None,
         ),
-        references=[Reference(reference_id="", url="https://www.example.com/", severities=[])],
+        references=[
+            Reference(reference_id="", url="https://www.example.com/", severities=[])],
     )
     result = list(default_improver.get_inferences(advisory_data))
     expected = [expected_inference]

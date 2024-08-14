@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -50,7 +50,8 @@ class DepsDataSource(DataSource):
             if advisories:
                 for advisory in advisories:
                     advisory_payload = generate_advisory_payload(advisory)
-                    fetched_advisory = self.fetch_json_response(advisory_payload)
+                    fetched_advisory = self.fetch_json_response(
+                        advisory_payload)
                     self._raw_dump.append(fetched_advisory)
                     if fetched_advisory:
                         return parse_advisory(fetched_advisory, purl)
@@ -80,8 +81,10 @@ def parse_advisory(advisory, purl) -> Iterable[VendorData]:
         VendorData instance containing purl, aliases, affected_versions and fixed_versions.
     """
     package = advisory["packages"][0]
-    affected_versions = [event["version"] for event in package["versionsAffected"]]
-    fixed_versions = [event["version"] for event in package["versionsUnaffected"]]
+    affected_versions = [event["version"]
+                         for event in package["versionsAffected"]]
+    fixed_versions = [event["version"]
+                      for event in package["versionsUnaffected"]]
     yield VendorData(
         purl=PackageURL(purl.type, purl.namespace, purl.name),
         aliases=sorted(set(advisory["aliases"])),

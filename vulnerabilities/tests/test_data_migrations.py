@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -58,7 +58,8 @@ class DuplicateSeverityTestCase(TestMigrations):
 
     def setUpBeforeMigration(self, apps):
         # using get_model to avoid circular import
-        VulnerabilityReference = apps.get_model("vulnerabilities", "VulnerabilityReference")
+        VulnerabilityReference = apps.get_model(
+            "vulnerabilities", "VulnerabilityReference")
         Severities = apps.get_model("vulnerabilities", "VulnerabilitySeverity")
         Vulnerability = apps.get_model("vulnerabilities", "Vulnerability")
 
@@ -92,8 +93,10 @@ class DuplicateSeverityTestCase(TestMigrations):
         )
 
     def test_remove_duplicate_rows(self):
-        VulnerabilitySeverity = self.apps.get_model("vulnerabilities", "VulnerabilitySeverity")
-        assert len(VulnerabilitySeverity.objects.filter(reference=self.reference.id)) == 1
+        VulnerabilitySeverity = self.apps.get_model(
+            "vulnerabilities", "VulnerabilitySeverity")
+        assert len(VulnerabilitySeverity.objects.filter(
+            reference=self.reference.id)) == 1
 
 
 class DropVulnerabilityFromSeverityTestCase(TestMigrations):
@@ -103,8 +106,10 @@ class DropVulnerabilityFromSeverityTestCase(TestMigrations):
 
     def test_dropping_vulnerability_from_severity(self):
         # using get_model to avoid circular import
-        VulnerabilityReference = self.apps.get_model("vulnerabilities", "VulnerabilityReference")
-        VulnerabilitySeverity = self.apps.get_model("vulnerabilities", "VulnerabilitySeverity")
+        VulnerabilityReference = self.apps.get_model(
+            "vulnerabilities", "VulnerabilityReference")
+        VulnerabilitySeverity = self.apps.get_model(
+            "vulnerabilities", "VulnerabilitySeverity")
 
         reference = VulnerabilityReference.objects.create(
             reference_id="CVE-TEST", url="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-TEST"
@@ -123,7 +128,8 @@ class UpdateCPEURL(TestMigrations):
 
     def setUpBeforeMigration(self, apps):
         # using get_model to avoid circular import
-        VulnerabilityReference = apps.get_model("vulnerabilities", "VulnerabilityReference")
+        VulnerabilityReference = apps.get_model(
+            "vulnerabilities", "VulnerabilityReference")
 
         reference = VulnerabilityReference.objects.create(
             reference_id="cpe:2.3:a:f5:nginx:*:*:*:*:*:*:*:*", url=""
@@ -133,8 +139,10 @@ class UpdateCPEURL(TestMigrations):
 
     def test_cpe_url_update(self):
         # using get_model to avoid circular import
-        VulnerabilityReference = self.apps.get_model("vulnerabilities", "VulnerabilityReference")
-        ref = VulnerabilityReference.objects.get(reference_id=self.reference.reference_id)
+        VulnerabilityReference = self.apps.get_model(
+            "vulnerabilities", "VulnerabilityReference")
+        ref = VulnerabilityReference.objects.get(
+            reference_id=self.reference.reference_id)
         assert (
             ref.url
             == "https://nvd.nist.gov/vuln/search/results?adv_search=true&isCpeNameSearch=true&query=cpe:2.3:a:f5:nginx:*:*:*:*:*:*:*:*"
@@ -148,8 +156,10 @@ class TestCvssVectorMigrationToScoringElementComputeNewScores(TestMigrations):
 
     def setUpBeforeMigration(self, apps):
         # using get_model to avoid circular import
-        VulnerabilitySeverity = apps.get_model("vulnerabilities", "VulnerabilitySeverity")
-        VulnerabilityReference = apps.get_model("vulnerabilities", "VulnerabilityReference")
+        VulnerabilitySeverity = apps.get_model(
+            "vulnerabilities", "VulnerabilitySeverity")
+        VulnerabilityReference = apps.get_model(
+            "vulnerabilities", "VulnerabilityReference")
         reference = VulnerabilityReference.objects.create(
             id=1, reference_id="fake-reference_id", url="fake-url"
         )
@@ -197,7 +207,8 @@ class TestCvssVectorMigrationToScoringElementComputeNewScores(TestMigrations):
 
     def test_compute_cvss(self):
         # using get_model to avoid circular import
-        VulnerabilitySeverity = self.apps.get_model("vulnerabilities", "VulnerabilitySeverity")
+        VulnerabilitySeverity = self.apps.get_model(
+            "vulnerabilities", "VulnerabilitySeverity")
         severities = list(
             VulnerabilitySeverity.objects.values(
                 "reference_id", "scoring_system", "value", "scoring_elements"
@@ -251,8 +262,10 @@ class TestCvssVectorMigrationToScoringElementMergeRows(TestMigrations):
 
     def setUpBeforeMigration(self, apps):
         # using get_model to avoid circular import
-        VulnerabilitySeverity = apps.get_model("vulnerabilities", "VulnerabilitySeverity")
-        VulnerabilityReference = apps.get_model("vulnerabilities", "VulnerabilityReference")
+        VulnerabilitySeverity = apps.get_model(
+            "vulnerabilities", "VulnerabilitySeverity")
+        VulnerabilityReference = apps.get_model(
+            "vulnerabilities", "VulnerabilityReference")
         self.reference_list = [
             VulnerabilityReference.objects.create(
                 id=1,
@@ -378,7 +391,8 @@ class TestCvssVectorMigrationToScoringElementMergeRows(TestMigrations):
 
     def test_merge_rows(self):
         # using get_model to avoid circular import
-        VulnerabilitySeverity = self.apps.get_model("vulnerabilities", "VulnerabilitySeverity")
+        VulnerabilitySeverity = self.apps.get_model(
+            "vulnerabilities", "VulnerabilitySeverity")
 
         severities = list(
             VulnerabilitySeverity.objects.values(
@@ -460,8 +474,10 @@ class TestCvssVectorMigrationToScoringElementMergeRowsWithDupes(TestMigrations):
 
     def setUpBeforeMigration(self, apps):
         # using get_model to avoid circular import
-        VulnerabilitySeverity = apps.get_model("vulnerabilities", "VulnerabilitySeverity")
-        VulnerabilityReference = apps.get_model("vulnerabilities", "VulnerabilityReference")
+        VulnerabilitySeverity = apps.get_model(
+            "vulnerabilities", "VulnerabilitySeverity")
+        VulnerabilityReference = apps.get_model(
+            "vulnerabilities", "VulnerabilityReference")
         self.v1 = VulnerabilityReference.objects.create(
             id=1,
             reference_id="fake-reference_id1",
@@ -500,7 +516,8 @@ class TestCvssVectorMigrationToScoringElementMergeRowsWithDupes(TestMigrations):
 
     def test_merge_rows(self):
         # using get_model to avoid circular import
-        VulnerabilitySeverity = self.apps.get_model("vulnerabilities", "VulnerabilitySeverity")
+        VulnerabilitySeverity = self.apps.get_model(
+            "vulnerabilities", "VulnerabilitySeverity")
 
         severities = list(
             VulnerabilitySeverity.objects.values(
@@ -603,9 +620,11 @@ class TestRemoveDupedPurlsWithSameQualifiers(TestMigrations):
 
     def setUpBeforeMigration(self, apps):
         Package = apps.get_model("vulnerabilities", "Package")
-        self.pkg1 = Package.objects.create(type="nginx", name="nginx", qualifiers={"os": "windows"})
+        self.pkg1 = Package.objects.create(
+            type="nginx", name="nginx", qualifiers={"os": "windows"})
 
-        pkg2 = Package.objects.create(type="nginx", name="nginx", qualifiers="os=windows")
+        pkg2 = Package.objects.create(
+            type="nginx", name="nginx", qualifiers="os=windows")
 
     def test_removal_of_duped_purls(self):
         Package = apps.get_model("vulnerabilities", "Package")

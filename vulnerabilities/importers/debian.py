@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -47,8 +47,8 @@ class DebianImporter(Importer):
     security data in vulnerablecode and have some kind of licensing
     declaration from your side.
 
-    [1] - https://github.com/nexB/vulnerablecode
-    [2] - https://github.com/nexB/vulnerablecode/pull/723
+    [1] - https://github.com/aboutcode-org/vulnerablecode
+    [2] - https://github.com/aboutcode-org/vulnerablecode/pull/723
 
     Regards,
 
@@ -97,17 +97,19 @@ class DebianImporter(Importer):
             affected_versions = []
             fixed_versions = []
             if not cve_id.startswith("CVE"):
-                logger.error(f"Invalid CVE ID: {cve_id} in {record} in package {pkg_name}")
+                logger.error(
+                    f"Invalid CVE ID: {cve_id} in {record} in package {pkg_name}")
                 continue
 
             # vulnerabilities starting with something else may not be public yet
             # see for instance https://web.archive.org/web/20201215213725/https://security-tracker.debian.org/tracker/TEMP-0000000-A2EB44
             # TODO: this would need to be revisited though to ensure we are not missing out on anything
-            # https://github.com/nexB/vulnerablecode/issues/730
+            # https://github.com/aboutcode-org/vulnerablecode/issues/730
 
             releases = record["releases"].items()
             for release_name, release_record in releases:
-                version = get_item(release_record, "repositories", release_name)
+                version = get_item(
+                    release_record, "repositories", release_name)
 
                 if not version:
                     logger.error(
@@ -134,11 +136,13 @@ class DebianImporter(Importer):
             debianbug = record.get("debianbug")
             if debianbug:
                 bug_url = f"https://bugs.debian.org/cgi-bin/bugreport.cgi?bug={debianbug}"
-                references.append(Reference(url=bug_url, reference_id=str(debianbug)))
+                references.append(
+                    Reference(url=bug_url, reference_id=str(debianbug)))
             affected_versions = dedupe(affected_versions)
             fixed_versions = dedupe(fixed_versions)
             if affected_versions:
-                affected_version_range = DebianVersionRange.from_versions(affected_versions)
+                affected_version_range = DebianVersionRange.from_versions(
+                    affected_versions)
             else:
                 affected_version_range = None
             affected_packages = []

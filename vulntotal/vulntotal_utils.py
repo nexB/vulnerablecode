@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -15,7 +15,8 @@ class GenericVersion:
     def __init__(self, version):
         self.value = version
         self.decomposed = tuple(
-            [com for com in self.value.replace(" ", "").lstrip("vV").split(".")]
+            [com for com in self.value.replace(
+                " ", "").lstrip("vV").split(".")]
         )
 
     def __str__(self):
@@ -142,7 +143,8 @@ def gitlab_constraints_satisfied(gitlab_constraint, version):
     if gitlab_constraints.startswith(("[", "(")):
         # transform "[7.0.0,7.0.11),[7.2.0,7.2.4)" -> [ "[7.0.0,7.0.11)", "[7.2.0,7.2.4)" ]
         splitted = gitlab_constraints.split(",")
-        constraints = [f"{a},{b}" for a, b in zip(splitted[::2], splitted[1::2])]
+        constraints = [f"{a},{b}" for a, b in zip(
+            splitted[::2], splitted[1::2])]
         delimiter = ","
 
     else:
@@ -157,11 +159,13 @@ def gitlab_constraints_satisfied(gitlab_constraint, version):
         for subconstraint in constraint.strip().split(delimiter):
             if not subconstraint:
                 continue
-            gitlab_comparator, gitlab_version = parse_constraint(subconstraint.strip())
+            gitlab_comparator, gitlab_version = parse_constraint(
+                subconstraint.strip())
             if not gitlab_version:
                 continue
             if not compare(
-                GenericVersion(version), gitlab_comparator, GenericVersion(gitlab_version)
+                GenericVersion(version), gitlab_comparator, GenericVersion(
+                    gitlab_version)
             ):
                 is_constraint_satisfied = False
                 break
@@ -190,11 +194,13 @@ def get_item(entity: Union[dict, list], *attributes):
         if not entity:
             return
         if not isinstance(entity, (dict, list)):
-            raise TypeError(f"Entity must be of type `dict` or `list` not {type(entity)}")
+            raise TypeError(
+                f"Entity must be of type `dict` or `list` not {type(entity)}")
         if isinstance(entity, dict) and attribute not in entity:
             raise KeyError(f"Missing attribute {attribute} in {entity}")
         if isinstance(entity, list) and not isinstance(attribute, int):
-            raise TypeError(f"List indices must be integers not {type(attribute)}")
+            raise TypeError(
+                f"List indices must be integers not {type(attribute)}")
         if isinstance(entity, list) and len(entity) <= attribute:
             raise IndexError(f"Index {attribute} out of range for {entity}")
 

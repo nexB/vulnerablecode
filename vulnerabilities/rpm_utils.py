@@ -3,7 +3,7 @@
 # VulnerableCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/vulnerablecode for support or download.
+# See https://github.com/aboutcode-org/vulnerablecode for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -17,7 +17,9 @@ logger = logging.getLogger(__name__)
 
 # This code has been vendored from scancode.
 
-# https://github.com/nexB/scancode-toolkit/blob/16ae20a343c5332114edac34c7b6fcf2fb6bca74/src/packagedcode/rpm.py#L91
+# https://github.com/aboutcode-org/scancode-toolkit/blob/16ae20a343c5332114edac34c7b6fcf2fb6bca74/src/packagedcode/rpm.py#L91
+
+
 class EVR(namedtuple("EVR", "epoch version release")):
     """
     The RPM Epoch, Version, Release tuple.
@@ -52,7 +54,7 @@ class EVR(namedtuple("EVR", "epoch version release")):
         return vr
 
 
-# https://github.com/nexB/scancode-toolkit/blob/16ae20a343c5332114edac34c7b6fcf2fb6bca74/src/packagedcode/nevra.py#L36
+# https://github.com/aboutcode-org/scancode-toolkit/blob/16ae20a343c5332114edac34c7b6fcf2fb6bca74/src/packagedcode/nevra.py#L36
 def from_name(rpm_string):
     """
     Return an (E, N, V, R, A) tuple given a file name, by splitting
@@ -60,7 +62,8 @@ def from_name(rpm_string):
     Default epoch, version, release and arch to None if not specified.
     Accepts RPM names with and without extensions
     """
-    parse_nevra = re.compile("^" "(.*)" "-" "([^-]*)" "-" "([^-]*)" "\\." "([^.]*)" "$").match
+    parse_nevra = re.compile(
+        "^" "(.*)" "-" "([^-]*)" "-" "([^-]*)" "\\." "([^.]*)" "$").match
     m = parse_nevra(rpm_string)
     if not m:
         return None
@@ -81,7 +84,7 @@ def rpm_to_purl(rpm_string, namespace):
     # Red Hat uses `-:0` instead of just `-` to separate
     # package name and version
 
-    # https://github.com/nexB/scancode-toolkit/blob/16ae20a343c5332114edac34c7b6fcf2fb6bca74/src/packagedcode/rpm.py#L310
+    # https://github.com/aboutcode-org/scancode-toolkit/blob/16ae20a343c5332114edac34c7b6fcf2fb6bca74/src/packagedcode/rpm.py#L310
 
     envra = from_name(rpm_string)
 
