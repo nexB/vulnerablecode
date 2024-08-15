@@ -1,20 +1,18 @@
 [
-  {
-    "aliases": [
-      "CVE-2012-5510"
-    ],
-    "summary": "Grant table version switch list corruption vulnerability",
-    "affected_packages": [],
-    "references": [
-      {
-        "reference_id": "XSA-26",
-        "reference_type": "",
-        "url": "https://xenbits.xen.org/xsa/advisory-26.html",
-        "severities": []
-      }
-    ],
-    "date_published": null,
-    "weaknesses": [],
-    "url": "https://xenbits.xen.org/xsa/advisory-26.html"
-  }
+   {
+      "aliases": ["CVE-2012-5510"],
+      "summary": "Grant table version switch list corruption vulnerability",
+      "affected_packages": [],
+      "references": [
+         {
+            "reference_id": "XSA-26",
+            "reference_type": "",
+            "url": "https://xenbits.xen.org/xsa/advisory-26.html",
+            "severities": []
+         }
+      ],
+      "date_published": null,
+      "weaknesses": [],
+      "url": "https://xenbits.xen.org/xsa/advisory-26.html"
+   }
 ]

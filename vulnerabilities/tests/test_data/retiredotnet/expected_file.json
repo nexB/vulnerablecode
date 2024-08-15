@@ -1,91 +1,89 @@
 {
-  "aliases": [
-    "CVE-2019-0982"
-  ],
-  "summary": "Microsoft Security Advisory CVE-2019-0982: ASP.NET Core Denial of Service Vulnerability",
-  "affected_packages": [
-    {
-      "package": {
-        "type": "nuget",
-        "namespace": "",
-        "name": "Microsoft.AspNetCore.SignalR.Protocols.MessagePack",
-        "version": "",
-        "qualifiers": "",
-        "subpath": ""
+   "aliases": ["CVE-2019-0982"],
+   "summary": "Microsoft Security Advisory CVE-2019-0982: ASP.NET Core Denial of Service Vulnerability",
+   "affected_packages": [
+      {
+         "package": {
+            "type": "nuget",
+            "namespace": "",
+            "name": "Microsoft.AspNetCore.SignalR.Protocols.MessagePack",
+            "version": "",
+            "qualifiers": "",
+            "subpath": ""
+         },
+         "affected_version_range": "vers:nuget/1.0.0",
+         "fixed_version": "1.0.11"
       },
-      "affected_version_range": "vers:nuget/1.0.0",
-      "fixed_version": "1.0.11"
-    },
-    {
-      "package": {
-        "type": "nuget",
-        "namespace": "",
-        "name": "Microsoft.AspNetCore.SignalR.Protocols.MessagePack",
-        "version": "",
-        "qualifiers": "",
-        "subpath": ""
+      {
+         "package": {
+            "type": "nuget",
+            "namespace": "",
+            "name": "Microsoft.AspNetCore.SignalR.Protocols.MessagePack",
+            "version": "",
+            "qualifiers": "",
+            "subpath": ""
+         },
+         "affected_version_range": "vers:nuget/1.0.1",
+         "fixed_version": "1.0.11"
       },
-      "affected_version_range": "vers:nuget/1.0.1",
-      "fixed_version": "1.0.11"
-    },
-    {
-      "package": {
-        "type": "nuget",
-        "namespace": "",
-        "name": "Microsoft.AspNetCore.SignalR.Protocols.MessagePack",
-        "version": "",
-        "qualifiers": "",
-        "subpath": ""
+      {
+         "package": {
+            "type": "nuget",
+            "namespace": "",
+            "name": "Microsoft.AspNetCore.SignalR.Protocols.MessagePack",
+            "version": "",
+            "qualifiers": "",
+            "subpath": ""
+         },
+         "affected_version_range": "vers:nuget/1.0.2",
+         "fixed_version": "1.0.11"
       },
-      "affected_version_range": "vers:nuget/1.0.2",
-      "fixed_version": "1.0.11"
-    },
-    {
-      "package": {
-        "type": "nuget",
-        "namespace": "",
-        "name": "Microsoft.AspNetCore.SignalR.Protocols.MessagePack",
-        "version": "",
-        "qualifiers": "",
-        "subpath": ""
+      {
+         "package": {
+            "type": "nuget",
+            "namespace": "",
+            "name": "Microsoft.AspNetCore.SignalR.Protocols.MessagePack",
+            "version": "",
+            "qualifiers": "",
+            "subpath": ""
+         },
+         "affected_version_range": "vers:nuget/1.0.3",
+         "fixed_version": "1.0.11"
       },
-      "affected_version_range": "vers:nuget/1.0.3",
-      "fixed_version": "1.0.11"
-    },
-    {
-      "package": {
-        "type": "nuget",
-        "namespace": "",
-        "name": "Microsoft.AspNetCore.SignalR.Protocols.MessagePack",
-        "version": "",
-        "qualifiers": "",
-        "subpath": ""
+      {
+         "package": {
+            "type": "nuget",
+            "namespace": "",
+            "name": "Microsoft.AspNetCore.SignalR.Protocols.MessagePack",
+            "version": "",
+            "qualifiers": "",
+            "subpath": ""
+         },
+         "affected_version_range": "vers:nuget/1.0.4",
+         "fixed_version": "1.0.11"
       },
-      "affected_version_range": "vers:nuget/1.0.4",
-      "fixed_version": "1.0.11"
-    },
-    {
-      "package": {
-        "type": "nuget",
-        "namespace": "",
-        "name": "Microsoft.AspNetCore.SignalR.Protocols.MessagePack",
-        "version": "",
-        "qualifiers": "",
-        "subpath": ""
-      },
-      "affected_version_range": "vers:nuget/1.1.0",
-      "fixed_version": "1.1.5"
-    }
-  ],
-  "references": [
-    {
-      "reference_id": "",
-      "reference_type": "",
-      "url": "https://github.com/aspnet/Announcements/issues/359",
-      "severities": []
-    }
-  ],
-  "date_published": null,
-  "weaknesses": [],
-  "url": "https://github.com/RetireNet/Packages/blob/master/test_file.json"
+      {
+         "package": {
+            "type": "nuget",
+            "namespace": "",
+            "name": "Microsoft.AspNetCore.SignalR.Protocols.MessagePack",
+            "version": "",
+            "qualifiers": "",
+            "subpath": ""
+         },
+         "affected_version_range": "vers:nuget/1.1.0",
+         "fixed_version": "1.1.5"
+      }
+   ],
+   "references": [
+      {
+         "reference_id": "",
+         "reference_type": "",
+         "url": "https://github.com/aspnet/Announcements/issues/359",
+         "severities": []
+      }
+   ],
+   "date_published": null,
+   "weaknesses": [],
+   "url": "https://github.com/RetireNet/Packages/blob/master/test_file.json"
 }

@@ -4029,7 +4029,7 @@ potential DoS attack.</description>
       <impact severity="Moderate" />
       <affects base="1.0.2" version="1.0.2" />
       <fixed base="1.0.2" version="1.0.2a" date="20150319" />
-      <description>Segmentation fault in DTLSv1_listen. 
+      <description>Segmentation fault in DTLSv1_listen.
 A defect in the implementation of DTLSv1_listen means that state is preserved in
 the SSL object from one invocation to the next that can lead to a segmentation
 fault. Errors processing the initial ClientHello can trigger this scenario. An
@@ -5173,14 +5173,14 @@ the certificate key is invalid. This function is rarely used in practice.</descr
       <description>OpenSSL has added support for TLS_FALLBACK_SCSV to allow applications
       to block the ability for a MITM attacker to force a protocol
       downgrade.
-  
+
       Some client applications (such as browsers) will reconnect using a
       downgraded protocol to work around interoperability bugs in older
       servers. This could be exploited by an active man-in-the-middle to
       downgrade connections to SSL 3.0 even if both sides of the connection
       support higher protocols. SSL 3.0 contains a number of weaknesses
       including POODLE (CVE-2014-3566).
-  
+
       See also
       https://tools.ietf.org/html/draft-ietf-tls-downgrade-scsv-00 and
       https://www.openssl.org/~bodo/ssl-poodle.pdf</description>
@@ -5315,7 +5315,7 @@ attacker.  OpenSSL SSL/TLS clients and servers themselves are not affected.</des
       <description>A crash was found affecting SRP ciphersuites used in a Server Hello message.
 The issue affects OpenSSL clients and allows a malicious server to crash
 the client with a null pointer dereference (read) by specifying an SRP
-ciphersuite even though it was not properly negotiated with the client. This 
+ciphersuite even though it was not properly negotiated with the client. This
 could lead to a Denial of Service.</description>
       <affects base="1.0.1" version="1.0.1" />
       <affects base="1.0.1" version="1.0.1a" />
@@ -5467,7 +5467,7 @@ Denial of Service attack.</description>
       <fixed base="0.9.8" version="0.9.8zb" date="20140806" />
       <description>A DTLS flaw leading to memory exhaustion was found.
 An attacker can force openssl to consume large amounts of memory whilst
-processing DTLS handshake messages. This could lead to a Denial of 
+processing DTLS handshake messages. This could lead to a Denial of
 Service attack.</description>
       <reported source="Adam Langley (Google)" />
       <advisory url="/news/secadv/20140806.txt" />
@@ -5663,7 +5663,7 @@ flaw did not affect any released version of 0.9.6 or 0.9.7</description>
       <affects base="0.9.6" version="0.9.6c" />
       <affects base="0.9.6" version="0.9.6d" />
       <fixed base="0.9.6" version="0.9.6e" date="20020730" />
-      <description>A flaw in the ASN1 library allowed remote attackers to cause a denial of 
+      <description>A flaw in the ASN1 library allowed remote attackers to cause a denial of
 service by sending invalid encodings.</description>
    </issue>
    <issue public="20020808">
@@ -5720,7 +5720,7 @@ plaintext, aka the "Vaudenay timing attack."</description>
       <advisory url="/news/secadv/20030319.txt" />
       <description>The SSL and TLS components allowed remote attackers to perform an
 unauthorized RSA private key operation via a modified Bleichenbacher
-attack that uses a large number of SSL or TLS connections using PKCS #1 
+attack that uses a large number of SSL or TLS connections using PKCS #1
 v1.5 padding that caused OpenSSL to leak information regarding the
 relationship between ciphertext and the associated plaintext, aka the
 "Klima-Pokorny-Rosa attack"</description>
@@ -6138,9 +6138,9 @@ server, that server could cause the client to crash.</description>
       <fixed base="0.9.8" version="0.9.8f" date="20071012" />
       <advisory url="/news/secadv/20071012.txt" />
       <reported source="Andy Polyakov" />
-      <description>A flaw in DTLS support. An attacker 
-could create a malicious client or server that could trigger a heap 
-overflow. This is possibly exploitable to run arbitrary code, but it has 
+      <description>A flaw in DTLS support. An attacker
+could create a malicious client or server that could trigger a heap
+overflow. This is possibly exploitable to run arbitrary code, but it has
 not been verified.</description>
    </issue>
    <issue public="20071012">
@@ -6154,10 +6154,10 @@ not been verified.</description>
       <fixed base="0.9.8" version="0.9.8f" date="20071012" />
       <advisory url="/news/secadv/20071012.txt" />
       <reported source="Moritz Jodeit" />
-      <description>A flaw was found in the SSL_get_shared_ciphers() utility function. An 
-attacker could send a list of ciphers to an application that used this 
-function and overrun a buffer with a single byte. Few 
-applications make use of this vulnerable function and generally it is used 
+      <description>A flaw was found in the SSL_get_shared_ciphers() utility function. An
+attacker could send a list of ciphers to an application that used this
+function and overrun a buffer with a single byte. Few
+applications make use of this vulnerable function and generally it is used
 only when applications are compiled for debugging.</description>
    </issue>
    <issue public="20080528">
@@ -6346,11 +6346,11 @@ remote attacker could use this flaw to cause a DTLS server to crash.</descriptio
          <git hash="88b48dc68024dcc437da4296c9fb04419b0ccbe1" />
       </fixed>
       <reported source="Daniel Mentz, Robin Seggelmann" />
-      <description>Fix a denial of service flaw in the DTLS implementation.  
-Records are buffered if they arrive with a future epoch to be  
-processed after finishing the corresponding handshake. There is  
-currently no limitation to this buffer allowing an attacker to perform  
-a DOS attack to a DTLS server by sending records with future epochs until there is no  
+      <description>Fix a denial of service flaw in the DTLS implementation.
+Records are buffered if they arrive with a future epoch to be
+processed after finishing the corresponding handshake. There is
+currently no limitation to this buffer allowing an attacker to perform
+a DOS attack to a DTLS server by sending records with future epochs until there is no
 memory left.</description>
    </issue>
    <issue public="20090512">
@@ -6374,10 +6374,10 @@ memory left.</description>
       </fixed>
       <reported source="Daniel Mentz, Robin Seggelmann" />
       <description>Fix a denial of service flaw in the DTLS implementation.
-In dtls1_process_out_of_seq_message() the check if the current message 
-is already buffered was missing. For every new message was memory 
-allocated, allowing an attacker to perform an denial of service attack 
-against a DTLS server by sending out of seq handshake messages until there is no memory 
+In dtls1_process_out_of_seq_message() the check if the current message
+is already buffered was missing. For every new message was memory
+allocated, allowing an attacker to perform an denial of service attack
+against a DTLS server by sending out of seq handshake messages until there is no memory
 left.</description>
    </issue>
    <issue public="20090512">
@@ -6509,7 +6509,7 @@ OpenSSL client or server to crash due to a read attempt at NULL.</description>
       <fixed base="1.0.0" version="1.0.0a" date="20100601" />
       <advisory url="/news/secadv/20100601.txt" />
       <reported source="Ronald Moesbergen" />
-      <description>A flaw in the handling of CMS structures containing OriginatorInfo was found which 
+      <description>A flaw in the handling of CMS structures containing OriginatorInfo was found which
 could lead to a write to invalid memory address or double free.  CMS support is
 disabled by default in OpenSSL 0.9.8 versions.</description>
    </issue>
@@ -6686,8 +6686,8 @@ enabled in the configuration.</description>
       <fixed base="0.9.8" version="0.9.8s" date="20120104" />
       <advisory url="/news/secadv/20120104.txt" />
       <reported source="Nadhem Alfardan and Kenny Paterson" />
-      <description>OpenSSL was susceptable an extension of the 
-Vaudenay padding oracle attack on CBC mode encryption which enables an 
+      <description>OpenSSL was susceptable an extension of the
+Vaudenay padding oracle attack on CBC mode encryption which enables an
 efficient plaintext recovery attack against the OpenSSL implementation
 of DTLS by exploiting timing differences arising during
 decryption processing.</description>
@@ -6717,7 +6717,7 @@ decryption processing.</description>
       <advisory url="/news/secadv/20120104.txt" />
       <reported source="Ben Laurie" />
       <description>If X509_V_FLAG_POLICY_CHECK is set in OpenSSL 0.9.8, then a policy
-check failure can lead to a double-free. The bug does not occur 
+check failure can lead to a double-free. The bug does not occur
 unless this flag is set. Users of OpenSSL 1.0.0 are not affected</description>
    </issue>
    <issue public="20120104">
@@ -6788,7 +6788,7 @@ the contents of memory in some circumstances.</description>
       <reported source="Andrew Chi" />
       <description>RFC 3779 data can be included in certificates, and if it is malformed,
 may trigger an assertion failure. This could be used in a
-denial-of-service attack.  Builds of OpenSSL are only vulnerable if configured with 
+denial-of-service attack.  Builds of OpenSSL are only vulnerable if configured with
 "enable-rfc3779", which is not a default.</description>
    </issue>
    <issue public="20120104">
@@ -6890,7 +6890,7 @@ service attack. Only DTLS applications are affected.</description>
       <description>A weakness in the OpenSSL CMS and PKCS #7 code can be exploited
 using Bleichenbacher's attack on PKCS #1 v1.5 RSA padding
 also known as the million message attack (MMA).
-Only users of CMS, PKCS #7, or S/MIME decryption operations are affected, 
+Only users of CMS, PKCS #7, or S/MIME decryption operations are affected,
 SSL/TLS applications are not affected by this issue.</description>
    </issue>
    <issue public="20110208">
@@ -7174,7 +7174,7 @@ This is not a vulnerability for OpenSSL prior to 1.0.0.</description>
          <git hash="ca98926" />
       </fixed>
       <reported source="Ron Barber" />
-      <description>A flaw in OpenSSL can cause an application using OpenSSL to crash when using TLS version 1.2.  
+      <description>A flaw in OpenSSL can cause an application using OpenSSL to crash when using TLS version 1.2.
 This issue only affected OpenSSL 1.0.1 versions.</description>
    </issue>
    <issue public="20140106">
@@ -7320,7 +7320,7 @@ issue did not affect versions of OpenSSL prior to 1.0.1.</description>
       <fixed base="0.9.8" version="0.9.8za" date="20140605" />
       <description>An attacker can force the use of weak
     keying material in OpenSSL SSL/TLS clients and servers. This can be exploited
-    by a Man-in-the-middle (MITM) attack where the attacker can decrypt and 
+    by a Man-in-the-middle (MITM) attack where the attacker can decrypt and
     modify traffic from the attacked client and server.</description>
       <advisory url="/news/secadv/20140605.txt" />
       <reported source="KIKUCHI Masashi (Lepidum Co. Ltd.)" />

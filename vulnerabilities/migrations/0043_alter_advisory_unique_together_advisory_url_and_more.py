@@ -32,7 +32,8 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name="advisory",
-            unique_together={("aliases", "unique_content_id", "date_published", "url")},
+            unique_together={("aliases", "unique_content_id",
+                              "date_published", "url")},
         ),
         migrations.CreateModel(
             name="VulnerabilityChangeLog",
@@ -77,7 +78,8 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "action_type",
-                    models.PositiveSmallIntegerField(choices=[(1, "Import"), (2, "Improve")]),
+                    models.PositiveSmallIntegerField(
+                        choices=[(1, "Import"), (2, "Improve")]),
                 ),
                 (
                     "vulnerability",

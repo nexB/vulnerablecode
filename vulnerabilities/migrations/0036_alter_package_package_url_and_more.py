@@ -13,11 +13,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='package',
             name='package_url',
-            field=models.CharField(db_index=True, help_text='The Package URL for this package.', max_length=1000),
+            field=models.CharField(
+                db_index=True, help_text='The Package URL for this package.', max_length=1000),
         ),
         migrations.AlterField(
             model_name='package',
             name='plain_package_url',
-            field=models.CharField(db_index=True, help_text='The Package URL for this package without qualifiers and subpath.', max_length=1000),
+            field=models.CharField(
+                db_index=True, help_text='The Package URL for this package without qualifiers and subpath.', max_length=1000),
         ),
     ]

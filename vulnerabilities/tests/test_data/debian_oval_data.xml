@@ -84,7 +84,7 @@
             <object object_ref="oval:org.debian.oval:obj:3"/>
             <state state_ref="oval:org.debian.oval:ste:2"/>
             </dpkginfo_test>
-        
+
             <dpkginfo_test check="all" check_existence="at_least_one_exists" comment="krb5 is earlier than 1.10.1+dfsg-5+deb7u1" id="oval:org.debian.oval:tst:4" version="1" xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5#linux">
       <object object_ref="oval:org.debian.oval:obj:4"/>
       <state state_ref="oval:org.debian.oval:ste:3"/>
@@ -123,6 +123,6 @@
       <evr datatype="debian_evr_string" operation="less than">0:1.10.1+dfsg-5+deb7u1</evr>
     </dpkginfo_state>
     </states>
-      
+
 
 </oval_definitions>

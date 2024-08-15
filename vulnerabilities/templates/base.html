@@ -1,30 +1,26 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+   <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>{% block title %}VulnerableCode.io{% endblock %}</title>
+      <link rel="icon" href="{% static 'images/favicon.ico' %}" />
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}VulnerableCode.io{% endblock %}</title>
-    <link rel="icon" href="{% static 'images/favicon.ico' %}" />
+      <link rel="stylesheet" href="{% static 'css/bulma.css' %}" />
+      <link rel="stylesheet" href="{% static 'css/custom.css' %}" />
+      <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}" />
+      <link rel="stylesheet" href="{% static 'css/bulma-tooltip.css' %}" />
 
-    <link rel="stylesheet" href="{% static 'css/bulma.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/custom.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/bulma-tooltip.css' %}" />
+      {% block extrahead %}{% endblock %}
+   </head>
 
-    {% block extrahead %}{% endblock %}
-</head>
+   <body class="Site">
+      <div class="container max-desktop-width is-fullheight">
+         {% include "navbar.html" %} {% block content %}{% endblock %} {%
+         include "footer.html" %}
+      </div>
 
-<body class="Site">
-    <div class="container max-desktop-width is-fullheight">
-        {% include "navbar.html" %}
-        {% block content %}{% endblock %}
-        {% include "footer.html" %}
-    </div>
-
-    {% block scripts %}
-    {% endblock %}
-</body>
-
+      {% block scripts %} {% endblock %}
+   </body>
 </html>

@@ -40,4 +40,5 @@ class Migration(migrations.Migration):
             )
 
     # sepecifying migrations.RunPython.noop as reverse_code
-    operations = [migrations.RunPython(remove_duplicate_rows, migrations.RunPython.noop)]
+    operations = [migrations.RunPython(
+        remove_duplicate_rows, migrations.RunPython.noop)]

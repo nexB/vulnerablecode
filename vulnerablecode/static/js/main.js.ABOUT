@@ -3,7 +3,7 @@ purl: pkg:github/jgthms/bulma@0.9.0
 version: v0.9.0
 download_url: https://github.com/jgthms/bulma/archive/refs/tags/0.9.0.tar.gz
 
-name: bulma css 
+name: bulma css
 homepage_url: https://github.com/jgthms/bulma
 owner: Jeremy Thomas
 author: Jeremy Thomas

@@ -2,7 +2,7 @@ about_resource: fontawesome-webfont.svg
 version: 4.7.0
 download_url: https://github.com/FortAwesome/Font-Awesome/blob/v4.7.0/fonts/fontawesome-webfont.svg?raw=true
 
-name: fontawesome-webfont.svg 
+name: fontawesome-webfont.svg
 homepage_url: https://github.com/FortAwesome/Font-Awesome
 owner: FortAwesome
 author: Dave Gandy

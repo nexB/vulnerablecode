@@ -16,7 +16,8 @@ class Migration(migrations.Migration):
         trhe relationships.
         """
 
-        VulnerabilityReference = apps.get_model("vulnerabilities", "VulnerabilityReference")
+        VulnerabilityReference = apps.get_model(
+            "vulnerabilities", "VulnerabilityReference")
 
         duplicates = (
             VulnerabilityReference.objects.values("url")
@@ -37,5 +38,6 @@ class Migration(migrations.Migration):
             )
 
     operations = [
-        migrations.RunPython(remove_duplicate_reference_urls, migrations.RunPython.noop),
+        migrations.RunPython(remove_duplicate_reference_urls,
+                             migrations.RunPython.noop),
     ]

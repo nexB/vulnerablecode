@@ -18,8 +18,8 @@ class Migration(migrations.Migration):
             updatables.append(vulnerability)
         # update in bulk, 500 at a time
         updated = Vulnerabilities.objects.bulk_update(
-            objs=updatables, 
-            fields=["vulnerability_id"], 
+            objs=updatables,
+            fields=["vulnerability_id"],
             batch_size=500,
         )
         print(f"Migrated {updated} vulnerabilities to new VCID")

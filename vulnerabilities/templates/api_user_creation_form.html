@@ -1,51 +1,55 @@
-{% extends "base.html" %}
-{%load crispy_forms_tags %} 
-{% block title %}
-VulnerableCode API key request
-{% endblock %}
-
-{% block content %}
-    <section class="section pt-0">
-        {% for message in messages %}
-        <article class="message is-{% if message.level_tag == 'error' %}danger{% else %}{{ message.level_tag }}{% endif %}">
-          <div class="message-body">
-            {{ message|linebreaksbr }}
-          </div>
-        </article>
+{% extends "base.html" %} {%load crispy_forms_tags %} {% block title %}
+VulnerableCode API key request {% endblock %} {% block content %}
+<section class="section pt-0">
+   {% for message in messages %}
+   <article
+      class="message is-{% if message.level_tag == 'error' %}danger{% else %}{{ message.level_tag }}{% endif %}"
+   >
+      <div class="message-body">{{ message|linebreaksbr }}</div>
+   </article>
+   {% endfor %}
+   <div
+      id="form-errors"
+      class="message is-danger {% if not form.errors %}is-hidden{% endif %}"
+   >
+      {% for field_name, errors in form.errors.items %}
+      <div class="message-body">{{ errors }}</div>
       {% endfor %}
-      <div id="form-errors" class="message is-danger {% if not form.errors %}is-hidden{% endif %}">
-        {% for field_name, errors in form.errors.items %}
-        <div class="message-body">
-          {{ errors }}
-        </div>
-        {% endfor %}
-      </div>
-    <h2 class="subtitle mb-0 pt-2 mb-2">
+   </div>
+   <h2 class="subtitle mb-0 pt-2 mb-2">
       <b>VulnerableCode API key request</b>
-    </h2>
+   </h2>
 
-    <section class="ml-2 mt-3 pr-4 pt-4 pl-4 pb-4 has-background-light has-border-radius">
-      <p class="pb-2">You need an <b>API key</b> to access the 
-      <a href="{% url 'api-root' %}">VulnerableCode JSON REST API</a>.
-      Please check the live <a href="{% url 'api_docs' %}"> OpenAPI documentation </a> 
-      to learn how to use <a href="{% url 'api-root' %}">the API</a>.
-      By using this API, you agree to the VulnerableCode.io <a href="/tos">Terms of Service</a>.
-      This <b>API key</b> gives you a throttled access to the API and helps to prevent abuse of the API.
+   <section
+      class="ml-2 mt-3 pr-4 pt-4 pl-4 pb-4 has-background-light has-border-radius"
+   >
+      <p class="pb-2">
+         You need an <b>API key</b> to access the
+         <a href="{% url 'api-root' %}">VulnerableCode JSON REST API</a>. Please
+         check the live
+         <a href="{% url 'api_docs' %}"> OpenAPI documentation </a> to learn how
+         to use <a href="{% url 'api-root' %}">the API</a>. By using this API,
+         you agree to the VulnerableCode.io <a href="/tos">Terms of Service</a>.
+         This <b>API key</b> gives you a throttled access to the API and helps
+         to prevent abuse of the API.
       </p>
-    </section>
+   </section>
 
-    <br/>
-        <form action = "" method = "post">
-            {% csrf_token %}
-            {% for field in form %}
-                <div class="field mt-2">
-                    <label class="label" for="{{ form.name.id_for_label }}">{{ field.label }}</label>
-                    <div class="control">
-                        {{ field }}
-                    </div>
-                </div>
-            {% endfor %}
-            <input class="button is-link mt-5" type="submit" value="Request my API Key">
-        </form>
-    </section>
+   <br />
+   <form action="" method="post">
+      {% csrf_token %} {% for field in form %}
+      <div class="field mt-2">
+         <label class="label" for="{{ form.name.id_for_label }}"
+            >{{ field.label }}</label
+         >
+         <div class="control">{{ field }}</div>
+      </div>
+      {% endfor %}
+      <input
+         class="button is-link mt-5"
+         type="submit"
+         value="Request my API Key"
+      />
+   </form>
+</section>
 {% endblock %}

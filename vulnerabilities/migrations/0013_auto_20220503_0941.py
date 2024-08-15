@@ -2,6 +2,7 @@ from django.db import migrations
 
 from django.utils.http import int_to_base36
 
+
 class Migration(migrations.Migration):
 
     dependencies = [

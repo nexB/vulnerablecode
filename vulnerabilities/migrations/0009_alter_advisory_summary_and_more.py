@@ -23,11 +23,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='vulnerability',
             name='summary',
-            field=models.TextField(blank=True, help_text='Summary of the vulnerability'),
+            field=models.TextField(
+                blank=True, help_text='Summary of the vulnerability'),
         ),
         migrations.AlterField(
             model_name='vulnerabilityreference',
             name='reference_id',
-            field=models.CharField(blank=True, help_text='An optional reference ID, such as DSA-4465-1 when available', max_length=200),
+            field=models.CharField(
+                blank=True, help_text='An optional reference ID, such as DSA-4465-1 when available', max_length=200),
         ),
     ]

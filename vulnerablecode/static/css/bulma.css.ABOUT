@@ -2,7 +2,7 @@ about_resource: bulma.css
 version: v0.9.0
 download_url: https://raw.githubusercontent.com/jgthms/bulma/891fb0677e74190dc6259fe4677eab2bd8a57ac1/css/bulma.css
 
-name: bulma css 
+name: bulma css
 homepage_url: https://github.com/jgthms/bulma
 owner: Jeremy Thomas
 author: Jeremy Thomas

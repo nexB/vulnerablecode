@@ -12,6 +12,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterUniqueTogether(
             name="advisory",
-            unique_together={("aliases", "unique_content_id", "date_published")},
+            unique_together={
+                ("aliases", "unique_content_id", "date_published")},
         ),
     ]

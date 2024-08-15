@@ -14,23 +14,23 @@ class Migration(migrations.Migration):
         updatables = []
         for package in Package.objects.all():
             qualifiers = package.qualifiers
-            normalized_string = normalize_qualifiers(qualifiers, encode=True) or ""
+            normalized_string = normalize_qualifiers(
+                qualifiers, encode=True) or ""
             package.qualifiers_temp = normalized_string
             updatables.append(package)
-        
+
         updated = Package.objects.bulk_update(
-            objs = updatables,
-            fields=["qualifiers_temp",], 
+            objs=updatables,
+            fields=["qualifiers_temp",],
             batch_size=500,
         )
-        print(f"Copied {updated} qualifiers to qualifiers_temp")            
-
-
+        print(f"Copied {updated} qualifiers to qualifiers_temp")
 
     dependencies = [
         ("vulnerabilities", "0046_package_qualifiers_temp"),
     ]
 
     operations = [
-        migrations.RunPython(copy_qualifiers, reverse_code=migrations.RunPython.noop),
+        migrations.RunPython(
+            copy_qualifiers, reverse_code=migrations.RunPython.noop),
     ]

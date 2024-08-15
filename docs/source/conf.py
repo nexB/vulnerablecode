@@ -33,8 +33,10 @@ linkcheck_ignore = [
     r"http://127.0.0.1:\d+/",
     "https://api.github.com/graphql",  # Requires auth
     "https://anongit.gentoo.org/git/data/glsa.git",  # Git only link
-    "https://www.softwaretestinghelp.com/how-to-write-good-bug-report/",  # Cloudflare protection
-    "https://www.openssl.org/news/vulnerabilities.xml",  # OpenSSL legacy advisory URL, not longer available
+    # Cloudflare protection
+    "https://www.softwaretestinghelp.com/how-to-write-good-bug-report/",
+    # OpenSSL legacy advisory URL, not longer available
+    "https://www.openssl.org/news/vulnerabilities.xml",
 ]
 
 # Add any Sphinx extension module names here, as strings. They can be

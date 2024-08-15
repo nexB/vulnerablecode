@@ -11,7 +11,8 @@ class Migration(migrations.Migration):
         for advisory in Advisory.objects.all():
             checksum = hashlib.md5()
             for field in (advisory.summary, advisory.affected_packages, advisory.references):
-                value = json.dumps(field, separators=(",", ":")).encode("utf-8")
+                value = json.dumps(field, separators=(
+                    ",", ":")).encode("utf-8")
                 checksum.update(value)
             advisory.unique_content_id = checksum.hexdigest()
             advisory.save()

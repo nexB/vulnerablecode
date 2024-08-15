@@ -15,5 +15,6 @@ class Migration(migrations.Migration):
         Reference.objects.filter(url="").delete()
 
     operations = [
-        migrations.RunPython(delete_reference_with_empty_urls, migrations.RunPython.noop),
+        migrations.RunPython(delete_reference_with_empty_urls,
+                             migrations.RunPython.noop),
     ]

@@ -1,155 +1,155 @@
 {
-  "data": {
-    "securityVulnerabilities": {
-      "edges": [
-        {
-          "node": {
-            "advisory": {
-              "identifiers": [
-                {
-                  "type": "GHSA",
-                  "value": "GHSA-qcxh-w3j9-58qr"
-                },
-                {
-                  "type": "CVE",
-                  "value": "CVE-2019-0199"
-                }
-              ],
-              "summary": "Denial of Service in Tomcat",
-              "references":[
-                {
-                  "url":"https://github.com/advisories/GHSA-qcxh-w3j9-58qr"
-                }
-              ],
-              "severity": "MODERATE",
-              "publishedAt": "2021-05-24T18:12:20Z"
+   "data": {
+      "securityVulnerabilities": {
+         "edges": [
+            {
+               "node": {
+                  "advisory": {
+                     "identifiers": [
+                        {
+                           "type": "GHSA",
+                           "value": "GHSA-qcxh-w3j9-58qr"
+                        },
+                        {
+                           "type": "CVE",
+                           "value": "CVE-2019-0199"
+                        }
+                     ],
+                     "summary": "Denial of Service in Tomcat",
+                     "references": [
+                        {
+                           "url": "https://github.com/advisories/GHSA-qcxh-w3j9-58qr"
+                        }
+                     ],
+                     "severity": "MODERATE",
+                     "publishedAt": "2021-05-24T18:12:20Z"
+                  },
+                  "package": {
+                     "name": "org.apache.tomcat.embed:tomcat-embed-core"
+                  },
+                  "vulnerableVersionRange": ">= 8.0.0, < 8.5.38"
+               }
             },
-            "package": {
-              "name": "org.apache.tomcat.embed:tomcat-embed-core"
+            {
+               "node": {
+                  "advisory": {
+                     "identifiers": [
+                        {
+                           "type": "GHSA",
+                           "value": "GHSA-qcxh-w3j9-58qr"
+                        },
+                        {
+                           "type": "CVE",
+                           "value": "CVE-2019-0199"
+                        }
+                     ],
+                     "summary": "Denial of Service in Tomcat",
+                     "references": [
+                        {
+                           "url": "https://github.com/advisories/GHSA-qcxh-w3j9-58qr"
+                        }
+                     ],
+                     "severity": "HIGH",
+                     "publishedAt": "2021-05-24T18:12:20Z"
+                  },
+                  "package": {
+                     "name": "org.apache.tomcat.embed:tomcat-embed-core"
+                  },
+                  "vulnerableVersionRange": ">= 9.0.0, < 9.0.16"
+               }
             },
-            "vulnerableVersionRange": ">= 8.0.0, < 8.5.38"
-          }
-        },
-        {
-          "node": {
-            "advisory": {
-              "identifiers": [
-                {
-                  "type": "GHSA",
-                  "value": "GHSA-qcxh-w3j9-58qr"
-                },
-                {
-                  "type": "CVE",
-                  "value": "CVE-2019-0199"
-                }
-              ],
-              "summary": "Denial of Service in Tomcat",
-              "references":[
-                {
-                  "url":"https://github.com/advisories/GHSA-qcxh-w3j9-58qr"
-                }
-              ],
-              "severity": "HIGH",
-              "publishedAt": "2021-05-24T18:12:20Z"
+            {
+               "node": {
+                  "advisory": {
+                     "identifiers": [
+                        {
+                           "type": "GHSA",
+                           "value": "GHSA-c9hw-wf7x-jp9j"
+                        },
+                        {
+                           "type": "CVE",
+                           "value": "CVE-2020-1938"
+                        }
+                     ],
+                     "summary": "Improper Input Validation in Tomcat",
+                     "references": [
+                        {
+                           "url": "https://github.com/advisories/GHSA-c9hw-wf7x-jp9j"
+                        }
+                     ],
+                     "severity": "LOW",
+                     "publishedAt": "2021-05-24T18:12:20Z"
+                  },
+                  "package": {
+                     "name": "org.apache.tomcat.embed:tomcat-embed-core"
+                  },
+                  "vulnerableVersionRange": ">= 7.0.0, < 7.0.100"
+               }
             },
-            "package": {
-              "name": "org.apache.tomcat.embed:tomcat-embed-core"
+            {
+               "node": {
+                  "advisory": {
+                     "identifiers": [
+                        {
+                           "type": "GHSA",
+                           "value": "GHSA-c9hw-wf7x-jp9j"
+                        },
+                        {
+                           "type": "CVE",
+                           "value": "CVE-2020-1938"
+                        }
+                     ],
+                     "summary": "Improper Input Validation in Tomcat",
+                     "references": [
+                        {
+                           "url": "https://github.com/advisories/GHSA-c9hw-wf7x-jp9j"
+                        }
+                     ],
+                     "severity": "MODERATE",
+                     "publishedAt": "2021-05-24T18:12:20Z"
+                  },
+                  "package": {
+                     "name": "org.apache.tomcat.embed:tomcat-embed-core"
+                  },
+                  "vulnerableVersionRange": ">= 8.0.0, < 8.5.51"
+               }
             },
-            "vulnerableVersionRange": ">= 9.0.0, < 9.0.16"
-          }
-        },
-        {
-          "node": {
-            "advisory": {
-              "identifiers": [
-                {
-                  "type": "GHSA",
-                  "value": "GHSA-c9hw-wf7x-jp9j"
-                },
-                {
-                  "type": "CVE",
-                  "value": "CVE-2020-1938"
-                }
-              ],
-              "summary": "Improper Input Validation in Tomcat",
-              "references":[
-                {
-                  "url":"https://github.com/advisories/GHSA-c9hw-wf7x-jp9j"
-                }
-              ],
-              "severity": "LOW",
-              "publishedAt": "2021-05-24T18:12:20Z"
-            },
-            "package": {
-              "name": "org.apache.tomcat.embed:tomcat-embed-core"
-            },
-            "vulnerableVersionRange": ">= 7.0.0, < 7.0.100"
-          }
-        },
-        {
-          "node": {
-            "advisory": {
-              "identifiers": [
-                {
-                  "type": "GHSA",
-                  "value": "GHSA-c9hw-wf7x-jp9j"
-                },
-                {
-                  "type": "CVE",
-                  "value": "CVE-2020-1938"
-                }
-              ],
-              "summary": "Improper Input Validation in Tomcat",
-              "references":[
-                {
-                  "url":"https://github.com/advisories/GHSA-c9hw-wf7x-jp9j"
-                }
-              ],
-              "severity": "MODERATE",
-              "publishedAt": "2021-05-24T18:12:20Z"
-            },
-            "package": {
-              "name": "org.apache.tomcat.embed:tomcat-embed-core"
-            },
-            "vulnerableVersionRange": ">= 8.0.0, < 8.5.51"
-          }
-        },
-        {
-          "node": {
-            "advisory": {
-              "identifiers": [
-                {
-                  "type": "GHSA",
-                  "value": "GHSA-c9hw-wf7x-jp9j"
-                },
-                {
-                  "type": "CVE",
-                  "value": "CVE-2020-1938"
-                }
-              ],
-              "summary": "Improper Input Validation in Tomcat",
-              "references":[
-                {
-                  "url":"https://github.com/advisories/GHSA-c9hw-wf7x-jp9j"
-                }
-              ],
-              "severity": "LOW",
-              "publishedAt": "2021-05-24T18:12:20Z"
-            },
-            "package": {
-              "name": "org.apache.tomcat.embed:tomcat-embed-core"
-            },
-            "firstPatchedVersion": {
-              "identifier" :"9.0.1"
-            },
-            "vulnerableVersionRange": ">= 9.0.0, < 9.0.31"
-          }
-        }
-      ],
-      "pageInfo": {
-        "hasNextPage": true,
-        "endCursor": "Y3Vyc29yOnYyOpK5MjAyMC0wNi0xNVQyMTo0MDowOSswNTozMM0Nmw=="
+            {
+               "node": {
+                  "advisory": {
+                     "identifiers": [
+                        {
+                           "type": "GHSA",
+                           "value": "GHSA-c9hw-wf7x-jp9j"
+                        },
+                        {
+                           "type": "CVE",
+                           "value": "CVE-2020-1938"
+                        }
+                     ],
+                     "summary": "Improper Input Validation in Tomcat",
+                     "references": [
+                        {
+                           "url": "https://github.com/advisories/GHSA-c9hw-wf7x-jp9j"
+                        }
+                     ],
+                     "severity": "LOW",
+                     "publishedAt": "2021-05-24T18:12:20Z"
+                  },
+                  "package": {
+                     "name": "org.apache.tomcat.embed:tomcat-embed-core"
+                  },
+                  "firstPatchedVersion": {
+                     "identifier": "9.0.1"
+                  },
+                  "vulnerableVersionRange": ">= 9.0.0, < 9.0.31"
+               }
+            }
+         ],
+         "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "Y3Vyc29yOnYyOpK5MjAyMC0wNi0xNVQyMTo0MDowOSswNTozMM0Nmw=="
+         }
       }
-    }
-  }
+   }
 }

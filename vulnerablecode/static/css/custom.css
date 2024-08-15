@@ -1,190 +1,190 @@
 tab.Site {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
+   display: flex;
+   min-height: 100vh;
+   flex-direction: column;
 }
 
 .Site-content {
-    flex: 1;
+   flex: 1;
 }
 
 .nexb-orange {
-    color: #f7bf3c;
+   color: #f7bf3c;
 }
 
 .container.max-desktop-width {
-    width: 100%;
-    max-width: 100%;
+   width: 100%;
+   max-width: 100%;
 }
 
 body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
+   display: flex;
+   min-height: 100vh;
+   flex-direction: column;
 }
 
 a {
-    color: #0066ff;
-    text-decoration: none;
+   color: #0066ff;
+   text-decoration: none;
 }
 
 a:visited {
-    color: #0066ff;
-    text-decoration: none;
+   color: #0066ff;
+   text-decoration: none;
 }
 
 a:hover {
-    color: #000000;
-    text-decoration: none;
+   color: #000000;
+   text-decoration: none;
 }
 
 a {
-    font-weight: 400;
+   font-weight: 400;
 }
 
 a.button.paging {
-    color: #0066ff;
+   color: #0066ff;
 }
 
 a.button.paging:hover {
-    color: #000000;
-    text-decoration: none;
+   color: #000000;
+   text-decoration: none;
 }
 
 a.button.paging:visited {
-    color: #0066ff;
+   color: #0066ff;
 }
 
 .button.is-link {
-    background-color: #485fc7;
-    border-color: transparent;
-    color: #fff;
+   background-color: #485fc7;
+   border-color: transparent;
+   color: #fff;
 }
 
 .container.is-fullheight {
-    min-height: 100vh;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+   min-height: 100vh;
+   flex: 1;
+   display: flex;
+   flex-direction: column;
 }
 
 .footer {
-    background-color: #ffffff;
-    padding: 10px 10px 20px 10px;
-    border-top: solid 1px #000000;
-    font-size: 14px;
-    /* This keeps the footer at the bottom of a "short" page. */
-    margin-top: auto;
+   background-color: #ffffff;
+   padding: 10px 10px 20px 10px;
+   border-top: solid 1px #000000;
+   font-size: 14px;
+   /* This keeps the footer at the bottom of a "short" page. */
+   margin-top: auto;
 }
 
 @media screen and (min-width: 1024px) {
-    .footer {
-        width: 100%;
-    }
+   .footer {
+      width: 100%;
+   }
 }
 
 .navbar.border-bottom-radius {
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+   border-bottom-left-radius: 5px;
+   border-bottom-right-radius: 5px;
 }
 
 code {
-    padding-left: 30px;
-    color: #cd0000;
-    font-size: 14px;
+   padding-left: 30px;
+   color: #cd0000;
+   font-size: 14px;
 }
 
 .inline-code {
-    padding-left: 0px;
-    color: #cd0000;
-    background-color: #ffffff;
-    border: 0;
-    padding: 0;
-    font-family: Consolas;
+   padding-left: 0px;
+   color: #cd0000;
+   background-color: #ffffff;
+   border: 0;
+   padding: 0;
+   font-family: Consolas;
 }
 
 /* start tabset */
 
 #tab-content div,
-#tab-content div>div {
-    display: none;
+#tab-content div > div {
+   display: none;
 }
 
 #tab-content div.is-active,
-#tab-content div.is-active>div,
-#tab-content div.is-active>div>div,
-#tab-content div.is-active>div>div>div,
-#tab-content div.is-active>div>div>div>div {
-    display: block;
-    visibility: visible;
+#tab-content div.is-active > div,
+#tab-content div.is-active > div > div,
+#tab-content div.is-active > div > div > div,
+#tab-content div.is-active > div > div > div > div {
+   display: block;
+   visibility: visible;
 }
 
 #tab-content div {
-    border-bottom: 0;
-    margin-bottom: 50px;
-    padding-bottom: 50px;
+   border-bottom: 0;
+   margin-bottom: 50px;
+   padding-bottom: 50px;
 }
 
 #tab-content .tab-nested-div {
-    border-bottom: 0;
-    margin-bottom: 0px;
-    padding-bottom: 0px;
+   border-bottom: 0;
+   margin-bottom: 0px;
+   padding-bottom: 0px;
 }
 
 .tab-div {
-    border: 0;
-    background-color: #ffffff;
-    padding: 10px;
+   border: 0;
+   background-color: #ffffff;
+   padding: 10px;
 }
 
 .tabs.is-boxed ul {
-    padding-left: 20px;
-    border-color: #3298dc;
+   padding-left: 20px;
+   border-color: #3298dc;
 }
 
 .tabs li {
-    margin-left: 0px;
-    margin-right: 0px;
+   margin-left: 0px;
+   margin-right: 0px;
 }
 
 .tabs.is-boxed li a {
-    border-top-width: 3px;
+   border-top-width: 3px;
 }
 
 .tabs:not(:last-child) {
-    margin-bottom: 0px;
+   margin-bottom: 0px;
 }
 
 .tabs.is-boxed li a:hover {
-    border: solid 1px #e8e8e8;
-    border-top-width: 3px;
-    background-color: #ffffff;
-    border-color: #e8e8e8;
-    border-bottom-color: #3298dc;
+   border: solid 1px #e8e8e8;
+   border-top-width: 3px;
+   background-color: #ffffff;
+   border-color: #e8e8e8;
+   border-bottom-color: #3298dc;
 }
 
 .tabs.is-boxed li.is-active a,
 .tabs.is-boxed li.is-active a:hover {
-    background-color: white;
-    border-top: solid 3px #3298dc;
-    border-bottom-color: transparent !important;
-    color: #000000;
-    border-color: #3298dc;
+   background-color: white;
+   border-top: solid 3px #3298dc;
+   border-bottom-color: transparent !important;
+   color: #000000;
+   border-color: #3298dc;
 }
 
 /* end tabset */
 
 .table.vcio-table tr:last-child td,
 .table.vcio-table td {
-    border: solid 1px #dbdbdb;
+   border: solid 1px #dbdbdb;
 }
 
 .table th {
-    border-color: #000000;
+   border-color: #000000;
 }
 
 .table.gray-header-border th {
-    border-color: #dbdbdb;
+   border-color: #dbdbdb;
 }
 
 /* 2023-08-28 Monday 14:55:42.  Is this still needed or does wrap-strings take its place?  Keep eyes peeled for any odd <td> displays. */
@@ -192,387 +192,393 @@ code {
     word-wrap: break-word;
 } */
 
-
 .wrap-strings {
-    word-break: break-word;
+   word-break: break-word;
 }
 
 .two-col-left {
-    width: 255px;
-    text-align: right !important;
-    font-weight: bold;
-    padding-right: 15px !important;
-    line-height: 20px;
+   width: 255px;
+   text-align: right !important;
+   font-weight: bold;
+   padding-right: 15px !important;
+   line-height: 20px;
 }
 
 .two-col-right {
-    line-height: 20px;
+   line-height: 20px;
 }
 
 pre {
-    font-family: Consolas !important;
-    font-size: 13px;
-    color: #cc0000;
-    background-color: #f8f8f8;
-    border: solid 1px #e8e8e8;
-    border-radius: 5px;
-    overflow: visible;
-    white-space: pre-wrap;
-    margin: 10px 0px 0px 0px;
-    padding: 12px;
-    display: block;
+   font-family: Consolas !important;
+   font-size: 13px;
+   color: #cc0000;
+   background-color: #f8f8f8;
+   border: solid 1px #e8e8e8;
+   border-radius: 5px;
+   overflow: visible;
+   white-space: pre-wrap;
+   margin: 10px 0px 0px 0px;
+   padding: 12px;
+   display: block;
 }
 
 ul {
-    list-style-type: square;
+   list-style-type: square;
 }
 
 ul li {
-    background-repeat: no-repeat;
-    margin-left: 20px;
+   background-repeat: no-repeat;
+   margin-left: 20px;
 }
 
 .is-clipped-list ul {
-    list-style-type: none;
-    padding-left: 0px;
-    margin-left: 0px;
-    margin-top: 0px;
+   list-style-type: none;
+   padding-left: 0px;
+   margin-left: 0px;
+   margin-top: 0px;
 }
 
 .is-clipped-list ul li {
-    margin-left: 0px;
-    line-height: 18px;
+   margin-left: 0px;
+   line-height: 18px;
 }
 
 .tag:not(body).is-search-label-left {
-    box-shadow: 5px 5px 5px #cccccc;
-    border: solid 1px #b8b8b8;
-    font-weight: bold;
+   box-shadow: 5px 5px 5px #cccccc;
+   border: solid 1px #b8b8b8;
+   font-weight: bold;
 }
 
 .tag:not(body).is-search-label-right {
-    box-shadow: 5px 5px 5px #cccccc;
-    border: solid 1px #b8b8b8;
-    border-left: 0;
+   box-shadow: 5px 5px 5px #cccccc;
+   border: solid 1px #b8b8b8;
+   border-left: 0;
 }
 
 .message a:not(.button):not(.tag):not(.dropdown-item) {
-    color: #0066ff;
-    text-decoration: none;
+   color: #0066ff;
+   text-decoration: none;
 }
 
 .message a:not(.button):not(.tag):not(.dropdown-item):hover {
-    color: #0066ff;
-    text-decoration: underline;
+   color: #0066ff;
+   text-decoration: underline;
 }
 
 .message.is-info {
-    background-color: #ffffff;
-    border: 0;
-    box-shadow: 0 0.5em 1em -0.125em #e8e8e8, 0 0 0 1px #e8e8e8;
+   background-color: #ffffff;
+   border: 0;
+   box-shadow: 0 0.5em 1em -0.125em #e8e8e8, 0 0 0 1px #e8e8e8;
 }
 
 .message.is-info .message-header {
-    background-color: #3e8ed0;
-    color: #fff;
+   background-color: #3e8ed0;
+   color: #fff;
 }
 
 .message.is-info .message-body {
-    border-color: #3298dc;
-    color: #000000;
+   border-color: #3298dc;
+   color: #000000;
 }
 
 /* This is missing from our local bulma.css file, and is needed for the page-bottom pagination */
 .pagination-list li {
-    list-style: none;
-    margin: 0;
+   list-style: none;
+   margin: 0;
 }
 
 .small_page_button {
-    border: solid 1px #f2f2f2;
-    border-radius: 3px;
-    padding: 0px 6px 0px 6px;
-    background-color: #f8f8f8;
-    color: #cccccc;
-    font-size: 12px;
+   border: solid 1px #f2f2f2;
+   border-radius: 3px;
+   padding: 0px 6px 0px 6px;
+   background-color: #f8f8f8;
+   color: #cccccc;
+   font-size: 12px;
 }
 
 a.small_page_button {
-    border-color: #99c2ff;
-    background-color: #ffffff;
-    color: #0066ff;
+   border-color: #99c2ff;
+   background-color: #ffffff;
+   color: #0066ff;
 }
 
 .page_arrow_spacing {
-    padding: 0px 3px 0px 3px;
+   padding: 0px 3px 0px 3px;
 }
 
 .panel:not(:last-child).panel-header-only {
-    margin-bottom: 1.0rem;
+   margin-bottom: 1rem;
 }
 
 .column.skinny {
-    padding: 0.10rem;
-    line-height: 17px;
-    background-color: #ffffff;
-    border: solid 1px #e8e8e8;
-    font-size: 14px;
+   padding: 0.1rem;
+   line-height: 17px;
+   background-color: #ffffff;
+   border: solid 1px #e8e8e8;
+   font-size: 14px;
 }
 
 .dropdown-instructions-width {
-    width: 600px;
+   width: 600px;
 }
 
 .dropdown-instructions-box-shadow {
-    box-shadow: 0px 8px 16px 0px #808080;
+   box-shadow: 0px 8px 16px 0px #808080;
 }
 
 .dropdown-vuln-list-width {
-    width: 400px;
+   width: 400px;
 }
 
 .dropdown-vuln-dict-width {
-    max-width: 600px;
+   max-width: 600px;
 }
 
 .width-100-pct {
-    width: 100%;
+   width: 100%;
 }
 
 .search-alert {
-    border: solid 1px #ff9999;
-    padding: 20px;
-    margin-top: 20px;
-    background-color: #ffffff;
-    color: #ff0000;
-    z-index: 10;
+   border: solid 1px #ff9999;
+   padding: 20px;
+   margin-top: 20px;
+   background-color: #ffffff;
+   color: #ff0000;
+   z-index: 10;
 }
 
 .navbar-hover-div {
-    border: 0;
-    box-shadow: 0px 8px 16px 0px #808080;
-    min-width: 13rem;
-    padding: 0px;
+   border: 0;
+   box-shadow: 0px 8px 16px 0px #808080;
+   min-width: 13rem;
+   padding: 0px;
 }
 
 .details-container {
-    border: solid 1px #e8e8e8;
-    border: 0;
-    border-radius: 6px;
-    box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0px 0 1px rgb(10 10 10 / 2%);
+   border: solid 1px #e8e8e8;
+   border: 0;
+   border-radius: 6px;
+   box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%),
+      0 0px 0 1px rgb(10 10 10 / 2%);
 }
 
 .about-hover-div {
-    width: 500px;
+   width: 500px;
 }
 
 .fa_link_custom {
-    font-size: 10px !important;
-    vertical-align: super;
-    margin-left: 2px;
+   font-size: 10px !important;
+   vertical-align: super;
+   margin-left: 2px;
 }
 
 span.tag.custom {
-    margin: 0px 0px 6px 10px;
+   margin: 0px 0px 6px 10px;
 }
 
 /* CSS for dev fixed by headers */
 .dev_fixed_by_headers {
-    border: solid 1px #cccccc;
-    border-radius: 3px;
-    background-color: #f2f2f2;
-    color: #000000;
-    font-weight: bold;
-    font-size: 13px;
-    padding: 3px;
-    margin-bottom: 3px;
-    display: block;
+   border: solid 1px #cccccc;
+   border-radius: 3px;
+   background-color: #f2f2f2;
+   color: #000000;
+   font-weight: bold;
+   font-size: 13px;
+   padding: 3px;
+   margin-bottom: 3px;
+   display: block;
 }
 
 .non-floating-purl {
-    position: relative;
-    width: 100%;
-    z-index: 100;
-    margin-bottom: 0px;
+   position: relative;
+   width: 100%;
+   z-index: 100;
+   margin-bottom: 0px;
 }
 
 .non-floating-purl .table td,
 .non-floating-purl .table tbody tr:last-child td,
 .non-floating-purl .table th {
-    border: solid 1px #dbdbdb;
-    background-color: #ffffff;
+   border: solid 1px #dbdbdb;
+   background-color: #ffffff;
 }
 
 .non-vuln {
-    margin-top: -25px;
+   margin-top: -25px;
 }
 
 .non-vuln .table td,
 .non-vuln .table tbody tr:last-child td,
 .non-vuln .table th {
-    border: solid 1px #dbdbdb;
+   border: solid 1px #dbdbdb;
 }
 
 /* Floating container to display the PURL on the Package details page as the user scrolls down. */
 .floating-purl {
-    position: sticky;
-    top: 0;
-    width: 100%;
-    z-index: 100;
-    margin-bottom: 0px;
+   position: sticky;
+   top: 0;
+   width: 100%;
+   z-index: 100;
+   margin-bottom: 0px;
 }
 
 .floating-purl .table td,
 .floating-purl .table tbody tr:last-child td,
 .floating-purl .table th {
-    border: solid 1px #dbdbdb;
-    background-color: #ffffff;
+   border: solid 1px #dbdbdb;
+   background-color: #ffffff;
 }
 /* test bulleted list */
 
 ul.fixed_by_bullet {
-    list-style-type: disc;
-    /*margin-top: 2px;
+   list-style-type: disc;
+   /*margin-top: 2px;
 margin-bottom: 10px;*/
-    /*margin-left: -24px;*/
-    /*margin-left: -30px;*/
-    margin-top: 0.25em;
-    margin-left: 7px;
-    margin-bottom: 0.25em;
-    padding-left: 10px;
+   /*margin-left: -24px;*/
+   /*margin-left: -30px;*/
+   margin-top: 0.25em;
+   margin-left: 7px;
+   margin-bottom: 0.25em;
+   padding-left: 10px;
 }
 
 ul.fixed_by_bullet ul {
-    list-style-type: disc;
-    /*margin-top: 10px;*/
-    margin-top: 5px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin-left: 23px;
-    margin-left: 18px;
-    padding: 0;
-    border: none;
+   list-style-type: disc;
+   /*margin-top: 10px;*/
+   margin-top: 5px;
+   margin-top: 0px;
+   margin-bottom: 0px;
+   margin-left: 23px;
+   margin-left: 18px;
+   padding: 0;
+   border: none;
 }
 
-
-
 ul.fixed_by_bullet li {
-    margin-left: 0px;
-    font-family: Arial;
-    font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-    font-size: 13px;
-    font-weight: normal;
-    /*margin-bottom: 10px;*/
-    margin-bottom: 2px;
+   margin-left: 0px;
+   font-family: Arial;
+   font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto",
+      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+   font-size: 13px;
+   font-weight: normal;
+   /*margin-bottom: 10px;*/
+   margin-bottom: 2px;
 }
 
 ul.fixed_by_bullet li:last-child {
-    margin-left: 0px;
-    font-family: Arial;
-    font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-    font-size: 13px;
-    font-weight: normal;
-    /*margin-bottom: 10px;*/
-    margin-bottom: 0px;
+   margin-left: 0px;
+   font-family: Arial;
+   font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto",
+      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+   font-size: 13px;
+   font-weight: normal;
+   /*margin-bottom: 10px;*/
+   margin-bottom: 0px;
 }
 
 ul.fixed_by_bullet li li {
-    margin-left: 0px;
-    font-family: Arial;
-    font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-    font-size: 13px;
-    font-weight: normal;
-    margin-top: 0px;
-    color: #000000;
+   margin-left: 0px;
+   font-family: Arial;
+   font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto",
+      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+   font-size: 13px;
+   font-weight: normal;
+   margin-top: 0px;
+   color: #000000;
 }
 
 /* 10/10/15 add 3rd-level bullets */
 ul.fixed_by_bullet ul ul {
-    list-style-type: disc;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin-left: 50px;
-    margin-left: 17px;
-    padding: 0;
-    border: none;
+   list-style-type: disc;
+   margin-top: 0px;
+   margin-bottom: 0px;
+   margin-left: 50px;
+   margin-left: 17px;
+   padding: 0;
+   border: none;
 }
 
 ul.fixed_by_bullet li li li {
-    margin-left: 0px;
-    font-family: Arial;
-    font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-    font-size: 13px;
-    font-weight: normal;
-    margin-top: 0px;
-    color: #000000;
+   margin-left: 0px;
+   font-family: Arial;
+   font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto",
+      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+   font-size: 13px;
+   font-weight: normal;
+   margin-top: 0px;
+   color: #000000;
 }
 
 /* CSS for dev fixed by headers */
 .dev_fixed_by_headers {
-    border: solid 1px #cccccc;
-    border-radius: 3px;
-    background-color: #f2f2f2;
-    color: #000000;
-    font-weight: bold;
-    font-size: 13px;
-    padding: 3px;
-    margin-bottom: 3px;
-    display: block;
+   border: solid 1px #cccccc;
+   border-radius: 3px;
+   background-color: #f2f2f2;
+   color: #000000;
+   font-weight: bold;
+   font-size: 13px;
+   padding: 3px;
+   margin-bottom: 3px;
+   display: block;
 }
 
 .non-floating-purl {
-    position: relative;
-    width: 100%;
-    z-index: 100;
-    margin-bottom: 0px;
+   position: relative;
+   width: 100%;
+   z-index: 100;
+   margin-bottom: 0px;
 }
 
 .non-floating-purl .table td,
 .non-floating-purl .table tbody tr:last-child td,
 .non-floating-purl .table th {
-    border: solid 1px #dbdbdb;
-    background-color: #ffffff;
+   border: solid 1px #dbdbdb;
+   background-color: #ffffff;
 }
 
 .non-vuln {
-    margin-top: -25px;
+   margin-top: -25px;
 }
 
 .non-vuln .table td,
 .non-vuln .table tbody tr:last-child td,
 .non-vuln .table th {
-    border: solid 1px #dbdbdb;
+   border: solid 1px #dbdbdb;
 }
 
 /* Floating container to display the PURL on the Package details page as the user scrolls down. */
 .floating-purl {
-    position: sticky;
-    top: 0;
-    width: 100%;
-    z-index: 100;
-    margin-bottom: 0px;
+   position: sticky;
+   top: 0;
+   width: 100%;
+   z-index: 100;
+   margin-bottom: 0px;
 }
 
 .floating-purl .table td,
 .floating-purl .table tbody tr:last-child td,
 .floating-purl .table th {
-    border: solid 1px #dbdbdb;
-    background-color: #ffffff;
+   border: solid 1px #dbdbdb;
+   background-color: #ffffff;
 }
 
 /* Emphasis for affected/fixed headings and related references. */
 .affected-fixed {
-    color: #000000;
-    font-weight: 800;
+   color: #000000;
+   font-weight: 800;
 }
 
 /* Emphasis for not vulnerable. */
 .emphasis-not-vulnerable {
-    background-color: #e6ffe6;
-    /* background-color: #e6ffff; */
+   background-color: #e6ffe6;
+   /* background-color: #e6ffff; */
 }
 
 /* Emphasis for vulnerable. */
 .emphasis-vulnerable {
-    background-color: #ffe6e6;
+   background-color: #ffe6e6;
 }

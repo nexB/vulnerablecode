@@ -2,7 +2,7 @@ about_resource: fontawesome-webfont.woff2
 version: 4.7.0
 download_url:https://github.com/FortAwesome/Font-Awesome/blob/v4.7.0/fonts/fontawesome-webfont.woff2?raw=true
 
-name: fontawesome-webfont.woff2 
+name: fontawesome-webfont.woff2
 homepage_url: https://github.com/FortAwesome/Font-Awesome
 owner: FortAwesome
 author: Dave Gandy

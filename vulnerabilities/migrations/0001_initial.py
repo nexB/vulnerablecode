@@ -26,7 +26,8 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "name",
-                    models.CharField(help_text="Name of the importer", max_length=100, unique=True),
+                    models.CharField(
+                        help_text="Name of the importer", max_length=100, unique=True),
                 ),
                 (
                     "license",
@@ -36,7 +37,8 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "last_run",
-                    models.DateTimeField(help_text="UTC Timestamp of the last run", null=True),
+                    models.DateTimeField(
+                        help_text="UTC Timestamp of the last run", null=True),
                 ),
                 (
                     "data_source",
@@ -81,7 +83,8 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "name",
-                    models.CharField(blank=True, help_text="Name of the package.", max_length=100),
+                    models.CharField(
+                        blank=True, help_text="Name of the package.", max_length=100),
                 ),
                 (
                     "version",
@@ -274,7 +277,8 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "aliases",
-                    models.JSONField(blank=True, default=list, help_text="A list of alias strings"),
+                    models.JSONField(blank=True, default=list,
+                                     help_text="A list of alias strings"),
                 ),
                 ("summary", models.TextField(blank=True, null=True)),
                 (
@@ -301,7 +305,8 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "date_collected",
-                    models.DateTimeField(help_text="UTC Date on which the advisory was collected"),
+                    models.DateTimeField(
+                        help_text="UTC Date on which the advisory was collected"),
                 ),
                 (
                     "date_improved",
@@ -321,7 +326,8 @@ class Migration(migrations.Migration):
             ],
             options={
                 "unique_together": {
-                    ("aliases", "summary", "affected_packages", "references", "date_published")
+                    ("aliases", "summary", "affected_packages",
+                     "references", "date_published")
                 },
             },
         ),
@@ -357,7 +363,8 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "value",
-                    models.CharField(help_text="Example: 9.0, Important, High", max_length=50),
+                    models.CharField(
+                        help_text="Example: 9.0, Important, High", max_length=50),
                 ),
                 (
                     "reference",
@@ -380,7 +387,8 @@ class Migration(migrations.Migration):
         ),
         migrations.AddIndex(
             model_name="packagerelatedvulnerability",
-            index=models.Index(fields=["fix"], name="vulnerabili_fix_100a33_idx"),
+            index=models.Index(
+                fields=["fix"], name="vulnerabili_fix_100a33_idx"),
         ),
         migrations.AlterUniqueTogether(
             name="packagerelatedvulnerability",
@@ -388,6 +396,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name="package",
-            unique_together={("type", "namespace", "name", "version", "qualifiers", "subpath")},
+            unique_together={("type", "namespace", "name",
+                              "version", "qualifiers", "subpath")},
         ),
     ]

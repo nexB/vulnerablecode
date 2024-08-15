@@ -13,7 +13,8 @@ class Migration(migrations.Migration):
         migrations.AlterUniqueTogether(
             name="package",
             unique_together={
-                ("type", "namespace", "name", "version", "subpath", "qualifiers_temp")
+                ("type", "namespace", "name", "version",
+                 "subpath", "qualifiers_temp")
             },
         ),
         migrations.AlterField(

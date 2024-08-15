@@ -1,13 +1,6 @@
 {
-  "purl": "pkg:generic/namespace/test",
-  "affected_versions": [
-    "TEST-AFFECTED"
-  ],
-  "fixed_versions": [
-    "0.6.1"
-  ],
-  "aliases": [
-    "CVE-2021-37863",
-    "TEST-SNYKID"
-  ]
+   "purl": "pkg:generic/namespace/test",
+   "affected_versions": ["TEST-AFFECTED"],
+   "fixed_versions": ["0.6.1"],
+   "aliases": ["CVE-2021-37863", "TEST-SNYKID"]
 }

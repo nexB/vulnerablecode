@@ -1,25 +1,17 @@
-    [ 
-    {      "CVE":"CVE-2016-9401",
-        "severity":"low",
-        "public_date":"2016-11-17T00:00:00Z",
-        "advisories":[
-        "RHSA-2017:1931",
-        "RHSA-2017:0725"
-        
-    ],
-        "bugzilla":"1396383",
-        "bugzilla_description":"CVE-2016-9401 bash: popd controlled free",
-        "cvss_score":1.9,
-        "cvss_scoring_vector":"AV:L/AC:M/Au:N/C:N/I:N/A:P",
-        "CWE":"CWE-416",
-        "affected_packages":[
-        "bash-0:4.2.46-28.el7",
-        "bash-0:4.1.2-48.el6"
-        
-    ],
-        "resource_url":"https://access.redhat.com/hydra/rest/securitydata/cve/CVE-2016-9401.json",
-        "cvss3_scoring_vector":"CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L",
-        "cvss3_score":"3.3"
-    
-    }
+[
+   {
+      "CVE": "CVE-2016-9401",
+      "severity": "low",
+      "public_date": "2016-11-17T00:00:00Z",
+      "advisories": ["RHSA-2017:1931", "RHSA-2017:0725"],
+      "bugzilla": "1396383",
+      "bugzilla_description": "CVE-2016-9401 bash: popd controlled free",
+      "cvss_score": 1.9,
+      "cvss_scoring_vector": "AV:L/AC:M/Au:N/C:N/I:N/A:P",
+      "CWE": "CWE-416",
+      "affected_packages": ["bash-0:4.2.46-28.el7", "bash-0:4.1.2-48.el6"],
+      "resource_url": "https://access.redhat.com/hydra/rest/securitydata/cve/CVE-2016-9401.json",
+      "cvss3_scoring_vector": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L",
+      "cvss3_score": "3.3"
+   }
 ]

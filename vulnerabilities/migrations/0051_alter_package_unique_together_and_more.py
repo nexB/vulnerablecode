@@ -12,7 +12,8 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterUniqueTogether(
             name="package",
-            unique_together={("type", "namespace", "name", "version", "qualifiers", "subpath")},
+            unique_together={("type", "namespace", "name",
+                              "version", "qualifiers", "subpath")},
         ),
         migrations.RemoveField(
             model_name="package",
