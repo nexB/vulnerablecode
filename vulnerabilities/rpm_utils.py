@@ -62,8 +62,7 @@ def from_name(rpm_string):
     Default epoch, version, release and arch to None if not specified.
     Accepts RPM names with and without extensions
     """
-    parse_nevra = re.compile(
-        "^" "(.*)" "-" "([^-]*)" "-" "([^-]*)" "\\." "([^.]*)" "$").match
+    parse_nevra = re.compile("^" "(.*)" "-" "([^-]*)" "-" "([^-]*)" "\\." "([^.]*)" "$").match
     m = parse_nevra(rpm_string)
     if not m:
         return None

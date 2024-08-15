@@ -74,7 +74,6 @@ def test_istio_improver(mock_response):
     result = []
     for improver in improvers:
         for advisory in advisories:
-            inference = [data.to_dict()
-                         for data in improver.get_inferences(advisory)]
+            inference = [data.to_dict() for data in improver.get_inferences(advisory)]
             result.extend(inference)
     util_tests.check_results_against_json(result, expected_file)

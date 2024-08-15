@@ -32,11 +32,9 @@ environ.Env.read_env(str(ENV_FILE))
 
 SECRET_KEY = env.str("SECRET_KEY")
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[
-                         ".localhost", "127.0.0.1", "[::1]"])
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[".localhost", "127.0.0.1", "[::1]"])
 
-VULNERABLECODE_PASSWORD_MIN_LENGTH = env.int(
-    "VULNERABLECODE_PASSWORD_MIN_LENGTH", default=14)
+VULNERABLECODE_PASSWORD_MIN_LENGTH = env.int("VULNERABLECODE_PASSWORD_MIN_LENGTH", default=14)
 
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
 
@@ -175,13 +173,11 @@ VULNERABLECODEIO_REQUIRE_AUTHENTICATION = env.bool(
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
-REST_FRAMEWORK_DEFAULT_THROTTLE_RATES = {
-    "anon": "3600/hour", "user": "10800/hour"}
+REST_FRAMEWORK_DEFAULT_THROTTLE_RATES = {"anon": "3600/hour", "user": "10800/hour"}
 
 if IS_TESTS:
     VULNERABLECODEIO_REQUIRE_AUTHENTICATION = False
-    REST_FRAMEWORK_DEFAULT_THROTTLE_RATES = {
-        "anon": "10/day", "user": "20/day"}
+    REST_FRAMEWORK_DEFAULT_THROTTLE_RATES = {"anon": "10/day", "user": "20/day"}
 
 
 USE_L10N = True
@@ -287,8 +283,7 @@ SPECTACULAR_SETTINGS = {
 
 
 if not VULNERABLECODEIO_REQUIRE_AUTHENTICATION:
-    REST_FRAMEWORK["DEFAULT_PERMISSION_CLASSES"] = (
-        "rest_framework.permissions.AllowAny",)
+    REST_FRAMEWORK["DEFAULT_PERMISSION_CLASSES"] = ("rest_framework.permissions.AllowAny",)
 
 
 if DEBUG_TOOLBAR:

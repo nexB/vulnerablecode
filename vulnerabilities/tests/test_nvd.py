@@ -28,11 +28,13 @@ def sorted_advisory_data(advisory_data):
     Return ``advisory_data`` of AdvisoryData mappings where each mapping nested
     list is sorted for stable testing results.
     """
-    def sorter(dct): return tuple(dct.items())
+
+    def sorter(dct):
+        return tuple(dct.items())
+
     for data in advisory_data:
         data["aliases"] = sorted(data["aliases"])
-        data["affected_packages"] = sorted(
-            data["affected_packages"], key=sorter)
+        data["affected_packages"] = sorted(data["affected_packages"], key=sorter)
         data["references"] = sorted(data["references"], key=sorter)
     return advisory_data
 
@@ -57,8 +59,7 @@ def test_to_advisories_skips_hardware(regen=REGEN):
 
 
 def test_to_advisories_marks_rejected_cve(regen=REGEN):
-    expected_file = os.path.join(
-        BASE_DIR, "test_data/nvd/nvd-rejected-expected.json")
+    expected_file = os.path.join(BASE_DIR, "test_data/nvd/nvd-rejected-expected.json")
 
     test_data = load_test_data(file=REJECTED_CVE)
     result = [data.to_dict() for data in nvd.to_advisories(test_data)]
@@ -175,12 +176,9 @@ def test_CveItem_cpes():
 
 
 def test_is_related_to_hardware():
-    assert nvd.is_related_to_hardware(
-        "cpe:2.3:h:csilvers:gperftools:0.2:*:*:*:*:*:*:*")
-    assert not nvd.is_related_to_hardware(
-        "cpe:2.3:a:csilvers:gperftools:0.1:*:*:*:*:*:*:*")
-    assert not nvd.is_related_to_hardware(
-        "cpe:2.3:a:csilvers:gperftools:*:*:*:*:*:*:*:*")
+    assert nvd.is_related_to_hardware("cpe:2.3:h:csilvers:gperftools:0.2:*:*:*:*:*:*:*")
+    assert not nvd.is_related_to_hardware("cpe:2.3:a:csilvers:gperftools:0.1:*:*:*:*:*:*:*")
+    assert not nvd.is_related_to_hardware("cpe:2.3:a:csilvers:gperftools:*:*:*:*:*:*:*:*")
 
 
 def test_CveItem_summary_with_single_summary():
@@ -191,8 +189,7 @@ def test_CveItem_summary_with_single_summary():
         "be allocated than expected."
     )
 
-    assert nvd.CveItem(cve_item=get_test_cve_item()
-                       ).summary == expected_summary
+    assert nvd.CveItem(cve_item=get_test_cve_item()).summary == expected_summary
 
 
 def test_CveItem_reference_urls():
@@ -201,5 +198,4 @@ def test_CveItem_reference_urls():
         "http://kqueue.org/blog/2012/03/05/memory-allocator-security-revisited/",
     ]
 
-    assert nvd.CveItem(cve_item=get_test_cve_item()
-                       ).reference_urls == expected_urls
+    assert nvd.CveItem(cve_item=get_test_cve_item()).reference_urls == expected_urls

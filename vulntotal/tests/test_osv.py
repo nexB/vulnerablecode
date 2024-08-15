@@ -42,20 +42,16 @@ class TestOSV(testcase.FileBasedTesting):
                 "version": "10.1.0-M8",
                 "package": {"ecosystem": "Maven", "name": "org.apache.tomcat:tomcat"},
             },
-            {"version": "v5.4.195", "package": {
-                "ecosystem": "Linux", "name": "Kernel"}},
+            {"version": "v5.4.195", "package": {"ecosystem": "Linux", "name": "Kernel"}},
             {"version": "12.0.5", "package": {"name": "dolibarr/dolibarr"}},
-            {"version": "0.9.7", "package": {
-                "ecosystem": "crates.io", "name": "sha2"}},
-            {"version": "3.1.3", "package": {
-                "ecosystem": "npm", "name": "semver-regex"}},
+            {"version": "0.9.7", "package": {"ecosystem": "crates.io", "name": "sha2"}},
+            {"version": "3.1.3", "package": {"ecosystem": "npm", "name": "semver-regex"}},
             {
                 "version": "1.1.0",
                 "package": {"ecosystem": "Go", "name": "github.com/cloudflare/cfrpki"},
             },
         ]
-        results = [osv.generate_payload(
-            PackageURL.from_string(purl)) for purl in purls]
+        results = [osv.generate_payload(PackageURL.from_string(purl)) for purl in purls]
         assert results == expected
 
     def test_parse_advisory(self):
@@ -66,8 +62,7 @@ class TestOSV(testcase.FileBasedTesting):
             adv.to_dict()
             for adv in osv.parse_advisory(advisory, PackageURL("generic", "namespace", "test"))
         ]
-        expected_file = self.get_test_loc(
-            "parse_advisory_data-expected.json", must_exist=False)
+        expected_file = self.get_test_loc("parse_advisory_data-expected.json", must_exist=False)
         util_tests.check_results_against_json(results, expected_file)
 
 
@@ -77,6 +72,5 @@ class TestOSVLive(testcase.FileBasedTesting):
         # this test makes live API calls
         purl = PackageURL.from_string("pkg:nuget/moment.js@2.18.0")
         results = osv.generate_payload(purl)
-        expected = {"package": {"ecosystem": "NuGet",
-                                "name": "Moment.js"}, "version": "2.18.0"}
+        expected = {"package": {"ecosystem": "NuGet", "name": "Moment.js"}, "version": "2.18.0"}
         assert results == expected

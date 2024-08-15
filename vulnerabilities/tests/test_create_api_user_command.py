@@ -19,8 +19,7 @@ from django.test import TestCase
 class TestCreateApiUserCommand(TestCase):
     def test_create_simple_user(self):
         buf = StringIO()
-        call_command("create_api_user", "--email",
-                     "foo@example.com", stdout=buf)
+        call_command("create_api_user", "--email", "foo@example.com", stdout=buf)
         output = buf.getvalue()
         User = get_user_model()
         user = User.objects.get(username="foo@example.com")

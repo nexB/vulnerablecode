@@ -33,15 +33,13 @@ def test_to_advisory():
     advisories = ApacheKafkaImporter().to_advisory(raw_data)
     result = [data.to_dict() for data in advisories]
 
-    expected_file = os.path.join(
-        TEST_DATA, f"to-advisory-apache_kafka-expected.json")
+    expected_file = os.path.join(TEST_DATA, f"to-advisory-apache_kafka-expected.json")
     util_tests.check_results_against_json(result, expected_file)
 
 
 @patch("vulnerabilities.improvers.valid_versions.ApacheKafkaImprover.get_package_versions")
 def test_apache_tomcat_improver(mock_response):
-    advisory_file = os.path.join(
-        TEST_DATA, f"to-advisory-apache_kafka-expected.json")
+    advisory_file = os.path.join(TEST_DATA, f"to-advisory-apache_kafka-expected.json")
     with open(advisory_file) as exp:
         advisories = [AdvisoryData.from_dict(adv) for adv in (json.load(exp))]
     mock_response.return_value = [
@@ -59,11 +57,9 @@ def test_apache_tomcat_improver(mock_response):
     result = []
     for improver in improvers:
         for advisory in advisories:
-            inference = [data.to_dict()
-                         for data in improver.get_inferences(advisory)]
+            inference = [data.to_dict() for data in improver.get_inferences(advisory)]
             result.extend(inference)
-    expected_file = os.path.join(
-        TEST_DATA, f"apache-kafka-improver-expected.json")
+    expected_file = os.path.join(TEST_DATA, f"apache-kafka-improver-expected.json")
     util_tests.check_results_against_json(result, expected_file)
 
 

@@ -38,8 +38,7 @@ class EPSSImporter(Importer):
         model_version, score_date = next(
             epss_reader
         )  # score_date='score_date:2024-05-19T00:00:00+0000'
-        published_at = datetime.strptime(
-            score_date[11::], "%Y-%m-%dT%H:%M:%S%z")
+        published_at = datetime.strptime(score_date[11::], "%Y-%m-%dT%H:%M:%S%z")
 
         next(epss_reader)  # skip the header row
         for epss_row in epss_reader:

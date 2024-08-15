@@ -1,170 +1,170 @@
 [
-   {
-      "vulnerability_id": null,
-      "aliases": [],
-      "confidence": 100,
-      "summary": null,
-      "affected_purls": [],
-      "fixed_purl": {
-         "type": "alpine",
-         "namespace": "",
-         "name": "xen",
-         "version": "4.10.0-r1",
-         "qualifiers": "arch=aarch64&distroversion=v3.11&reponame=main",
-         "subpath": ""
-      },
-      "references": [
-         {
-            "reference_id": "XSA-248",
-            "reference_type": "",
-            "url": "https://xenbits.xen.org/xsa/advisory-248.html",
-            "severities": []
-         }
-      ],
-      "weaknesses": []
-   },
-   {
-      "vulnerability_id": null,
-      "aliases": [],
-      "confidence": 100,
-      "summary": null,
-      "affected_purls": [],
-      "fixed_purl": {
-         "type": "alpine",
-         "namespace": "",
-         "name": "xen",
-         "version": "4.10.0-r1",
-         "qualifiers": "arch=armhf&distroversion=v3.11&reponame=main",
-         "subpath": ""
-      },
-      "references": [
-         {
-            "reference_id": "XSA-248",
-            "reference_type": "",
-            "url": "https://xenbits.xen.org/xsa/advisory-248.html",
-            "severities": []
-         }
-      ],
-      "weaknesses": []
-   },
-   {
-      "vulnerability_id": null,
-      "aliases": [],
-      "confidence": 100,
-      "summary": null,
-      "affected_purls": [],
-      "fixed_purl": {
-         "type": "alpine",
-         "namespace": "",
-         "name": "xen",
-         "version": "4.10.0-r1",
-         "qualifiers": "arch=armv7&distroversion=v3.11&reponame=main",
-         "subpath": ""
-      },
-      "references": [
-         {
-            "reference_id": "XSA-248",
-            "reference_type": "",
-            "url": "https://xenbits.xen.org/xsa/advisory-248.html",
-            "severities": []
-         }
-      ],
-      "weaknesses": []
-   },
-   {
-      "vulnerability_id": null,
-      "aliases": [],
-      "confidence": 100,
-      "summary": null,
-      "affected_purls": [],
-      "fixed_purl": {
-         "type": "alpine",
-         "namespace": "",
-         "name": "xen",
-         "version": "4.10.0-r1",
-         "qualifiers": "arch=ppc64le&distroversion=v3.11&reponame=main",
-         "subpath": ""
-      },
-      "references": [
-         {
-            "reference_id": "XSA-248",
-            "reference_type": "",
-            "url": "https://xenbits.xen.org/xsa/advisory-248.html",
-            "severities": []
-         }
-      ],
-      "weaknesses": []
-   },
-   {
-      "vulnerability_id": null,
-      "aliases": [],
-      "confidence": 100,
-      "summary": null,
-      "affected_purls": [],
-      "fixed_purl": {
-         "type": "alpine",
-         "namespace": "",
-         "name": "xen",
-         "version": "4.10.0-r1",
-         "qualifiers": "arch=s390x&distroversion=v3.11&reponame=main",
-         "subpath": ""
-      },
-      "references": [
-         {
-            "reference_id": "XSA-248",
-            "reference_type": "",
-            "url": "https://xenbits.xen.org/xsa/advisory-248.html",
-            "severities": []
-         }
-      ],
-      "weaknesses": []
-   },
-   {
-      "vulnerability_id": null,
-      "aliases": [],
-      "confidence": 100,
-      "summary": null,
-      "affected_purls": [],
-      "fixed_purl": {
-         "type": "alpine",
-         "namespace": "",
-         "name": "xen",
-         "version": "4.10.0-r1",
-         "qualifiers": "arch=x86&distroversion=v3.11&reponame=main",
-         "subpath": ""
-      },
-      "references": [
-         {
-            "reference_id": "XSA-248",
-            "reference_type": "",
-            "url": "https://xenbits.xen.org/xsa/advisory-248.html",
-            "severities": []
-         }
-      ],
-      "weaknesses": []
-   },
-   {
-      "vulnerability_id": null,
-      "aliases": [],
-      "confidence": 100,
-      "summary": null,
-      "affected_purls": [],
-      "fixed_purl": {
-         "type": "alpine",
-         "namespace": "",
-         "name": "xen",
-         "version": "4.10.0-r1",
-         "qualifiers": "arch=x86_64&distroversion=v3.11&reponame=main",
-         "subpath": ""
-      },
-      "references": [
-         {
-            "reference_id": "XSA-248",
-            "reference_type": "",
-            "url": "https://xenbits.xen.org/xsa/advisory-248.html",
-            "severities": []
-         }
-      ],
-      "weaknesses": []
-   }
+  {
+    "vulnerability_id": null,
+    "aliases": [],
+    "confidence": 100,
+    "summary": null,
+    "affected_purls": [],
+    "fixed_purl": {
+      "type": "alpine",
+      "namespace": "",
+      "name": "xen",
+      "version": "4.10.0-r1",
+      "qualifiers": "arch=aarch64&distroversion=v3.11&reponame=main",
+      "subpath": ""
+    },
+    "references": [
+      {
+        "reference_id": "XSA-248",
+        "reference_type": "",
+        "url": "https://xenbits.xen.org/xsa/advisory-248.html",
+        "severities": []
+      }
+    ],
+    "weaknesses": []
+  },
+  {
+    "vulnerability_id": null,
+    "aliases": [],
+    "confidence": 100,
+    "summary": null,
+    "affected_purls": [],
+    "fixed_purl": {
+      "type": "alpine",
+      "namespace": "",
+      "name": "xen",
+      "version": "4.10.0-r1",
+      "qualifiers": "arch=armhf&distroversion=v3.11&reponame=main",
+      "subpath": ""
+    },
+    "references": [
+      {
+        "reference_id": "XSA-248",
+        "reference_type": "",
+        "url": "https://xenbits.xen.org/xsa/advisory-248.html",
+        "severities": []
+      }
+    ],
+    "weaknesses": []
+  },
+  {
+    "vulnerability_id": null,
+    "aliases": [],
+    "confidence": 100,
+    "summary": null,
+    "affected_purls": [],
+    "fixed_purl": {
+      "type": "alpine",
+      "namespace": "",
+      "name": "xen",
+      "version": "4.10.0-r1",
+      "qualifiers": "arch=armv7&distroversion=v3.11&reponame=main",
+      "subpath": ""
+    },
+    "references": [
+      {
+        "reference_id": "XSA-248",
+        "reference_type": "",
+        "url": "https://xenbits.xen.org/xsa/advisory-248.html",
+        "severities": []
+      }
+    ],
+    "weaknesses": []
+  },
+  {
+    "vulnerability_id": null,
+    "aliases": [],
+    "confidence": 100,
+    "summary": null,
+    "affected_purls": [],
+    "fixed_purl": {
+      "type": "alpine",
+      "namespace": "",
+      "name": "xen",
+      "version": "4.10.0-r1",
+      "qualifiers": "arch=ppc64le&distroversion=v3.11&reponame=main",
+      "subpath": ""
+    },
+    "references": [
+      {
+        "reference_id": "XSA-248",
+        "reference_type": "",
+        "url": "https://xenbits.xen.org/xsa/advisory-248.html",
+        "severities": []
+      }
+    ],
+    "weaknesses": []
+  },
+  {
+    "vulnerability_id": null,
+    "aliases": [],
+    "confidence": 100,
+    "summary": null,
+    "affected_purls": [],
+    "fixed_purl": {
+      "type": "alpine",
+      "namespace": "",
+      "name": "xen",
+      "version": "4.10.0-r1",
+      "qualifiers": "arch=s390x&distroversion=v3.11&reponame=main",
+      "subpath": ""
+    },
+    "references": [
+      {
+        "reference_id": "XSA-248",
+        "reference_type": "",
+        "url": "https://xenbits.xen.org/xsa/advisory-248.html",
+        "severities": []
+      }
+    ],
+    "weaknesses": []
+  },
+  {
+    "vulnerability_id": null,
+    "aliases": [],
+    "confidence": 100,
+    "summary": null,
+    "affected_purls": [],
+    "fixed_purl": {
+      "type": "alpine",
+      "namespace": "",
+      "name": "xen",
+      "version": "4.10.0-r1",
+      "qualifiers": "arch=x86&distroversion=v3.11&reponame=main",
+      "subpath": ""
+    },
+    "references": [
+      {
+        "reference_id": "XSA-248",
+        "reference_type": "",
+        "url": "https://xenbits.xen.org/xsa/advisory-248.html",
+        "severities": []
+      }
+    ],
+    "weaknesses": []
+  },
+  {
+    "vulnerability_id": null,
+    "aliases": [],
+    "confidence": 100,
+    "summary": null,
+    "affected_purls": [],
+    "fixed_purl": {
+      "type": "alpine",
+      "namespace": "",
+      "name": "xen",
+      "version": "4.10.0-r1",
+      "qualifiers": "arch=x86_64&distroversion=v3.11&reponame=main",
+      "subpath": ""
+    },
+    "references": [
+      {
+        "reference_id": "XSA-248",
+        "reference_type": "",
+        "url": "https://xenbits.xen.org/xsa/advisory-248.html",
+        "severities": []
+      }
+    ],
+    "weaknesses": []
+  }
 ]

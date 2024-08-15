@@ -39,16 +39,14 @@ class OptionalSlashRouter(DefaultRouter):
 api_router = OptionalSlashRouter()
 api_router.register("packages", PackageViewSet)
 # `DefaultRouter` requires `basename` when registering viewsets that don't define a queryset.
-api_router.register("vulnerabilities", VulnerabilityViewSet,
-                    basename="vulnerability")
+api_router.register("vulnerabilities", VulnerabilityViewSet, basename="vulnerability")
 api_router.register("cpes", CPEViewSet, basename="cpe")
 api_router.register("aliases", AliasViewSet, basename="alias")
 
 urlpatterns = [
     path(
         "robots.txt",
-        TemplateView.as_view(template_name="robots.txt",
-                             content_type="text/plain"),
+        TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
     ),
     path(
         "",

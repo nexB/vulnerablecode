@@ -24,11 +24,9 @@ class Command(BaseCommand):
             action="store_true",
             help="List available importers",
         )
-        parser.add_argument("--all", action="store_true",
-                            help="Run all available importers")
+        parser.add_argument("--all", action="store_true", help="Run all available importers")
 
-        parser.add_argument("sources", nargs="*",
-                            help="Fully qualified importer name to run")
+        parser.add_argument("sources", nargs="*", help="Fully qualified importer name to run")
 
     def handle(self, *args, **options):
         try:
@@ -47,8 +45,7 @@ class Command(BaseCommand):
             raise CommandError("Keyboard interrupt received. Stopping...")
 
     def list_sources(self):
-        self.stdout.write(
-            "Vulnerability data can be imported from the following importers:")
+        self.stdout.write("Vulnerability data can be imported from the following importers:")
         self.stdout.write("\n".join(IMPORTERS_REGISTRY))
 
     def import_data(self, importers):
@@ -59,8 +56,7 @@ class Command(BaseCommand):
         failed_importers = []
 
         for importer in importers:
-            self.stdout.write(
-                f"Importing data using {importer.qualified_name}")
+            self.stdout.write(f"Importing data using {importer.qualified_name}")
             try:
                 ImportRunner(importer).run()
                 self.stdout.write(
@@ -78,8 +74,7 @@ class Command(BaseCommand):
                 )
 
         if failed_importers:
-            raise CommandError(
-                f"{len(failed_importers)} failed!: {','.join(failed_importers)}")
+            raise CommandError(f"{len(failed_importers)} failed!: {','.join(failed_importers)}")
 
 
 def validate_importers(sources):

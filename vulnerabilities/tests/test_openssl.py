@@ -40,15 +40,13 @@ ADVISORY_FIELDS_TO_TEST = (
 
 
 class TestOpenssl(testcase.FileBasedTesting):
-    test_data_dir = str(Path(__file__).resolve().parent /
-                        "test_data" / "openssl")
+    test_data_dir = str(Path(__file__).resolve().parent / "test_data" / "openssl")
 
     def test_parse_vulnerabilities(self):
         xml_page = self.get_test_loc("security_advisories.xml")
         with open(xml_page) as f:
             xml_response = f.read()
-        results = [data.to_dict()
-                   for data in openssl.parse_vulnerabilities(xml_response)]
+        results = [data.to_dict() for data in openssl.parse_vulnerabilities(xml_response)]
         expected_file = self.get_test_loc(
             "security_advisories-advisory_data-expected.json", must_exist=False
         )
@@ -112,8 +110,7 @@ class TestOpenssl(testcase.FileBasedTesting):
                     severities=[],
                 ),
             ],
-            date_published=datetime.datetime(
-                2017, 12, 7, 0, 0, tzinfo=datetime.timezone.utc),
+            date_published=datetime.datetime(2017, 12, 7, 0, 0, tzinfo=datetime.timezone.utc),
             url="https://www.openssl.org/news/secadv/20171207.txt",
         )
         issue_parsed = DET.fromstring(issue_string)

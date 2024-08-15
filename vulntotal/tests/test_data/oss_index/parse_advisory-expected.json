@@ -1,56 +1,74 @@
 [
-   {
-      "purl": "pkg:generic/namespace/test",
-      "affected_versions": [],
-      "fixed_versions": [],
-      "aliases": ["CVE-2021-3907"]
-   },
-   {
-      "purl": "pkg:generic/namespace/test",
-      "affected_versions": [],
-      "fixed_versions": [],
-      "aliases": ["CVE-2021-3761"]
-   },
-   {
-      "purl": "pkg:generic/namespace/test",
-      "affected_versions": [],
-      "fixed_versions": [],
-      "aliases": ["CVE-2021-3908"]
-   },
-   {
-      "purl": "pkg:generic/namespace/test",
-      "affected_versions": [],
-      "fixed_versions": [],
-      "aliases": ["CVE-2021-3909"]
-   },
-   {
-      "purl": "pkg:generic/namespace/test",
-      "affected_versions": [],
-      "fixed_versions": [],
-      "aliases": ["CVE-2021-3910"]
-   },
-   {
-      "purl": "pkg:generic/namespace/test",
-      "affected_versions": [],
-      "fixed_versions": [],
-      "aliases": ["CVE-2021-3978"]
-   },
-   {
-      "purl": "pkg:generic/namespace/test",
-      "affected_versions": [],
-      "fixed_versions": [],
-      "aliases": ["CVE-2021-3911"]
-   },
-   {
-      "purl": "pkg:generic/namespace/test",
-      "affected_versions": [],
-      "fixed_versions": [],
-      "aliases": ["CVE-2021-3912"]
-   },
-   {
-      "purl": "pkg:generic/namespace/test",
-      "affected_versions": [],
-      "fixed_versions": [],
-      "aliases": ["sonatype-2022-0972"]
-   }
+  {
+    "purl": "pkg:generic/namespace/test",
+    "affected_versions": [],
+    "fixed_versions": [],
+    "aliases": [
+      "CVE-2021-3907"
+    ]
+  },
+  {
+    "purl": "pkg:generic/namespace/test",
+    "affected_versions": [],
+    "fixed_versions": [],
+    "aliases": [
+      "CVE-2021-3761"
+    ]
+  },
+  {
+    "purl": "pkg:generic/namespace/test",
+    "affected_versions": [],
+    "fixed_versions": [],
+    "aliases": [
+      "CVE-2021-3908"
+    ]
+  },
+  {
+    "purl": "pkg:generic/namespace/test",
+    "affected_versions": [],
+    "fixed_versions": [],
+    "aliases": [
+      "CVE-2021-3909"
+    ]
+  },
+  {
+    "purl": "pkg:generic/namespace/test",
+    "affected_versions": [],
+    "fixed_versions": [],
+    "aliases": [
+      "CVE-2021-3910"
+    ]
+  },
+  {
+    "purl": "pkg:generic/namespace/test",
+    "affected_versions": [],
+    "fixed_versions": [],
+    "aliases": [
+      "CVE-2021-3978"
+    ]
+  },
+  {
+    "purl": "pkg:generic/namespace/test",
+    "affected_versions": [],
+    "fixed_versions": [],
+    "aliases": [
+      "CVE-2021-3911"
+    ]
+  },
+  {
+    "purl": "pkg:generic/namespace/test",
+    "affected_versions": [],
+    "fixed_versions": [],
+    "aliases": [
+      "CVE-2021-3912"
+    ]
+  },
+  {
+    "purl": "pkg:generic/namespace/test",
+    "affected_versions": [],
+    "fixed_versions": [],
+    "aliases": [
+      "sonatype-2022-0972"
+    ]
+  }
 ]

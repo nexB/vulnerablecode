@@ -45,8 +45,7 @@ class GitlabDataSource(DataSource):
         if not location:
             clear_download(location)
             path = self.supported_ecosystem()[purl.type]
-            casesensitive_package_slug = get_casesensitive_slug(
-                path, package_slug)
+            casesensitive_package_slug = get_casesensitive_slug(path, package_slug)
             location = download_subtree(casesensitive_package_slug)
         if location:
             interesting_advisories = parse_interesting_advisories(

@@ -42,8 +42,7 @@ class OSSDataSource(DataSource):
         if username and token:
             auth = (username, token)
             url = self.api_authenticated
-        response = requests.post(url, auth=auth, json={
-                                 "coordinates": coordinates})
+        response = requests.post(url, auth=auth, json={"coordinates": coordinates})
         try:
             response.raise_for_status()
             return response.json()
@@ -58,8 +57,7 @@ class OSSDataSource(DataSource):
                 )
                 logger.error(msg)
             else:
-                logger.error(
-                    f"Unknown status code: {e.response.status_code} while fetching: {url}")
+                logger.error(f"Unknown status code: {e.response.status_code} while fetching: {url}")
 
     def datasource_advisory(self, purl) -> Iterable[VendorData]:
         if purl.type not in self.supported_ecosystem():

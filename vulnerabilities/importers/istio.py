@@ -69,8 +69,7 @@ class IstioImporter(Importer):
         published_date = data.get("publishdate")
         release_date = None
         if published_date:
-            release_date = parser.parse(
-                published_date).replace(tzinfo=pytz.UTC)
+            release_date = parser.parse(published_date).replace(tzinfo=pytz.UTC)
 
         constraints = []
 
@@ -79,8 +78,7 @@ class IstioImporter(Importer):
             if "All releases prior" in release:
                 _, _, release = release.strip().rpartition(" ")
                 constraints.append(
-                    VersionConstraint(version=SemverVersion(
-                        release), comparator="<")
+                    VersionConstraint(version=SemverVersion(release), comparator="<")
                 )
 
             # Eg. 'All releases 1.5 and later'
@@ -92,23 +90,19 @@ class IstioImporter(Importer):
                 if not is_release(release):
                     continue
                 constraints.append(
-                    VersionConstraint(version=SemverVersion(
-                        release), comparator=">=")
+                    VersionConstraint(version=SemverVersion(release), comparator=">=")
                 )
 
             # Eg. 1.5 to 2.0
             elif "to" in release:
                 lower, _, upper = release.strip().partition("to")
-                constraints.append(VersionConstraint(
-                    version=SemverVersion(lower), comparator=">="))
-                constraints.append(VersionConstraint(
-                    version=SemverVersion(upper), comparator="<="))
+                constraints.append(VersionConstraint(version=SemverVersion(lower), comparator=">="))
+                constraints.append(VersionConstraint(version=SemverVersion(upper), comparator="<="))
 
             # If it is a single release
             elif is_release(release):
                 constraints.append(
-                    VersionConstraint(version=SemverVersion(
-                        release), comparator="=")
+                    VersionConstraint(version=SemverVersion(release), comparator="=")
                 )
 
         for cve_id in data.get("cves") or []:
@@ -121,19 +115,15 @@ class IstioImporter(Importer):
             if constraints:
                 affected_packages.append(
                     AffectedPackage(
-                        package=PackageURL(
-                            type="golang", namespace="istio.io", name="istio"),
-                        affected_version_range=GolangVersionRange(
-                            constraints=constraints),
+                        package=PackageURL(type="golang", namespace="istio.io", name="istio"),
+                        affected_version_range=GolangVersionRange(constraints=constraints),
                     )
                 )
 
                 affected_packages.append(
                     AffectedPackage(
-                        package=PackageURL(
-                            type="github", namespace="istio", name="istio"),
-                        affected_version_range=GitHubVersionRange(
-                            constraints=constraints),
+                        package=PackageURL(type="github", namespace="istio", name="istio"),
+                        affected_version_range=GitHubVersionRange(constraints=constraints),
                     )
                 )
 

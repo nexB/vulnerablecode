@@ -149,8 +149,7 @@ class ApacheTomcatImporter(Importer):
         advisories = []
 
         for url, advisory_page in self.fetch_advisory_pages():
-            advisories.extend(
-                self.extract_advisories_from_page(url, advisory_page))
+            advisories.extend(self.extract_advisories_from_page(url, advisory_page))
 
         return advisories
 
@@ -215,8 +214,7 @@ def extract_tomcat_advisory_data_from_page(apache_tomcat_advisory_html):
 
         # Include the 2 groups of not-fixed advisories.  We report no value for those that won't be fixed.
         if "Fixed in Apache Tomcat" in fixed_version_heading.text:
-            fixed_version = fixed_version_heading.text.split(
-                "Fixed in Apache Tomcat")[-1].strip()
+            fixed_version = fixed_version_heading.text.split("Fixed in Apache Tomcat")[-1].strip()
         elif "Will not be fixed in Apache Tomcat 4.1.x" in fixed_version_heading.text:
             fixed_version = fixed_version_heading.text.split("Will not be fixed in Apache Tomcat")[
                 -1
@@ -243,8 +241,7 @@ def extract_tomcat_advisory_data_from_page(apache_tomcat_advisory_html):
         # the text of which starts with, e.g., "Low:", so we look for these here, e.g.,
         # <p><strong>Low: Apache Tomcat request smuggling</strong><a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-42252" rel="nofollow">CVE-2022-42252</a></p>
 
-        severity_scores = ("Low:", "Moderate:",
-                           "Important:", "High:", "Critical:")
+        severity_scores = ("Low:", "Moderate:", "Important:", "High:", "Critical:")
         # A list of groups of paragraphs, each for a single Tomcat Advisory.
         advisory_groups = []
 
@@ -280,13 +277,11 @@ def generate_advisory_data_objects(url, tomcat_advisory_data_object):
         cve_url_list = []
         for para in para_list:
             if para.text.startswith("Affects:"):
-                formatted_affected_version_data = para.text.split(
-                    ":")[-1].split(", ")
+                formatted_affected_version_data = para.text.split(":")[-1].split(", ")
                 affected_versions.extend(formatted_affected_version_data)
             elif "was fixed in" in para.text or "was fixed with" in para.text:
                 fixed_commit_list = para.find_all("a")
-                references.extend([ref_url["href"]
-                                  for ref_url in fixed_commit_list])
+                references.extend([ref_url["href"] for ref_url in fixed_commit_list])
             elif para.text.startswith(severity_scores):
                 cve_url_list = para.find_all("a")
                 cve_list = [cve_url.text for cve_url in cve_url_list]
@@ -374,8 +369,7 @@ def generate_advisory_data_objects(url, tomcat_advisory_data_object):
 def to_version_ranges_apache(versions_data, fixed_versions):
     constraints = []
 
-    VersionConstraintTuple = namedtuple(
-        "VersionConstraintTuple", ["comparator", "version"])
+    VersionConstraintTuple = namedtuple("VersionConstraintTuple", ["comparator", "version"])
     affected_constraint_tuple_list = []
     fixed_constraint_tuple_list = []
 
@@ -415,15 +409,12 @@ def to_version_ranges_apache(versions_data, fixed_versions):
 
         if "-" in fixed_item and not any([i.isalpha() for i in fixed_item]):
             fixed_item_split = fixed_item.split(" ")
-            fixed_constraint_tuple_list.append(
-                VersionConstraintTuple(">=", fixed_item_split[0]))
-            fixed_constraint_tuple_list.append(
-                VersionConstraintTuple("<=", fixed_item_split[-1]))
+            fixed_constraint_tuple_list.append(VersionConstraintTuple(">=", fixed_item_split[0]))
+            fixed_constraint_tuple_list.append(VersionConstraintTuple("<=", fixed_item_split[-1]))
 
         else:
             fixed_item_split = fixed_item.split(" ")
-            fixed_constraint_tuple_list.append(
-                VersionConstraintTuple("=", fixed_item_split[0]))
+            fixed_constraint_tuple_list.append(VersionConstraintTuple("=", fixed_item_split[0]))
 
     for record in affected_constraint_tuple_list:
         try:
@@ -434,8 +425,7 @@ def to_version_ranges_apache(versions_data, fixed_versions):
                 )
             )
         except Exception as e:
-            LOGGER.error(
-                f"{record.version!r} is not a valid SemverVersion {e!r}")
+            LOGGER.error(f"{record.version!r} is not a valid SemverVersion {e!r}")
             continue
 
     for record in fixed_constraint_tuple_list:

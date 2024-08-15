@@ -40,10 +40,8 @@ def test_redhat_importer(get_data_from_url, fetcher):
 
     with open(response_file) as f:
         fetcher.return_value = [json.load(f)]
-    bugzilla_2075788_response_file = os.path.join(
-        TEST_DATA, "bugzilla-2075788.json")
-    bugzilla_2077736_response_file = os.path.join(
-        TEST_DATA, "bugzilla-2077736.json")
+    bugzilla_2075788_response_file = os.path.join(TEST_DATA, "bugzilla-2075788.json")
+    bugzilla_2077736_response_file = os.path.join(TEST_DATA, "bugzilla-2077736.json")
     rhsa_1437 = os.path.join(TEST_DATA, "RHSA_openjdk17_update.json")
     rhsa_1439 = os.path.join(TEST_DATA, "RHSA_openjdk11_update.json")
     get_data_from_url.side_effect = [

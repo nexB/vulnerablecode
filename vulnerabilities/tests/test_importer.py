@@ -11,8 +11,7 @@ from vulnerabilities.importer import Importer
 
 
 def test_all_importers_have_unique_name():
-    importers = [
-        importer.importer_name for importer in Importer.__subclasses__()]
+    importers = [importer.importer_name for importer in Importer.__subclasses__()]
     empty_importers = [
         importer.__name__ for importer in Importer.__subclasses__() if not importer.importer_name
     ]

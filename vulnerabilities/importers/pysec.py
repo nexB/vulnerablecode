@@ -35,8 +35,7 @@ class PyPIImporter(Importer):
         with ZipFile(BytesIO(response)) as zip_file:
             for file_name in zip_file.namelist():
                 if not file_name.startswith("PYSEC-"):
-                    logger.error(
-                        f"Unsupported PyPI advisory data file: {file_name}")
+                    logger.error(f"Unsupported PyPI advisory data file: {file_name}")
                     continue
                 with zip_file.open(file_name) as f:
                     vul_info = json.load(f)

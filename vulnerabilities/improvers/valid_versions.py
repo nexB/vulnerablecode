@@ -92,8 +92,7 @@ class ValidVersionImprover(Improver):
                 advisory_data.affected_packages
             )
         except UnMergeablePackageError:
-            logger.error(
-                f"Cannot merge with different purls {advisory_data.affected_packages!r}")
+            logger.error(f"Cannot merge with different purls {advisory_data.affected_packages!r}")
             mergable = False
 
         if not mergable:
@@ -185,13 +184,11 @@ class ValidVersionImprover(Improver):
         )
 
         affected_purls = list(
-            self.expand_verion_range_to_purls(
-                pkg_type, pkg_namespace, pkg_name, aff_vers)
+            self.expand_verion_range_to_purls(pkg_type, pkg_namespace, pkg_name, aff_vers)
         )
 
         unaffected_purls = list(
-            self.expand_verion_range_to_purls(
-                pkg_type, pkg_namespace, pkg_name, unaff_vers)
+            self.expand_verion_range_to_purls(pkg_type, pkg_namespace, pkg_name, unaff_vers)
         )
 
         affected_packages: List[LegacyAffectedPackage] = nearest_patched_package(
@@ -258,15 +255,13 @@ class NginxBasicImprover(Improver):
                     affected_version_range=affected_version_range,
                     fixed_versions=fixed_versions,
                 ):
-                    new_purl = update_purl_version(
-                        purl=purl, version=str(version))
+                    new_purl = update_purl_version(purl=purl, version=str(version))
                     affected_purls.append(new_purl)
 
         # TODO: This also yields with a lower fixed version, maybe we should
         # only yield fixes that are upgrades ?
         for fixed_version in fixed_versions:
-            fixed_purl = update_purl_version(
-                purl=purl, version=str(fixed_version))
+            fixed_purl = update_purl_version(purl=purl, version=str(fixed_version))
 
             yield Inference.from_advisory_data(
                 advisory_data,

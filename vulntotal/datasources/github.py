@@ -44,10 +44,8 @@ class GithubDataSource(DataSource):
             queryset = generate_graphql_payload_from_purl(purl, end_cursor)
             response = self.fetch_github(queryset)
             self._raw_dump.append(response)
-            security_advisories = get_item(
-                response, "data", "securityVulnerabilities")
-            interesting_edges.extend(extract_interesting_edge(
-                security_advisories["edges"], purl))
+            security_advisories = get_item(response, "data", "securityVulnerabilities")
+            interesting_edges.extend(extract_interesting_edge(security_advisories["edges"], purl))
             end_cursor = get_item(security_advisories, "pageInfo", "endCursor")
             if not security_advisories["pageInfo"]["hasNextPage"]:
                 break
@@ -70,10 +68,8 @@ class GithubDataSource(DataSource):
             yield VendorData(
                 purl=purl,
                 aliases=sorted(list(set(advisory.get("identifiers", None)))),
-                affected_versions=sorted(
-                    list(set(advisory.get("vulnerableVersionRange", None)))),
-                fixed_versions=sorted(
-                    list(set(advisory.get("firstPatchedVersion", None)))),
+                affected_versions=sorted(list(set(advisory.get("vulnerableVersionRange", None)))),
+                fixed_versions=sorted(list(set(advisory.get("firstPatchedVersion", None)))),
             )
 
     @classmethod
@@ -105,13 +101,10 @@ def parse_advisory(interesting_edges, purl) -> Iterable[VendorData]:
     """
     for edge in interesting_edges:
         node = edge["node"]
-        aliases = [aliase["value"]
-                   for aliase in get_item(node, "advisory", "identifiers")]
+        aliases = [aliase["value"] for aliase in get_item(node, "advisory", "identifiers")]
         affected_versions = [node["vulnerableVersionRange"].strip()]
-        parsed_fixed_versions = get_item(
-            node, "firstPatchedVersion", "identifier")
-        fixed_versions = [
-            parsed_fixed_versions] if parsed_fixed_versions else []
+        parsed_fixed_versions = get_item(node, "firstPatchedVersion", "identifier")
+        fixed_versions = [parsed_fixed_versions] if parsed_fixed_versions else []
         yield VendorData(
             purl=PackageURL(purl.type, purl.namespace, purl.name),
             aliases=sorted(list(set(aliases))),
@@ -329,14 +322,11 @@ def group_advisory_by_package(advisories_dict, cve):
             vulnerable_version_range = vulnerability["vulnerableVersionRange"]
 
             # Check if a vulnerability for the same package is already in the output list
-            existing_vulnerability = next(
-                (v for v in output if v["package"] == package), None)
+            existing_vulnerability = next((v for v in output if v["package"] == package), None)
             if existing_vulnerability:
                 existing_vulnerability["identifiers"] += advisory_ids
-                existing_vulnerability["firstPatchedVersion"].append(
-                    first_patched_version)
-                existing_vulnerability["vulnerableVersionRange"].append(
-                    vulnerable_version_range)
+                existing_vulnerability["firstPatchedVersion"].append(first_patched_version)
+                existing_vulnerability["vulnerableVersionRange"].append(vulnerable_version_range)
             else:
                 output.append(
                     {

@@ -38,8 +38,7 @@ from vulnerabilities.throttling import StaffUserRateThrottle
 class VulnerabilitySeveritySerializer(serializers.ModelSerializer):
     class Meta:
         model = VulnerabilitySeverity
-        fields = ["value", "scoring_system",
-                  "scoring_elements", "published_at"]
+        fields = ["value", "scoring_system", "scoring_elements", "published_at"]
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
@@ -50,14 +49,12 @@ class VulnerabilitySeveritySerializer(serializers.ModelSerializer):
 
 
 class VulnerabilityReferenceSerializer(serializers.ModelSerializer):
-    scores = VulnerabilitySeveritySerializer(
-        many=True, source="vulnerabilityseverity_set")
+    scores = VulnerabilitySeveritySerializer(many=True, source="vulnerabilityseverity_set")
     reference_url = serializers.CharField(source="url")
 
     class Meta:
         model = VulnerabilityReference
-        fields = ["reference_url", "reference_id",
-                  "reference_type", "scores", "url"]
+        fields = ["reference_url", "reference_id", "reference_type", "scores", "url"]
 
 
 class BaseResourceSerializer(serializers.HyperlinkedModelSerializer):
@@ -67,8 +64,7 @@ class BaseResourceSerializer(serializers.HyperlinkedModelSerializer):
 
     def get_fields(self):
         fields = super().get_fields()
-        fields["resource_url"] = serializers.SerializerMethodField(
-            method_name="get_resource_url")
+        fields["resource_url"] = serializers.SerializerMethodField(method_name="get_resource_url")
         return fields
 
     def get_resource_url(self, instance):
@@ -92,8 +88,7 @@ class MinimalPackageSerializer(BaseResourceSerializer):
     """
 
     def get_affected_vulnerabilities(self, package):
-        parent_affected_vulnerabilities = package.fixed_package_details.get(
-            "vulnerabilities") or []
+        parent_affected_vulnerabilities = package.fixed_package_details.get("vulnerabilities") or []
 
         affected_vulnerabilities = [
             self.get_vulnerability(vuln) for vuln in parent_affected_vulnerabilities
@@ -109,8 +104,7 @@ class MinimalPackageSerializer(BaseResourceSerializer):
             affected_vulnerability["vulnerability"] = vulnerability.vulnerability_id
             return affected_vulnerability
 
-    affected_by_vulnerabilities = serializers.SerializerMethodField(
-        "get_affected_vulnerabilities")
+    affected_by_vulnerabilities = serializers.SerializerMethodField("get_affected_vulnerabilities")
 
     purl = serializers.CharField(source="package_url")
 
@@ -118,8 +112,7 @@ class MinimalPackageSerializer(BaseResourceSerializer):
 
     class Meta:
         model = Package
-        fields = ["url", "purl", "is_vulnerable",
-                  "affected_by_vulnerabilities"]
+        fields = ["url", "purl", "is_vulnerable", "affected_by_vulnerabilities"]
 
 
 class MinimalVulnerabilitySerializer(BaseResourceSerializer):
@@ -157,14 +150,12 @@ class VulnSerializerRefsAndSummary(BaseResourceSerializer):
         many=True, source="filtered_fixed_packages", read_only=True
     )
 
-    references = VulnerabilityReferenceSerializer(
-        many=True, source="vulnerabilityreference_set")
+    references = VulnerabilityReferenceSerializer(many=True, source="vulnerabilityreference_set")
     aliases = AliasSerializer(many=True, source="alias")
 
     class Meta:
         model = Vulnerability
-        fields = ["url", "vulnerability_id", "summary",
-                  "references", "fixed_packages", "aliases"]
+        fields = ["url", "vulnerability_id", "summary", "references", "fixed_packages", "aliases"]
 
 
 class WeaknessSerializer(serializers.HyperlinkedModelSerializer):
@@ -189,8 +180,7 @@ class WeaknessSerializer(serializers.HyperlinkedModelSerializer):
 class KEVSerializer(serializers.ModelSerializer):
     class Meta:
         model = Kev
-        fields = ["date_added", "description",
-                  "required_action", "due_date", "resources_and_notes"]
+        fields = ["date_added", "description", "required_action", "due_date", "resources_and_notes"]
 
 
 class VulnerabilitySerializer(BaseResourceSerializer):
@@ -199,8 +189,7 @@ class VulnerabilitySerializer(BaseResourceSerializer):
     )
     affected_packages = MinimalPackageSerializer(many=True, read_only=True)
 
-    references = VulnerabilityReferenceSerializer(
-        many=True, source="vulnerabilityreference_set")
+    references = VulnerabilityReferenceSerializer(many=True, source="vulnerabilityreference_set")
     aliases = AliasSerializer(many=True, source="alias")
     kev = KEVSerializer(read_only=True)
     weaknesses = WeaknessSerializer(many=True)
@@ -209,8 +198,7 @@ class VulnerabilitySerializer(BaseResourceSerializer):
         data = super().to_representation(instance)
 
         weaknesses = data.get("weaknesses", [])
-        data["weaknesses"] = [
-            weakness for weakness in weaknesses if weakness is not None]
+        data["weaknesses"] = [weakness for weakness in weaknesses if weakness is not None]
 
         kev = data.get("kev", None)
         if not kev:
@@ -240,36 +228,29 @@ class PackageSerializer(BaseResourceSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        data["qualifiers"] = normalize_qualifiers(
-            data["qualifiers"], encode=False)
+        data["qualifiers"] = normalize_qualifiers(data["qualifiers"], encode=False)
 
         return data
 
-    next_non_vulnerable_version = serializers.SerializerMethodField(
-        "get_next_non_vulnerable")
+    next_non_vulnerable_version = serializers.SerializerMethodField("get_next_non_vulnerable")
 
     def get_next_non_vulnerable(self, package):
-        next_non_vulnerable = package.fixed_package_details.get(
-            "next_non_vulnerable", None)
+        next_non_vulnerable = package.fixed_package_details.get("next_non_vulnerable", None)
         if next_non_vulnerable:
             return next_non_vulnerable.version
 
-    latest_non_vulnerable_version = serializers.SerializerMethodField(
-        "get_latest_non_vulnerable")
+    latest_non_vulnerable_version = serializers.SerializerMethodField("get_latest_non_vulnerable")
 
     def get_latest_non_vulnerable(self, package):
-        latest_non_vulnerable = package.fixed_package_details.get(
-            "latest_non_vulnerable", None)
+        latest_non_vulnerable = package.fixed_package_details.get("latest_non_vulnerable", None)
         if latest_non_vulnerable:
             return latest_non_vulnerable.version
 
     purl = serializers.CharField(source="package_url")
 
-    affected_by_vulnerabilities = serializers.SerializerMethodField(
-        "get_affected_vulnerabilities")
+    affected_by_vulnerabilities = serializers.SerializerMethodField("get_affected_vulnerabilities")
 
-    fixing_vulnerabilities = serializers.SerializerMethodField(
-        "get_fixing_vulnerabilities")
+    fixing_vulnerabilities = serializers.SerializerMethodField("get_fixing_vulnerabilities")
 
     is_vulnerable = serializers.BooleanField()
 
@@ -298,8 +279,7 @@ class PackageSerializer(BaseResourceSerializer):
         otherwise return vulnerabilities fixed by the `package`.
         """
         fixed_packages = self.get_fixed_packages(package=package)
-        qs = package.vulnerabilities.filter(
-            packagerelatedvulnerability__fix=fix)
+        qs = package.vulnerabilities.filter(packagerelatedvulnerability__fix=fix)
         qs = qs.prefetch_related(
             Prefetch(
                 "packages",
@@ -325,8 +305,7 @@ class PackageSerializer(BaseResourceSerializer):
         fix each vulnerability and whose version is greater than the `package` version).
         """
         excluded_purls = []
-        package_vulnerabilities = self.get_vulnerabilities_for_a_package(
-            package=package, fix=False)
+        package_vulnerabilities = self.get_vulnerabilities_for_a_package(package=package, fix=False)
 
         for vuln in package_vulnerabilities:
             for pkg in vuln["fixed_packages"]:
@@ -476,26 +455,22 @@ class PackageViewSet(viewsets.ReadOnlyModelViewSet):
 
             if not purl_only:
                 return Response(
-                    PackageSerializer(query, many=True, context={
-                                      "request": request}).data
+                    PackageSerializer(query, many=True, context={"request": request}).data
                 )
 
             # using order by and distinct because there will be
             # many fully qualified purl for a single plain purl
             vulnerable_purls = query.vulnerable().only("plain_package_url")
-            vulnerable_purls = [str(package.plain_package_url)
-                                for package in vulnerable_purls]
+            vulnerable_purls = [str(package.plain_package_url) for package in vulnerable_purls]
             return Response(data=vulnerable_purls)
 
-        query = Package.objects.filter(
-            package_url__in=purls).distinct().with_is_vulnerable()
+        query = Package.objects.filter(package_url__in=purls).distinct().with_is_vulnerable()
 
         if not purl_only:
             return Response(PackageSerializer(query, many=True, context={"request": request}).data)
 
         vulnerable_purls = query.vulnerable().only("package_url")
-        vulnerable_purls = [str(package.package_url)
-                            for package in vulnerable_purls]
+        vulnerable_purls = [str(package.package_url) for package in vulnerable_purls]
         return Response(data=vulnerable_purls)
 
     @action(detail=False, methods=["get"])
@@ -506,8 +481,7 @@ class PackageViewSet(viewsets.ReadOnlyModelViewSet):
         vulnerable_packages = (
             Package.objects.vulnerable().only("package_url").distinct().with_is_vulnerable()
         )
-        vulnerable_purls = [str(package.package_url)
-                            for package in vulnerable_packages]
+        vulnerable_purls = [str(package.package_url) for package in vulnerable_packages]
         return Response(vulnerable_purls)
 
     @extend_schema(

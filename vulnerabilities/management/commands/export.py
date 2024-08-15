@@ -35,8 +35,7 @@ class Command(BaseCommand):
 
             self.export_data(git_path)
 
-        self.stdout.write(self.style.SUCCESS(
-            "Successfully exported vulnerablecode data"))
+        self.stdout.write(self.style.SUCCESS("Successfully exported vulnerablecode data"))
 
     def export_data(self, git_path):
         """
@@ -77,8 +76,7 @@ class Command(BaseCommand):
                 }
 
                 if pkg_filepath in package_files:
-                    package_files[pkg_filepath]["versions"].append(
-                        package_data)
+                    package_files[pkg_filepath]["versions"].append(package_data)
                 else:
                     package_files[pkg_filepath] = {
                         "package": str(purl_without_version),

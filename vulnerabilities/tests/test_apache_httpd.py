@@ -42,18 +42,14 @@ def test_to_version_ranges():
         },
     ]
     fixed_versions = ["1.3.2"]
-    affected_version_range = ApacheHTTPDImporter(
-    ).to_version_ranges(data, fixed_versions)
+    affected_version_range = ApacheHTTPDImporter().to_version_ranges(data, fixed_versions)
 
     assert (
         ApacheVersionRange(
             constraints=(
-                VersionConstraint(
-                    comparator="=", version=SemverVersion(string="1.3.1")),
-                VersionConstraint(
-                    comparator="<=", version=SemverVersion(string="2.3.4")),
-                VersionConstraint(
-                    comparator="!=", version=SemverVersion(string="1.3.2")),
+                VersionConstraint(comparator="=", version=SemverVersion(string="1.3.1")),
+                VersionConstraint(comparator="<=", version=SemverVersion(string="2.3.4")),
+                VersionConstraint(comparator="!=", version=SemverVersion(string="1.3.2")),
             )
         )
         == affected_version_range
@@ -76,8 +72,7 @@ def unknown_comparator():
         },
     ]
     fixed_versions = ["1.3.2"]
-    affected_version_range = ApacheHTTPDImporter(
-    ).to_version_ranges(data, fixed_versions)
+    affected_version_range = ApacheHTTPDImporter().to_version_ranges(data, fixed_versions)
 
 
 def test_unknown_comparator_exception():
@@ -93,8 +88,7 @@ def test_to_advisory_CVE_1999_1199():
 
     advisories = ApacheHTTPDImporter().to_advisory(data)
     result = advisories.to_dict()
-    expected_file = os.path.join(
-        TEST_DATA, f"CVE-1999-1199-apache-httpd-expected.json")
+    expected_file = os.path.join(TEST_DATA, f"CVE-1999-1199-apache-httpd-expected.json")
     util_tests.check_results_against_json(result, expected_file)
 
 
@@ -104,8 +98,7 @@ def test_to_advisory_CVE_2021_44224():
 
     advisories = ApacheHTTPDImporter().to_advisory(data)
     result = advisories.to_dict()
-    expected_file = os.path.join(
-        TEST_DATA, f"CVE-2021-44224-apache-httpd-expected.json")
+    expected_file = os.path.join(TEST_DATA, f"CVE-2021-44224-apache-httpd-expected.json")
     util_tests.check_results_against_json(result, expected_file)
 
 
@@ -115,8 +108,7 @@ def test_to_advisory_CVE_2017_9798():
 
     advisories = ApacheHTTPDImporter().to_advisory(data)
     result = advisories.to_dict()
-    expected_file = os.path.join(
-        TEST_DATA, f"CVE-2017-9798-apache-httpd-expected.json")
+    expected_file = os.path.join(TEST_DATA, f"CVE-2017-9798-apache-httpd-expected.json")
     util_tests.check_results_against_json(result, expected_file)
 
 
@@ -126,17 +118,14 @@ def test_to_advisory_CVE_2022_28614():
 
     advisories = ApacheHTTPDImporter().to_advisory(data)
     result = advisories.to_dict()
-    expected_file = os.path.join(
-        TEST_DATA, f"CVE-2022-28614-apache-httpd-expected.json")
+    expected_file = os.path.join(TEST_DATA, f"CVE-2022-28614-apache-httpd-expected.json")
     util_tests.check_results_against_json(result, expected_file)
 
 
 @mock.patch("vulnerabilities.improvers.valid_versions.ApacheHTTPDImprover.get_package_versions")
 def test_apache_httpd_improver(mock_response):
-    advisory_file = os.path.join(
-        TEST_DATA, f"CVE-2021-44224-apache-httpd-expected.json")
-    expected_file = os.path.join(
-        TEST_DATA, f"apache-httpd-improver-expected.json")
+    advisory_file = os.path.join(TEST_DATA, f"CVE-2021-44224-apache-httpd-expected.json")
+    expected_file = os.path.join(TEST_DATA, f"apache-httpd-improver-expected.json")
     with open(advisory_file) as exp:
         advisory = AdvisoryData.from_dict(json.load(exp))
     mock_response.return_value = [
@@ -149,7 +138,6 @@ def test_apache_httpd_improver(mock_response):
     improvers = [ApacheHTTPDImprover(), DefaultImprover()]
     result = []
     for improver in improvers:
-        inference = [data.to_dict()
-                     for data in improver.get_inferences(advisory)]
+        inference = [data.to_dict() for data in improver.get_inferences(advisory)]
         result.extend(inference)
     util_tests.check_results_against_json(result, expected_file)

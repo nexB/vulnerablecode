@@ -42,8 +42,7 @@ class DefaultImprover(Improver):
     def interesting_advisories(self) -> QuerySet:
         if hasattr(self, "importer"):
             return (
-                Advisory.objects.filter(
-                    Q(created_by=self.importer.qualified_name))
+                Advisory.objects.filter(Q(created_by=self.importer.qualified_name))
                 .order_by("-date_collected")
                 .paginated()
             )
@@ -118,8 +117,7 @@ def get_exact_purls(affected_package: AffectedPackage) -> Tuple[List[PackageURL]
             range_versions = [c.version for c in vr.constraints if c]
             # Any version that's not affected by a vulnerability is considered
             # fixed.
-            fixed_versions = [
-                c.version for c in vr.constraints if c and c.comparator == "!="]
+            fixed_versions = [c.version for c in vr.constraints if c and c.comparator == "!="]
             resolved_versions = [v for v in range_versions if v and v in vr]
             for version in resolved_versions:
                 affected_purl = update_purl_version(
@@ -131,14 +129,12 @@ def get_exact_purls(affected_package: AffectedPackage) -> Tuple[List[PackageURL]
             fixed_versions.append(affected_package.fixed_version)
 
         fixed_purls = [
-            update_purl_version(
-                purl=affected_package.package, version=str(version))
+            update_purl_version(purl=affected_package.package, version=str(version))
             for version in fixed_versions
         ]
         return affected_purls, fixed_purls
     except Exception as e:
-        logger.error(
-            f"Failed to get exact purls for: {affected_package!r} with error: {e!r}")
+        logger.error(f"Failed to get exact purls for: {affected_package!r} with error: {e!r}")
         return [], []
 
 

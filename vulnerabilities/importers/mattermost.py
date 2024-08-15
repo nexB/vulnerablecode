@@ -39,8 +39,7 @@ class MattermostDataSource(Importer):
         # FIXME: Change after this https://forum.mattermost.org/t/mattermost-website-returning-403-when-headers-contain-the-word-python/11412
         self.set_api()
         data = requests.get(
-            SECURITY_UPDATES_URL, headers={
-                "user-agent": "aboutcode/vulnerablecode"}
+            SECURITY_UPDATES_URL, headers={"user-agent": "aboutcode/vulnerablecode"}
         ).content
         return self.batch_advisories(self.to_advisories(data))
 
@@ -194,14 +193,12 @@ def to_affected_version_ranges(
             lower_bound, upper_bound = range_expression.split("to")
             lower_bound = f">={lower_bound}"
             upper_bound = f"<={upper_bound}"
-            included_ranges.append(RangeSpecifier(
-                f"{lower_bound},{upper_bound}"))
+            included_ranges.append(RangeSpecifier(f"{lower_bound},{upper_bound}"))
         else:
             included_ranges.append(RangeSpecifier(range_expression))
 
     excluded_ranges = []
     if len(excluded):
-        excluded_ranges = [RangeSpecifier(v)
-                           for v in split_versions(excluded[0])]
+        excluded_ranges = [RangeSpecifier(v) for v in split_versions(excluded[0])]
 
     return included_ranges, excluded_ranges

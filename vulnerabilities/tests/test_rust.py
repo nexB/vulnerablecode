@@ -38,17 +38,14 @@ MOCKED_CRATES_API_VERSIONS = CratesVersionAPI(
 
 
 def test_categorize_versions():
-    flatbuffers_versions = MOCKED_CRATES_API_VERSIONS.get(
-        "flatbuffers").valid_versions
+    flatbuffers_versions = MOCKED_CRATES_API_VERSIONS.get("flatbuffers").valid_versions
 
-    unaffected_ranges = [
-        VersionRange.from_scheme_version_spec_string("semver", "< 0.4.0")]
+    unaffected_ranges = [VersionRange.from_scheme_version_spec_string("semver", "< 0.4.0")]
     affected_ranges = [
         VersionRange.from_scheme_version_spec_string("semver", ">= 0.4.0"),
         VersionRange.from_scheme_version_spec_string("semver", "<= 0.6.0"),
     ]
-    resolved_ranges = [
-        VersionRange.from_scheme_version_spec_string("semver", ">= 0.6.1")]
+    resolved_ranges = [VersionRange.from_scheme_version_spec_string("semver", ">= 0.6.1")]
 
     unaffected_versions, affected_versions = categorize_versions(
         set(flatbuffers_versions),
@@ -68,11 +65,9 @@ def test_categorize_versions():
 def test_categorize_versions_without_affected_ranges():
     all_versions = {"1.0", "1.1", "2.0", "2.1", "3.0", "3.1"}
 
-    unaffected_ranges = [
-        VersionRange.from_scheme_version_spec_string("semver", "< 1.2")]
+    unaffected_ranges = [VersionRange.from_scheme_version_spec_string("semver", "< 1.2")]
     affected_ranges = []
-    resolved_ranges = [
-        VersionRange.from_scheme_version_spec_string("semver", ">= 3.0")]
+    resolved_ranges = [VersionRange.from_scheme_version_spec_string("semver", ">= 3.0")]
 
     unaffected_versions, affected_versions = categorize_versions(
         all_versions,

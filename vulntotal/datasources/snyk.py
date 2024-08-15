@@ -98,8 +98,7 @@ class SnykDataSource(DataSource):
         # for each vulnerability get fixed version from snyk_id_url, get affected version from package_advisory_url
         for snyk_id, package_advisory_url in vulns_list.items():
             package_advisories_list = self.fetch(package_advisory_url)
-            package_advisories = extract_html_json_advisories(
-                package_advisories_list)
+            package_advisories = extract_html_json_advisories(package_advisories_list)
             affected_versions = package_advisories[snyk_id]
             advisory_payload = generate_advisory_payload(snyk_id)
             advisory_html = self.fetch(advisory_payload)
@@ -185,8 +184,7 @@ def generate_purl(package_advisory_url):
     package_advisory_url = unquote_plus(
         package_advisory_url.replace("https://security.snyk.io/package/", "")
     )
-    supported_ecosystems = {
-        v: k for (k, v) in SnykDataSource.supported_ecosystem().items()}
+    supported_ecosystems = {v: k for (k, v) in SnykDataSource.supported_ecosystem().items()}
 
     package_url_split = package_advisory_url.split("/")
     pkg_type = package_url_split[0]
@@ -222,8 +220,7 @@ def generate_purl(package_advisory_url):
         pkg_name = package_url_split[-1]
 
     if pkg_type is None or pkg_name is None:
-        logger.error(
-            "Invalid package advisory url, package type or name is missing")
+        logger.error("Invalid package advisory url, package type or name is missing")
         return
 
     return PackageURL(type=supported_ecosystems[pkg_type], name=pkg_name, namespace=namespace)
@@ -257,8 +254,7 @@ def extract_html_json_advisories(package_advisories):
                     "span", class_="vue--chip vulnerable-versions__chip vue--chip--default"
                 )
                 affected_versions = [vers.text.strip() for vers in ranges]
-                vulnerability[anchor["href"].rsplit(
-                    "/", 1)[-1]] = affected_versions
+                vulnerability[anchor["href"].rsplit("/", 1)[-1]] = affected_versions
     return vulnerability
 
 

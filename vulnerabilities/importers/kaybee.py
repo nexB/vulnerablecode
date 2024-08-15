@@ -52,13 +52,11 @@ def yaml_file_to_advisory(yaml_path):
 
     for fix in data.get("fixes", []):
         for commit in fix["commits"]:
-            references.append(
-                Reference(url=f"{commit['repository']}/{commit['id']}"))
+            references.append(Reference(url=f"{commit['repository']}/{commit['id']}"))
 
     return AdvisoryData(
         vulnerability_id=vuln_id,
         summary=summary,
-        affected_packages=nearest_patched_package(
-            impacted_packages, resolved_packages),
+        affected_packages=nearest_patched_package(impacted_packages, resolved_packages),
         references=references,
     )

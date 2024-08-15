@@ -31,10 +31,8 @@ TEST_DATA = os.path.join(BASE_DIR, "test_data/")
 
 def test_npm_importer():
     file = os.path.join(TEST_DATA, "npm_sample.json")
-    result = [adv.to_dict()
-              for adv in NpmImporter().to_advisory_data(file=file)]
-    expected_file = os.path.join(
-        TEST_DATA, f"parse-advisory-npm-expected.json")
+    result = [adv.to_dict() for adv in NpmImporter().to_advisory_data(file=file)]
+    expected_file = os.path.join(TEST_DATA, f"parse-advisory-npm-expected.json")
     util_tests.check_results_against_json(result, expected_file)
 
 
@@ -46,8 +44,7 @@ def test_get_affected_package():
             type="npm", namespace=None, name="npm", version=None, qualifiers={}, subpath=None
         ),
         affected_version_range=NpmVersionRange(
-            constraints=(VersionConstraint(comparator="<",
-                         version=SemverVersion(string="1.3.3")),)
+            constraints=(VersionConstraint(comparator="<", version=SemverVersion(string="1.3.3")),)
         ),
         fixed_version=SemverVersion(string="1.3.3"),
     ) == NpmImporter().get_affected_package(data, "npm")
@@ -55,8 +52,7 @@ def test_get_affected_package():
 
 @patch("vulnerabilities.improvers.valid_versions.NpmImprover.get_package_versions")
 def test_npm_improver(mock_response):
-    advisory_file = os.path.join(
-        TEST_DATA, f"parse-advisory-npm-expected.json")
+    advisory_file = os.path.join(TEST_DATA, f"parse-advisory-npm-expected.json")
     with open(advisory_file) as exp:
         advisories = [AdvisoryData.from_dict(adv) for adv in (json.load(exp))]
     mock_response.return_value = [
@@ -76,8 +72,7 @@ def test_npm_improver(mock_response):
     result = []
     for improver in improvers:
         for advisory in advisories:
-            inference = [data.to_dict()
-                         for data in improver.get_inferences(advisory)]
+            inference = [data.to_dict() for data in improver.get_inferences(advisory)]
             result.extend(inference)
     expected_file = os.path.join(TEST_DATA, f"npm-improver-expected.json")
     util_tests.check_results_against_json(result, expected_file)

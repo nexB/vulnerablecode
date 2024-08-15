@@ -55,8 +55,7 @@ def test_default_improver_with_empty_affected_packages():
         summary="Test summary",
         affected_purls=[],
         fixed_purl=None,
-        references=[
-            Reference(reference_id="", url="https://www.example.com/", severities=[])],
+        references=[Reference(reference_id="", url="https://www.example.com/", severities=[])],
     )
     expected = [expected_inference]
     result = list(default_improver.get_inferences(advisory_data))
@@ -102,8 +101,7 @@ def test_default_improver_with_affected_packages():
             qualifiers={},
             subpath=None,
         ),
-        references=[
-            Reference(reference_id="", url="https://www.example.com/", severities=[])],
+        references=[Reference(reference_id="", url="https://www.example.com/", severities=[])],
     )
     result = list(default_improver.get_inferences(advisory_data))
     expected = [expected_inference]

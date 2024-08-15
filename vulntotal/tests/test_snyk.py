@@ -109,8 +109,7 @@ class TestSnyk(testcase.FileBasedTesting):
         with open(file) as f:
             page = f.read()
         result = snyk.parse_html_advisory(
-            page, "TEST-SNYKID", ["TEST-AFFECTED"], PackageURL(
-                "generic", "namespace", "test")
+            page, "TEST-SNYKID", ["TEST-AFFECTED"], PackageURL("generic", "namespace", "test")
         ).to_dict()
         expected_file = f"{file}-expected.json"
         util_tests.check_results_against_json(result, expected_file)
@@ -120,8 +119,7 @@ class TestSnyk(testcase.FileBasedTesting):
         with open(file) as f:
             page = f.read()
         result = snyk.parse_html_advisory(
-            page, "TEST-SNYKID", ["TEST-AFFECTED"], PackageURL(
-                "generic", "namespace", "test")
+            page, "TEST-SNYKID", ["TEST-AFFECTED"], PackageURL("generic", "namespace", "test")
         ).to_dict()
         expected_file = f"{file}-expected.json"
         util_tests.check_results_against_json(result, expected_file)
@@ -131,8 +129,7 @@ class TestSnyk(testcase.FileBasedTesting):
         with open(file) as f:
             page = f.read()
         result = snyk.parse_html_advisory(
-            page, "TEST-SNYKID", ["TEST-AFFECTED"], PackageURL(
-                "generic", "namespace", "test")
+            page, "TEST-SNYKID", ["TEST-AFFECTED"], PackageURL("generic", "namespace", "test")
         ).to_dict()
         expected_file = f"{file}-expected.json"
         util_tests.check_results_against_json(result, expected_file)
@@ -142,8 +139,7 @@ class TestSnyk(testcase.FileBasedTesting):
         with open(file) as f:
             page = f.read()
         result = snyk.parse_html_advisory(
-            page, "TEST-SNYKID", ["TEST-AFFECTED"], PackageURL(
-                "generic", "namespace", "test")
+            page, "TEST-SNYKID", ["TEST-AFFECTED"], PackageURL("generic", "namespace", "test")
         ).to_dict()
         expected_file = f"{file}-expected.json"
         util_tests.check_results_against_json(result, expected_file)

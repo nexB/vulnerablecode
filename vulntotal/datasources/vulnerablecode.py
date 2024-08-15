@@ -139,8 +139,7 @@ def fetch_vulnerablecode_query(url: str, payload: dict):
         raise VCIOTokenError(msg)
 
     response = (
-        requests.post(
-            url, headers={"Authorization": f"Token {vcio_token}"}, json=payload)
+        requests.post(url, headers={"Authorization": f"Token {vcio_token}"}, json=payload)
         if payload is not None
         else requests.get(url, headers={"Authorization": f"Token {vcio_token}"})
     )

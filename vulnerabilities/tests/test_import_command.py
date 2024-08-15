@@ -78,7 +78,6 @@ class TestImportCommand(TestCase):
     def test_bad_importer_fail_error(self):
         buf = StringIO()
         with pytest.raises(CommandError):
-            call_command(
-                "import", UnLicensedImporter.qualified_name, stdout=buf)
+            call_command("import", UnLicensedImporter.qualified_name, stdout=buf)
         out = buf.getvalue()
         assert "Failed to run importer" in out

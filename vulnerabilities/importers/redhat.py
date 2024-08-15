@@ -42,13 +42,11 @@ def fetch_cves() -> Iterable[List[Dict]]:
         try:
             response = requests_session.get(current_url)
             if response.status_code != requests.codes.ok:
-                logger.error(
-                    f"Failed to fetch RedHat CVE results from {current_url}")
+                logger.error(f"Failed to fetch RedHat CVE results from {current_url}")
                 break
             cve_data = response.json()
         except Exception as e:
-            logger.error(
-                f"Failed to fetch RedHat CVE results from {current_url} {e}")
+            logger.error(f"Failed to fetch RedHat CVE results from {current_url} {e}")
             break
         if not cve_data:
             break
@@ -81,8 +79,7 @@ def to_advisory(advisory_data):
         purl = rpm_to_purl(rpm_string=rpm, namespace="redhat")
         if purl:
             try:
-                affected_version_range = RpmVersionRange.from_versions(sequence=[
-                                                                       purl.version])
+                affected_version_range = RpmVersionRange.from_versions(sequence=[purl.version])
                 affected_packages.append(
                     AffectedPackage(
                         package=PackageURL(
@@ -97,8 +94,7 @@ def to_advisory(advisory_data):
                     )
                 )
             except Exception as e:
-                logger.error(
-                    f"Failed to parse version range {purl.version} for {purl} {e}")
+                logger.error(f"Failed to parse version range {purl.version} for {purl} {e}")
 
     references = []
     bugzilla = advisory_data.get("bugzilla")
@@ -128,8 +124,7 @@ def to_advisory(advisory_data):
             )
 
         else:
-            references.append(
-                Reference(severities=[], url=url, reference_id=rh_adv))
+            references.append(Reference(severities=[], url=url, reference_id=rh_adv))
 
     redhat_scores = []
     cvssv3_score = advisory_data.get("cvss3_score")
@@ -154,8 +149,7 @@ def to_advisory(advisory_data):
         aliases.append(alias)
     resource_url = advisory_data.get("resource_url")
     if resource_url:
-        references.append(
-            Reference(severities=redhat_scores, url=resource_url))
+        references.append(Reference(severities=redhat_scores, url=resource_url))
     return AdvisoryData(
         aliases=aliases,
         summary=advisory_data.get("bugzilla_description") or "",

@@ -104,6 +104,5 @@ class Command(BaseCommand):
                 json.dump(purl2cpes, out, indent=2)
 
         print(
-            self.style.SUCCESS(
-                f"Successfully dumped CPE to purl mappings in file://{destination}")
+            self.style.SUCCESS(f"Successfully dumped CPE to purl mappings in file://{destination}")
         )

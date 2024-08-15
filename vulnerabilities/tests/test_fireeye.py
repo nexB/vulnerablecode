@@ -124,10 +124,8 @@ class TestFireeyeImporter(TestCase):
             ]
         ) == [
             Reference(url="http://1-4a.com/cgi-bin/alienform/af.cgi"),
-            Reference(
-                url="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2002-0934"),
-            Reference(
-                url="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-10948"),
+            Reference(url="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2002-0934"),
+            Reference(url="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-10948"),
         ]
         assert get_references(
             [

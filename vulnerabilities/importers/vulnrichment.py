@@ -194,8 +194,7 @@ def ssvc_calculator(ssvc_data):
     timestamp = ssvc_data.get("timestamp")
 
     # Extract the options into a dictionary
-    options_dict = {k: v.lower()
-                    for option in options for k, v in option.items()}
+    options_dict = {k: v.lower() for option in options for k, v in option.items()}
 
     # We copied the table value from this link.
     # https://www.cisa.gov/sites/default/files/publications/cisa-ssvc-guide%20508c.pdf
@@ -221,8 +220,7 @@ def ssvc_calculator(ssvc_data):
         options_dict["Public Well-being Impact"] = "material"
 
     options_dict["Mission & Well-being"] = mission_well_being_table[
-        (options_dict["Mission Prevalence"],
-         options_dict["Public Well-being Impact"])
+        (options_dict["Mission Prevalence"], options_dict["Public Well-being Impact"])
     ]
 
     decision_key = (
@@ -296,8 +294,7 @@ def ssvc_calculator(ssvc_data):
         ssvc_vector += f"D:{decision_values.get(decision)}/"
 
     if timestamp:
-        timestamp_formatted = dateparser.parse(
-            timestamp).strftime("%Y-%m-%dT%H:%M:%SZ")
+        timestamp_formatted = dateparser.parse(timestamp).strftime("%Y-%m-%dT%H:%M:%SZ")
 
         ssvc_vector += f"{timestamp_formatted}/"
     return ssvc_vector, decision

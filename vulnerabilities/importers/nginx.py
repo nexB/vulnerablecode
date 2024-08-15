@@ -80,14 +80,11 @@ def to_advisory_data(ngnx_adv: NginxAdvisory) -> AdvisoryData:
     _, _, affected_version_range = ngnx_adv.vulnerable.partition(":")
     if "nginx/Windows" in affected_version_range:
         qualifiers["os"] = "windows"
-        affected_version_range = affected_version_range.replace(
-            "nginx/Windows", "")
+        affected_version_range = affected_version_range.replace("nginx/Windows", "")
 
-    purl = PackageURL(type=package_type, name=package_name,
-                      qualifiers=qualifiers)
+    purl = PackageURL(type=package_type, name=package_name, qualifiers=qualifiers)
 
-    affected_version_range = NginxVersionRange.from_native(
-        affected_version_range)
+    affected_version_range = NginxVersionRange.from_native(affected_version_range)
 
     affected_packages = []
     _, _, fixed_versions = ngnx_adv.not_vulnerable.partition(":")
@@ -191,8 +188,7 @@ def parse_advisory_data_from_paragraph(vuln_info):
                         severities = [advisory_severity]
                     else:
                         severities = []
-                    references.append(
-                        Reference(url=link, severities=severities))
+                    references.append(Reference(url=link, severities=severities))
                 else:
                     link = requests.compat.urljoin("https://nginx.org", link)
                     references.append(Reference(url=link))

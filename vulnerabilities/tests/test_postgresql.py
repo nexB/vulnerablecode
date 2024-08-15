@@ -27,8 +27,7 @@ def test_to_advisories():
         raw_data = f.read()
     advisories = to_advisories(raw_data)
     result = [data.to_dict() for data in advisories]
-    expected_file = os.path.join(
-        TEST_DATA, f"parse-advisory-postgresql-expected.json")
+    expected_file = os.path.join(TEST_DATA, f"parse-advisory-postgresql-expected.json")
     util_tests.check_results_against_json(result, expected_file)
 
 

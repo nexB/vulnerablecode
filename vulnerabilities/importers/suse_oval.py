@@ -24,8 +24,7 @@ class SuseOvalImporter(OvalImporter):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.translations = {"less than": "<",
-                             "equals": "=", "greater than or equal": ">="}
+        self.translations = {"less than": "<", "equals": "=", "greater than or equal": ">="}
 
     def _fetch(self):
         page = requests.get(self.base_url).text

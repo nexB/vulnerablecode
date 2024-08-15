@@ -55,13 +55,12 @@ class RustImporter(Importer):
     def _load_advisories(self, files) -> Set[AdvisoryData]:
         # per @tarcieri It will always be named RUSTSEC-0000-0000.md
         # https://github.com/aboutcode-org/vulnerablecode/pull/281/files#r528899864
-        files = [f for f in files if not f.endswith(
-            "-0000.md")]  # skip temporary files
+        files = [f for f in files if not f.endswith("-0000.md")]  # skip temporary files
         packages = self.collect_packages(files)
         self.set_api(packages)
 
         while files:
-            batch, files = files[: self.batch_size], files[self.batch_size:]
+            batch, files = files[: self.batch_size], files[self.batch_size :]
             advisories = []
             for path in batch:
                 advisory = self._load_advisory(path)
@@ -86,8 +85,7 @@ class RustImporter(Importer):
             references.append(Reference(url=advisory["url"]))
 
         publish_date = parse(advisory["date"]).replace(tzinfo=pytz.UTC)
-        all_versions = self.crates_api.get(
-            crate_name, publish_date).valid_versions
+        all_versions = self.crates_api.get(crate_name, publish_date).valid_versions
 
         # FIXME: Avoid wildcard version ranges for now.
         # See https://github.com/RustSec/advisory-db/discussions/831
@@ -112,10 +110,8 @@ class RustImporter(Importer):
             all_versions, unaffected_ranges, affected_ranges, resolved_ranges
         )
 
-        impacted_purls = [PackageURL(
-            type="cargo", name=crate_name, version=v) for v in affected]
-        resolved_purls = [PackageURL(
-            type="cargo", name=crate_name, version=v) for v in unaffected]
+        impacted_purls = [PackageURL(type="cargo", name=crate_name, version=v) for v in affected]
+        resolved_purls = [PackageURL(type="cargo", name=crate_name, version=v) for v in unaffected]
 
         cve_id = None
         if "aliases" in advisory:
@@ -127,15 +123,13 @@ class RustImporter(Importer):
         references.append(
             Reference(
                 reference_id=advisory["id"],
-                url="https://rustsec.org/advisories/{}.html".format(
-                    advisory["id"]),
+                url="https://rustsec.org/advisories/{}.html".format(advisory["id"]),
             )
         )
 
         return AdvisoryData(
             summary=advisory.get("description", ""),
-            affected_packages=nearest_patched_package(
-                impacted_purls, resolved_purls),
+            affected_packages=nearest_patched_package(impacted_purls, resolved_purls),
             vulnerability_id=cve_id,
             references=references,
         )

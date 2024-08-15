@@ -41,22 +41,17 @@ class OvalParser:
                 continue
             definition_data = {"test_data": []}
             # TODO:this could use some data cleaning
-            definition_data["description"] = definition.getMetadata(
-            ).getDescription() or ""
-            definition_data["vuln_id"] = self.get_vuln_id_from_definition(
-                definition)
-            definition_data["reference_urls"] = self.get_urls_from_definition(
-                definition)
-            definition_data["severity"] = self.get_severity_from_definition(
-                definition)
+            definition_data["description"] = definition.getMetadata().getDescription() or ""
+            definition_data["vuln_id"] = self.get_vuln_id_from_definition(definition)
+            definition_data["reference_urls"] = self.get_urls_from_definition(definition)
+            definition_data["severity"] = self.get_severity_from_definition(definition)
 
             for test in matching_tests:
                 test_obj, test_state = self.get_object_state_of_test(test)
                 if not test_obj or not test_state:
                     continue
                 test_data = {"package_list": []}
-                test_data["package_list"].extend(
-                    self.get_pkgs_from_obj(test_obj))
+                test_data["package_list"].extend(self.get_pkgs_from_obj(test_obj))
                 version_ranges = self.get_version_range_from_state(test_state)
                 test_data["version_ranges"] = version_ranges
                 definition_data["test_data"].append(test_data)
@@ -94,8 +89,7 @@ class OvalParser:
                         # See also https://github.com/OVALProject/Language/blob/master/docs/oval-common-schema.md
                         and child.get("datatype") in ["evr_string", "debian_evr_string"]
                     ):
-                        matching_tests.append(
-                            self.oval_document.getElementByID(ref))
+                        matching_tests.append(self.oval_document.getElementByID(ref))
 
         return sorted(set(matching_tests))
 
@@ -103,8 +97,7 @@ class OvalParser:
         """
         returns a tuple of (OvalObject,OvalState) of an OvalTest
         """
-        obj, state = list(test.element)[0].get(
-            "object_ref"), list(test.element)[1].get("state_ref")
+        obj, state = list(test.element)[0].get("object_ref"), list(test.element)[1].get("state_ref")
         obj = self.oval_document.getElementByID(obj)
         state = self.oval_document.getElementByID(state)
         return (obj, state)
@@ -120,8 +113,7 @@ class OvalParser:
         for var in obj.element:
             # It appears that `var_ref` is used in Ubuntu OVAL but not Debian or SUSE.
             if var.get("var_ref"):
-                var_elem = self.oval_document.getElementByID(
-                    var.get("var_ref"))
+                var_elem = self.oval_document.getElementByID(var.get("var_ref"))
                 comment = var_elem.element.get("comment")
                 pkg_name = re.match("'.+'", comment).group().replace("'", "")
                 pkg_list.append(pkg_name)
@@ -196,8 +188,7 @@ class OvalParser:
                 if child.get("source") == "CVE":
                     if not child.get("ref_id").startswith("CVE"):
                         unwanted_prefix = child.get("ref_id").split("CVE")[0]
-                        cve_list.append(
-                            child.get("ref_id").replace(unwanted_prefix, ""))
+                        cve_list.append(child.get("ref_id").replace(unwanted_prefix, ""))
                     else:
                         cve_list.append(child.get("ref_id"))
         # Debian OVAL files (no "ref_id") will get CVEs via this.

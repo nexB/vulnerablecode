@@ -47,18 +47,15 @@ class ImproveRunner:
         for advisory in improver.interesting_advisories:
             logger.info(f"Processing advisory: {advisory!r}")
             try:
-                inferences = improver.get_inferences(
-                    advisory_data=advisory.to_advisory_data())
+                inferences = improver.get_inferences(advisory_data=advisory.to_advisory_data())
                 process_inferences(
                     inferences=inferences,
                     advisory=advisory,
                     improver_name=improver.qualified_name,
                 )
             except Exception as e:
-                logger.info(
-                    f"Failed to process advisory: {advisory!r} with error {e!r}")
-        logger.info("Finished improving using %s.",
-                    self.improver_class.qualified_name)
+                logger.info(f"Failed to process advisory: {advisory!r} with error {e!r}")
+        logger.info("Finished improving using %s.", self.improver_class.qualified_name)
 
 
 @transaction.atomic
@@ -80,8 +77,7 @@ def process_inferences(
     inferences_processed_count = 0
 
     if not inferences:
-        logger.warning(
-            f"Nothing to improve. Source: {improver_name} Advisory id: {advisory.id}")
+        logger.warning(f"Nothing to improve. Source: {improver_name} Advisory id: {advisory.id}")
         return inferences_processed_count
 
     logger.info(f"Improving advisory id: {advisory.id}")
@@ -95,8 +91,7 @@ def process_inferences(
         )
 
         if not vulnerability:
-            logger.warning(
-                f"Unable to get vulnerability for inference: {inference!r}")
+            logger.warning(f"Unable to get vulnerability for inference: {inference!r}")
             continue
 
         for ref in inference.references:
@@ -166,8 +161,7 @@ def process_inferences(
 
         if inference.weaknesses and vulnerability:
             for cwe_id in inference.weaknesses:
-                cwe_obj, created = Weakness.objects.get_or_create(
-                    cwe_id=cwe_id)
+                cwe_obj, created = Weakness.objects.get_or_create(cwe_id=cwe_id)
                 cwe_obj.vulnerabilities.add(vulnerability)
                 cwe_obj.save()
 
@@ -204,10 +198,8 @@ def get_or_create_vulnerability_and_aliases(
     Get or create vulnerabilitiy and aliases such that all existing and new
     aliases point to the same vulnerability
     """
-    aliases = set(alias.strip()
-                  for alias in aliases if alias and alias.strip())
-    new_alias_names, existing_vulns = get_vulns_for_aliases_and_get_new_aliases(
-        aliases)
+    aliases = set(alias.strip() for alias in aliases if alias and alias.strip())
+    new_alias_names, existing_vulns = get_vulns_for_aliases_and_get_new_aliases(aliases)
 
     # All aliases must point to the same vulnerability
     vulnerability = None
@@ -234,11 +226,9 @@ def get_or_create_vulnerability_and_aliases(
 
     if vulnerability_id and not vulnerability:
         try:
-            vulnerability = Vulnerability.objects.get(
-                vulnerability_id=vulnerability_id)
+            vulnerability = Vulnerability.objects.get(vulnerability_id=vulnerability_id)
         except Vulnerability.DoesNotExist:
-            logger.error(
-                f"Cannot get requested vulnerability {vulnerability_id}.")
+            logger.error(f"Cannot get requested vulnerability {vulnerability_id}.")
             return
     if vulnerability:
         # TODO: We should keep multiple summaries, one for each advisory
@@ -247,8 +237,7 @@ def get_or_create_vulnerability_and_aliases(
         #         f"Inconsistent summary for {vulnerability.vulnerability_id}. "
         #         f"Existing: {vulnerability.summary!r}, provided: {summary!r}"
         #     )
-        associate_vulnerability_with_aliases(
-            vulnerability=vulnerability, aliases=new_alias_names)
+        associate_vulnerability_with_aliases(vulnerability=vulnerability, aliases=new_alias_names)
     else:
         try:
             vulnerability = create_vulnerability_and_add_aliases(
@@ -293,8 +282,7 @@ def create_vulnerability_and_add_aliases(aliases, summary):
     vulnerability.save()
     associate_vulnerability_with_aliases(aliases, vulnerability)
     if not vulnerability.aliases.count():
-        raise Exception(
-            f"Vulnerability {vulnerability.vcid} must have one or more aliases")
+        raise Exception(f"Vulnerability {vulnerability.vcid} must have one or more aliases")
     return vulnerability
 
 

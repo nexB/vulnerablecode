@@ -1,79 +1,89 @@
 [
-   {
-      "vulnerability_id": null,
-      "aliases": ["CVE-2019-1010083"],
-      "confidence": 100,
-      "summary": "Denial of service\nDenial of Service due to unexpected memory usage in the Pallets Project Flask",
-      "affected_purls": [
-         {
-            "type": "pypi",
-            "namespace": "",
-            "name": "flask",
-            "version": "0.8",
-            "qualifiers": "",
-            "subpath": ""
-         },
-         {
-            "type": "pypi",
-            "namespace": "",
-            "name": "flask",
-            "version": "0.9",
-            "qualifiers": "",
-            "subpath": ""
-         }
-      ],
-      "fixed_purl": {
-         "type": "pypi",
-         "namespace": "",
-         "name": "flask",
-         "version": "1.0",
-         "qualifiers": "",
-         "subpath": ""
+  {
+    "vulnerability_id": null,
+    "aliases": [
+      "CVE-2019-1010083"
+    ],
+    "confidence": 100,
+    "summary": "Denial of service\nDenial of Service due to unexpected memory usage in the Pallets Project Flask",
+    "affected_purls": [
+      {
+        "type": "pypi",
+        "namespace": "",
+        "name": "flask",
+        "version": "0.8",
+        "qualifiers": "",
+        "subpath": ""
       },
-      "references": [
-         {
-            "reference_id": "CVE-2019-1010083",
-            "reference_type": "",
-            "url": "https://nvd.nist.gov/vuln/detail/CVE-2019-1010083",
-            "severities": []
-         },
-         {
-            "reference_id": "",
-            "reference_type": "",
-            "url": "https://www.palletsprojects.com/blog/flask-1-0-released/",
-            "severities": []
-         }
-      ],
-      "weaknesses": [1035, 937]
-   },
-   {
-      "vulnerability_id": null,
-      "aliases": ["CVE-2019-1010083"],
-      "confidence": 100,
-      "summary": "Denial of service\nDenial of Service due to unexpected memory usage in the Pallets Project Flask",
-      "affected_purls": [],
-      "fixed_purl": {
-         "type": "pypi",
-         "namespace": "",
-         "name": "flask",
-         "version": "1.0",
-         "qualifiers": "",
-         "subpath": ""
+      {
+        "type": "pypi",
+        "namespace": "",
+        "name": "flask",
+        "version": "0.9",
+        "qualifiers": "",
+        "subpath": ""
+      }
+    ],
+    "fixed_purl": {
+      "type": "pypi",
+      "namespace": "",
+      "name": "flask",
+      "version": "1.0",
+      "qualifiers": "",
+      "subpath": ""
+    },
+    "references": [
+      {
+        "reference_id": "CVE-2019-1010083",
+        "reference_type": "",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2019-1010083",
+        "severities": []
       },
-      "references": [
-         {
-            "reference_id": "CVE-2019-1010083",
-            "reference_type": "",
-            "url": "https://nvd.nist.gov/vuln/detail/CVE-2019-1010083",
-            "severities": []
-         },
-         {
-            "reference_id": "",
-            "reference_type": "",
-            "url": "https://www.palletsprojects.com/blog/flask-1-0-released/",
-            "severities": []
-         }
-      ],
-      "weaknesses": [1035, 937]
-   }
+      {
+        "reference_id": "",
+        "reference_type": "",
+        "url": "https://www.palletsprojects.com/blog/flask-1-0-released/",
+        "severities": []
+      }
+    ],
+    "weaknesses": [
+      1035,
+      937
+    ]
+  },
+  {
+    "vulnerability_id": null,
+    "aliases": [
+      "CVE-2019-1010083"
+    ],
+    "confidence": 100,
+    "summary": "Denial of service\nDenial of Service due to unexpected memory usage in the Pallets Project Flask",
+    "affected_purls": [],
+    "fixed_purl": {
+      "type": "pypi",
+      "namespace": "",
+      "name": "flask",
+      "version": "1.0",
+      "qualifiers": "",
+      "subpath": ""
+    },
+    "references": [
+      {
+        "reference_id": "CVE-2019-1010083",
+        "reference_type": "",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2019-1010083",
+        "severities": []
+      },
+      {
+        "reference_id": "",
+        "reference_type": "",
+        "url": "https://www.palletsprojects.com/blog/flask-1-0-released/",
+        "severities": []
+      }
+    ],
+    "weaknesses": [
+      1035,
+      937
+    ]
+  }
 ]

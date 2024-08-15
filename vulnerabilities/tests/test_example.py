@@ -54,8 +54,7 @@ def mock_fetch_additional_aliases(alias):
 )
 class TestExampleImporter(testcase.FileBasedTesting):
 
-    test_data_dir = str(Path(__file__).resolve().parent /
-                        "test_data" / "example")
+    test_data_dir = str(Path(__file__).resolve().parent / "test_data" / "example")
 
     def test_parse_advisory_data(self):
         raw_data = {
@@ -68,8 +67,7 @@ class TestExampleImporter(testcase.FileBasedTesting):
             "published_on": "06-10-2021 UTC",
             "url": "http://example.com/cve-2021-1234",
         }
-        expected_file = self.get_test_loc(
-            "parse_advisory_data-expected.json", must_exist=False)
+        expected_file = self.get_test_loc("parse_advisory_data-expected.json", must_exist=False)
         result = parse_advisory_data(raw_data).to_dict()
         util_tests.check_results_against_json(result, expected_file)
 
@@ -78,8 +76,7 @@ class TestExampleImporter(testcase.FileBasedTesting):
         ImportRunner(ExampleImporter).run()
 
         for expected in mock_fetch_advisory_data():
-            assert models.Advisory.objects.get(
-                aliases__contains=expected["id"])
+            assert models.Advisory.objects.get(aliases__contains=expected["id"])
 
     @pytest.mark.django_db(transaction=True)
     def test_improve_framework_using_example_improver(self):
@@ -88,13 +85,10 @@ class TestExampleImporter(testcase.FileBasedTesting):
         ImproveRunner(improver_class=ExampleAliasImprover).run()
 
         assert models.Package.objects.count() == 3
-        assert models.PackageRelatedVulnerability.objects.filter(
-            fix=True).count() == 1
-        assert models.PackageRelatedVulnerability.objects.filter(
-            fix=False).count() == 2
+        assert models.PackageRelatedVulnerability.objects.filter(fix=True).count() == 1
+        assert models.PackageRelatedVulnerability.objects.filter(fix=False).count() == 2
         assert models.VulnerabilitySeverity.objects.count() == 1
         assert models.VulnerabilityReference.objects.count() == 1
 
         for expected in mock_fetch_advisory_data():
-            assert models.Vulnerability.objects.get(
-                summary=expected["summary"])
+            assert models.Vulnerability.objects.get(summary=expected["summary"])

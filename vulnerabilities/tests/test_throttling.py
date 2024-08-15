@@ -24,8 +24,7 @@ class ThrottleApiTests(APITestCase):
         self.csrf_client.credentials(HTTP_AUTHORIZATION=self.auth)
 
         # create a staff user
-        self.staff_user = ApiUser.objects.create_api_user(
-            username="staff@mail.com", is_staff=True)
+        self.staff_user = ApiUser.objects.create_api_user(username="staff@mail.com", is_staff=True)
         self.staff_auth = f"Token {self.staff_user.auth_token.key}"
         self.staff_csrf_client = APIClient(enforce_csrf_checks=True)
         self.staff_csrf_client.credentials(HTTP_AUTHORIZATION=self.staff_auth)

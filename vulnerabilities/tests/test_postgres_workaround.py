@@ -40,8 +40,7 @@ data = AdvisoryData(
             ),
             affected_version_range=MavenVersionRange(
                 constraints=(
-                    VersionConstraint(
-                        comparator="<=", version=MavenVersion(string="29.0")),
+                    VersionConstraint(comparator="<=", version=MavenVersion(string="29.0")),
                 )
             ),
             fixed_version=None,
@@ -57,8 +56,7 @@ data = AdvisoryData(
             ),
             affected_version_range=MavenVersionRange(
                 constraints=(
-                    VersionConstraint(
-                        comparator="<=", version=MavenVersion(string="29.0")),
+                    VersionConstraint(comparator="<=", version=MavenVersion(string="29.0")),
                 )
             ),
             fixed_version=None,
@@ -74,8 +72,7 @@ data = AdvisoryData(
             ),
             affected_version_range=MavenVersionRange(
                 constraints=(
-                    VersionConstraint(
-                        comparator="<=", version=MavenVersion(string="29.0")),
+                    VersionConstraint(comparator="<=", version=MavenVersion(string="29.0")),
                 )
             ),
             fixed_version=None,
@@ -91,8 +88,7 @@ data = AdvisoryData(
             ),
             affected_version_range=MavenVersionRange(
                 constraints=(
-                    VersionConstraint(
-                        comparator="<=", version=MavenVersion(string="29.0")),
+                    VersionConstraint(comparator="<=", version=MavenVersion(string="29.0")),
                 )
             ),
             fixed_version=None,
@@ -108,8 +104,7 @@ data = AdvisoryData(
             ),
             affected_version_range=MavenVersionRange(
                 constraints=(
-                    VersionConstraint(
-                        comparator="<=", version=MavenVersion(string="29.0")),
+                    VersionConstraint(comparator="<=", version=MavenVersion(string="29.0")),
                 )
             ),
             fixed_version=None,
@@ -125,8 +120,7 @@ data = AdvisoryData(
             ),
             affected_version_range=MavenVersionRange(
                 constraints=(
-                    VersionConstraint(
-                        comparator="<=", version=MavenVersion(string="29.0")),
+                    VersionConstraint(comparator="<=", version=MavenVersion(string="29.0")),
                 )
             ),
             fixed_version=None,
@@ -142,8 +136,7 @@ data = AdvisoryData(
             ),
             affected_version_range=MavenVersionRange(
                 constraints=(
-                    VersionConstraint(
-                        comparator="<=", version=MavenVersion(string="29.0")),
+                    VersionConstraint(comparator="<=", version=MavenVersion(string="29.0")),
                 )
             ),
             fixed_version=None,
@@ -159,8 +152,7 @@ data = AdvisoryData(
             ),
             affected_version_range=MavenVersionRange(
                 constraints=(
-                    VersionConstraint(
-                        comparator="<=", version=MavenVersion(string="29.0")),
+                    VersionConstraint(comparator="<=", version=MavenVersion(string="29.0")),
                 )
             ),
             fixed_version=None,
@@ -176,8 +168,7 @@ data = AdvisoryData(
             ),
             affected_version_range=MavenVersionRange(
                 constraints=(
-                    VersionConstraint(
-                        comparator="<=", version=MavenVersion(string="29.0")),
+                    VersionConstraint(comparator="<=", version=MavenVersion(string="29.0")),
                 )
             ),
             fixed_version=None,
@@ -193,8 +184,7 @@ data = AdvisoryData(
             ),
             affected_version_range=MavenVersionRange(
                 constraints=(
-                    VersionConstraint(
-                        comparator="<=", version=MavenVersion(string="29.0")),
+                    VersionConstraint(comparator="<=", version=MavenVersion(string="29.0")),
                 )
             ),
             fixed_version=None,

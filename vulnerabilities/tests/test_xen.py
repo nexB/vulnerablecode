@@ -25,6 +25,5 @@ def test_xen_to_advisories():
         raw_data = json.load(f)
     advisories = XenImporter().to_advisories(raw_data)
     result = [data.to_dict() for data in advisories]
-    expected_file = os.path.join(
-        TEST_DATA, f"parse-advisory-xen-expected.json")
+    expected_file = os.path.join(TEST_DATA, f"parse-advisory-xen-expected.json")
     util_tests.check_results_against_json(result, expected_file)

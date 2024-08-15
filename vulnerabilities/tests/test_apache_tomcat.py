@@ -67,11 +67,9 @@ def test_apache_tomcat_improver(mock_response):
     result = []
     for improver in improvers:
         for advisory in advisories:
-            inference = [data.to_dict()
-                         for data in improver.get_inferences(advisory)]
+            inference = [data.to_dict() for data in improver.get_inferences(advisory)]
             result.extend(inference)
-    expected_file = os.path.join(
-        TEST_DATA, f"apache-tomcat-improver-expected.json")
+    expected_file = os.path.join(TEST_DATA, f"apache-tomcat-improver-expected.json")
     util_tests.check_results_against_json(result, expected_file)
 
 
@@ -376,75 +374,48 @@ def test_to_version_ranges():
 
     expected_MavenVersionRange_versions_data = MavenVersionRange(
         constraints=(
-            VersionConstraint(
-                comparator=">=", version=MavenVersion(string="1.0.0")),
-            VersionConstraint(
-                comparator="<=", version=MavenVersion(string="2.0.0")),
-            VersionConstraint(
-                comparator="!=", version=MavenVersion(string="3.0.0")),
-            VersionConstraint(
-                comparator=">=", version=MavenVersion(string="3.2.2")),
-            VersionConstraint(
-                comparator="<=", version=MavenVersion(string="3.2.3")),
-            VersionConstraint(
-                comparator=">=", version=MavenVersion(string="3.3a")),
-            VersionConstraint(
-                comparator="<=", version=MavenVersion(string="3.3.1")),
-            VersionConstraint(
-                comparator="!=", version=MavenVersion(string="3.3.1a")),
-            VersionConstraint(
-                comparator=">=", version=MavenVersion(string="9.0.0.M1")),
-            VersionConstraint(
-                comparator="<=", version=MavenVersion(string="9.0.0.M9")),
-            VersionConstraint(
-                comparator=">=", version=MavenVersion(string="10.1.0-M1")),
-            VersionConstraint(
-                comparator="<=", version=MavenVersion(string="10.1.0-M16")),
+            VersionConstraint(comparator=">=", version=MavenVersion(string="1.0.0")),
+            VersionConstraint(comparator="<=", version=MavenVersion(string="2.0.0")),
+            VersionConstraint(comparator="!=", version=MavenVersion(string="3.0.0")),
+            VersionConstraint(comparator=">=", version=MavenVersion(string="3.2.2")),
+            VersionConstraint(comparator="<=", version=MavenVersion(string="3.2.3")),
+            VersionConstraint(comparator=">=", version=MavenVersion(string="3.3a")),
+            VersionConstraint(comparator="<=", version=MavenVersion(string="3.3.1")),
+            VersionConstraint(comparator="!=", version=MavenVersion(string="3.3.1a")),
+            VersionConstraint(comparator=">=", version=MavenVersion(string="9.0.0.M1")),
+            VersionConstraint(comparator="<=", version=MavenVersion(string="9.0.0.M9")),
+            VersionConstraint(comparator=">=", version=MavenVersion(string="10.1.0-M1")),
+            VersionConstraint(comparator="<=", version=MavenVersion(string="10.1.0-M16")),
         )
     )
 
-    converted_versions_data_maven = to_version_ranges_maven(
-        versions_data, fixed_versions)
+    converted_versions_data_maven = to_version_ranges_maven(versions_data, fixed_versions)
 
     assert expected_MavenVersionRange_versions_data == converted_versions_data_maven
     assert (
-        MavenVersionRange.from_string(
-            expected_versions_data_maven) == converted_versions_data_maven
+        MavenVersionRange.from_string(expected_versions_data_maven) == converted_versions_data_maven
     )
 
     expected_versions_data_apache = "vers:apache/>=1.0.0|<=2.0.0|!=3.0.0|>=3.2.2|<=3.2.3|>=3.3a|<=3.3.1|!=3.3.1a|>=9.0.0.M1|<=9.0.0.M9|>=10.1.0-M1|<=10.1.0-M16"
 
     expected_ApacheVersionRange_versions_data = ApacheVersionRange(
         constraints=(
-            VersionConstraint(
-                comparator=">=", version=SemverVersion(string="1.0.0")),
-            VersionConstraint(
-                comparator="<=", version=SemverVersion(string="2.0.0")),
-            VersionConstraint(
-                comparator="!=", version=SemverVersion(string="3.0.0")),
-            VersionConstraint(
-                comparator=">=", version=SemverVersion(string="3.2.2")),
-            VersionConstraint(
-                comparator="<=", version=SemverVersion(string="3.2.3")),
-            VersionConstraint(
-                comparator=">=", version=SemverVersion(string="3.3a")),
-            VersionConstraint(
-                comparator="<=", version=SemverVersion(string="3.3.1")),
-            VersionConstraint(
-                comparator="!=", version=SemverVersion(string="3.3.1a")),
-            VersionConstraint(
-                comparator=">=", version=SemverVersion(string="9.0.0.M1")),
-            VersionConstraint(
-                comparator="<=", version=SemverVersion(string="9.0.0.M9")),
-            VersionConstraint(
-                comparator=">=", version=SemverVersion(string="10.1.0-M1")),
-            VersionConstraint(
-                comparator="<=", version=SemverVersion(string="10.1.0-M16")),
+            VersionConstraint(comparator=">=", version=SemverVersion(string="1.0.0")),
+            VersionConstraint(comparator="<=", version=SemverVersion(string="2.0.0")),
+            VersionConstraint(comparator="!=", version=SemverVersion(string="3.0.0")),
+            VersionConstraint(comparator=">=", version=SemverVersion(string="3.2.2")),
+            VersionConstraint(comparator="<=", version=SemverVersion(string="3.2.3")),
+            VersionConstraint(comparator=">=", version=SemverVersion(string="3.3a")),
+            VersionConstraint(comparator="<=", version=SemverVersion(string="3.3.1")),
+            VersionConstraint(comparator="!=", version=SemverVersion(string="3.3.1a")),
+            VersionConstraint(comparator=">=", version=SemverVersion(string="9.0.0.M1")),
+            VersionConstraint(comparator="<=", version=SemverVersion(string="9.0.0.M9")),
+            VersionConstraint(comparator=">=", version=SemverVersion(string="10.1.0-M1")),
+            VersionConstraint(comparator="<=", version=SemverVersion(string="10.1.0-M16")),
         )
     )
 
-    converted_versions_data_apache = to_version_ranges_apache(
-        versions_data, fixed_versions)
+    converted_versions_data_apache = to_version_ranges_apache(versions_data, fixed_versions)
 
     assert expected_ApacheVersionRange_versions_data == converted_versions_data_apache
     assert (

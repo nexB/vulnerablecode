@@ -50,15 +50,13 @@ def cleaned_response(response):
         )
         for index, vulnerability in enumerate(package_data["unresolved_vulnerabilities"]):
             package_data["unresolved_vulnerabilities"][index]["references"] = sorted(
-                vulnerability["references"], key=lambda x: (
-                    x["reference_id"], x["url"])
+                vulnerability["references"], key=lambda x: (x["reference_id"], x["url"])
             )
             for index2, reference in enumerate(
                 package_data["unresolved_vulnerabilities"][index]["references"]
             ):
                 reference["scores"] = sorted(
-                    reference["scores"], key=lambda x: (
-                        x["value"], x["scoring_system"])
+                    reference["scores"], key=lambda x: (x["value"], x["scoring_system"])
                 )
                 package_data["unresolved_vulnerabilities"][index]["references"][index2][
                     "scores"
@@ -69,15 +67,13 @@ def cleaned_response(response):
         )
         for index, vulnerability in enumerate(package_data["resolved_vulnerabilities"]):
             package_data["resolved_vulnerabilities"][index]["references"] = sorted(
-                vulnerability["references"], key=lambda x: (
-                    x["reference_id"], x["url"])
+                vulnerability["references"], key=lambda x: (x["reference_id"], x["url"])
             )
             for index2, reference in enumerate(
                 package_data["resolved_vulnerabilities"][index]["references"]
             ):
                 reference["scores"] = sorted(
-                    reference["scores"], key=lambda x: (
-                        x["value"], x["scoring_system"])
+                    reference["scores"], key=lambda x: (x["value"], x["scoring_system"])
                 )
                 package_data["resolved_vulnerabilities"][index]["references"][index2][
                     "scores"
@@ -91,8 +87,7 @@ def cleaned_response(response):
 class TestDebianResponse(TransactionTestCase):
     def setUp(self):
         # create one non-debian package called "mimetex" to verify filtering
-        Package.objects.create(
-            name="mimetex", version="1.50-1.1", type="deb", namespace="ubuntu")
+        Package.objects.create(name="mimetex", version="1.50-1.1", type="deb", namespace="ubuntu")
         self.user = ApiUser.objects.create_api_user(username="e@mail.com")
         self.auth = f"Token {self.user.auth_token.key}"
         self.client = APIClient(enforce_csrf_checks=True)
@@ -109,27 +104,23 @@ class TestDebianResponse(TransactionTestCase):
 
         # check filtering when qualifiers are not normalized
         test_purl = quote("pkg:deb/vlc@1.50-1.1?foo=bar&tar=ball")
-        response = self.client.get(
-            f"/api/packages/?purl={test_purl}", format="json").data
+        response = self.client.get(f"/api/packages/?purl={test_purl}", format="json").data
 
         self.assertEqual(2, response["count"])
 
         test_purl = quote("pkg:deb/vlc@1.50-1.1?tar=ball&foo=bar")
-        response = self.client.get(
-            f"/api/packages/?purl={test_purl}", format="json").data
+        response = self.client.get(f"/api/packages/?purl={test_purl}", format="json").data
 
         self.assertEqual(2, response["count"])
 
         # check filtering when there is intersection of qualifiers between packages
         test_purl = quote("pkg:deb/vlc@1.50-1.1?foo=bar")
-        response = self.client.get(
-            f"/api/packages/?purl={test_purl}", format="json").data
+        response = self.client.get(f"/api/packages/?purl={test_purl}", format="json").data
 
         self.assertEqual(2, response["count"])
 
     def test_query_by_name(self):
-        response = self.client.get(
-            "/api/packages/?name=mimetex", format="json").data
+        response = self.client.get("/api/packages/?name=mimetex", format="json").data
 
         self.assertEqual(1, response["count"])
 
@@ -184,8 +175,7 @@ class TestSerializers(TransactionTestCase):
     def test_package_serializer(self):
         pk = Package.objects.filter(name="mimetex").with_is_vulnerable()
         mock_request = RequestFactory().get("/api")
-        response = PackageSerializer(pk, many=True, context={
-                                     "request": mock_request}).data
+        response = PackageSerializer(pk, many=True, context={"request": mock_request}).data
         self.assertEqual(1, len(response))
 
         first_result = response[0]
@@ -219,10 +209,8 @@ class APITestCaseVulnerability(TransactionTestCase):
                 summary=str(i),
             )
         self.vulnerability = Vulnerability.objects.create(summary="test")
-        self.pkg1 = Package.objects.create(
-            name="flask", type="pypi", version="0.1.2")
-        self.pkg2 = Package.objects.create(
-            name="flask", type="deb", version="0.1.2")
+        self.pkg1 = Package.objects.create(name="flask", type="pypi", version="0.1.2")
+        self.pkg2 = Package.objects.create(name="flask", type="deb", version="0.1.2")
         for pkg in [self.pkg1, self.pkg2]:
             PackageRelatedVulnerability.objects.create(
                 package=pkg, vulnerability=self.vulnerability, fix=True
@@ -385,8 +373,7 @@ def create_vuln(vcid, aliases=()):
     """
     Return a test Vulnerability using the ``vcid`` string as VCID, using optional aliases.
     """
-    vuln = Vulnerability.objects.create(
-        summary=f"This is {vcid}", vulnerability_id=vcid)
+    vuln = Vulnerability.objects.create(summary=f"This is {vcid}", vulnerability_id=vcid)
     add_aliases(vuln, aliases)
     return vuln
 
@@ -417,28 +404,23 @@ class APITestCasePackage(TestCase):
         # pkg_2_14_0_rc1: @ 2.14.0-rc1   affected by        fixing
 
         # searched-for pkg's vuln
-        self.vul1 = create_vuln("VCID-vul1-vul1-vul1",
-                                ["CVE-2020-36518", "GHSA-57j2-w4cx-62h2"])
+        self.vul1 = create_vuln("VCID-vul1-vul1-vul1", ["CVE-2020-36518", "GHSA-57j2-w4cx-62h2"])
         self.vul2 = create_vuln("VCID-vul2-vul2-vul2")
         # This is the vuln fixed by the searched-for pkg -- and by a lesser version (created below),
         # which WILL be included in the API
-        self.vul3 = create_vuln("VCID-vul3-vul3-vul3",
-                                ["CVE-2021-46877", "GHSA-3x8x-79m2-3w2w"])
+        self.vul3 = create_vuln("VCID-vul3-vul3-vul3", ["CVE-2021-46877", "GHSA-3x8x-79m2-3w2w"])
 
         from_purl = Package.objects.from_purl
         # lesser-version pkg that also fixes the vuln fixed by the searched-for pkg
-        self.pkg_2_12_6 = from_purl(
-            "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.12.6")
+        self.pkg_2_12_6 = from_purl("pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.12.6")
         # this is a lesser version omitted from the API that fixes searched-for pkg's vuln
         self.pkg_2_12_6_1 = from_purl(
             "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.12.6.1"
         )
         # searched-for pkg
-        self.pkg_2_13_1 = from_purl(
-            "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.1")
+        self.pkg_2_13_1 = from_purl("pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.1")
         # this is a greater version that fixes searched-for pkg's vuln
-        self.pkg_2_13_2 = from_purl(
-            "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.2")
+        self.pkg_2_13_2 = from_purl("pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.2")
         # This addresses both next and latest non-vulnerable pkg
         self.pkg_2_14_0_rc1 = from_purl(
             "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.14.0-rc1"
@@ -469,8 +451,7 @@ class APITestCasePackage(TestCase):
         assert package_with_no_vulnerabilities is None
 
     def test_api_with_lesser_and_greater_fixed_by_packages(self):
-        response = self.csrf_client.get(
-            f"/api/packages/{self.pkg_2_13_1.id}", format="json").data
+        response = self.csrf_client.get(f"/api/packages/{self.pkg_2_13_1.id}", format="json").data
 
         expected_response = {
             "url": f"http://testserver/api/packages/{self.pkg_2_13_1.id}",
@@ -521,8 +502,7 @@ class APITestCasePackage(TestCase):
                             ],
                         ),
                         ("aliases", ["CVE-2020-36518", "GHSA-57j2-w4cx-62h2"]),
-                        ("resource_url",
-                         "http://testserver/vulnerabilities/VCID-vul1-vul1-vul1"),
+                        ("resource_url", "http://testserver/vulnerabilities/VCID-vul1-vul1-vul1"),
                     ]
                 )
             ],
@@ -581,21 +561,18 @@ class APITestCasePackage(TestCase):
                             ],
                         ),
                         ("aliases", ["CVE-2021-46877", "GHSA-3x8x-79m2-3w2w"]),
-                        ("resource_url",
-                         "http://testserver/vulnerabilities/VCID-vul3-vul3-vul3"),
+                        ("resource_url", "http://testserver/vulnerabilities/VCID-vul3-vul3-vul3"),
                     ]
                 )
             ],
             "resource_url": "http://testserver/packages/pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.1",
         }
 
-        assert json.dumps(response, indent=2) == json.dumps(
-            expected_response, indent=2)
+        assert json.dumps(response, indent=2) == json.dumps(expected_response, indent=2)
 
     def test_is_vulnerable_attribute_only_exists_on_queryset(self):
         assert not hasattr(self.pkg_2_13_1, "is_vulnerable")
-        pkgs = Package.objects.filter(
-            pk=self.pkg_2_13_1.pk).with_is_vulnerable()
+        pkgs = Package.objects.filter(pk=self.pkg_2_13_1.pk).with_is_vulnerable()
         assert all(hasattr(p, "is_vulnerable") for p in pkgs)
 
     def test_api_status(self):
@@ -613,8 +590,7 @@ class APITestCasePackage(TestCase):
         self.assertEqual(response["count"], 5)
 
     def test_api_with_wrong_namespace_filter(self):
-        response = self.csrf_client.get(
-            "/api/packages/?namespace=foo-bar", format="json").data
+        response = self.csrf_client.get("/api/packages/?namespace=foo-bar", format="json").data
         self.assertEqual(response["count"], 0)
 
     def test_api_with_all_vulnerable_packages(self):
@@ -624,8 +600,7 @@ class APITestCasePackage(TestCase):
             # 2. Authenticating user
             # 3. Get all vulnerable packages
             # 4. RELEASE SAVEPOINT
-            response = self.csrf_client.get(
-                f"/api/packages/all", format="json").data
+            response = self.csrf_client.get(f"/api/packages/all", format="json").data
 
             assert len(response) == 3
             assert response == [
@@ -667,8 +642,7 @@ class CPEApi(TestCase):
         self.assertEqual(status.HTTP_200_OK, response.status_code)
 
     def test_api_response(self):
-        response = self.csrf_client.get(
-            "/api/cpes/?cpe=cpe:/a:nginx:9", format="json").data
+        response = self.csrf_client.get("/api/cpes/?cpe=cpe:/a:nginx:9", format="json").data
         self.assertEqual(response["count"], 1)
 
 
@@ -680,16 +654,14 @@ class AliasApi(TestCase):
         self.csrf_client.credentials(HTTP_AUTHORIZATION=self.auth)
         self.vulnerability = Vulnerability.objects.create(summary="test")
         for i in range(0, 10):
-            Alias.objects.create(
-                alias=f"CVE-{i}", vulnerability=self.vulnerability)
+            Alias.objects.create(alias=f"CVE-{i}", vulnerability=self.vulnerability)
 
     def test_api_status(self):
         response = self.csrf_client.get("/api/aliases/", format="json")
         self.assertEqual(status.HTTP_200_OK, response.status_code)
 
     def test_api_response(self):
-        response = self.csrf_client.get(
-            "/api/aliases?alias=CVE-9", format="json").data
+        response = self.csrf_client.get("/api/aliases?alias=CVE-9", format="json").data
         self.assertEqual(response["count"], 1)
 
 
@@ -739,8 +711,7 @@ class BulkSearchAPIPackage(TestCase):
         assert len(response) == 13
 
     def test_bulk_api_response_with_ignoring_qualifiers(self):
-        request_body = {
-            "purls": ["pkg:nginx/nginx@1.0.15?qualifiers=dev"], "plain_purl": True}
+        request_body = {"purls": ["pkg:nginx/nginx@1.0.15?qualifiers=dev"], "plain_purl": True}
         response = self.csrf_client.post(
             "/api/packages/bulk_search",
             data=json.dumps(request_body),
@@ -750,8 +721,7 @@ class BulkSearchAPIPackage(TestCase):
         assert response[0]["purl"] == "pkg:nginx/nginx@1.0.15"
 
     def test_bulk_api_response_with_ignoring_subpath(self):
-        request_body = {
-            "purls": ["pkg:nginx/nginx@1.0.15#dev/subpath"], "plain_purl": True}
+        request_body = {"purls": ["pkg:nginx/nginx@1.0.15#dev/subpath"], "plain_purl": True}
         response = self.csrf_client.post(
             "/api/packages/bulk_search",
             data=json.dumps(request_body),
@@ -843,8 +813,7 @@ class BulkSearchAPICPE(TestCase):
                 reference_id=cpe,
                 url=f"https://nvd.nist.gov/vuln/search/results?adv_search=true&isCpeNameSearch=true&query={cpe}",
             )
-            VulnerabilityRelatedReference.objects.create(
-                reference=ref, vulnerability=vuln)
+            VulnerabilityRelatedReference.objects.create(reference=ref, vulnerability=vuln)
         second_vuln = Vulnerability.objects.create(summary="test-A")
         self.non_exclusive_cpes = [
             "cpe:/a:nginx:1.16.1",
@@ -861,10 +830,8 @@ class BulkSearchAPICPE(TestCase):
                 reference_id=cpe,
                 url=f"https://nvd.nist.gov/vuln/search/results?adv_search=true&isCpeNameSearch=true&query={cpe}",
             )
-            VulnerabilityRelatedReference.objects.create(
-                reference=ref, vulnerability=second_vuln)
-            VulnerabilityRelatedReference.objects.create(
-                reference=ref, vulnerability=third_vuln)
+            VulnerabilityRelatedReference.objects.create(reference=ref, vulnerability=second_vuln)
+            VulnerabilityRelatedReference.objects.create(reference=ref, vulnerability=third_vuln)
 
     def test_api_response_with_with_exclusive_cpes_associated_with_two_vulnerabilities(self):
         request_body = {
@@ -912,8 +879,7 @@ class BulkSearchAPICPE(TestCase):
             data=json.dumps(request_body),
             content_type="application/json",
         ).json()
-        assert response == {
-            "Error": "A non-empty 'cpes' list of CPEs is required."}
+        assert response == {"Error": "A non-empty 'cpes' list of CPEs is required."}
 
     def test_with_invalid_cpes(self):
         request_body = {"cpes": ["CVE-2022-2022"]}
@@ -927,8 +893,7 @@ class BulkSearchAPICPE(TestCase):
 
 class TesBanUserAgent(TestCase):
     def test_ban_request_with_bytedance_user_agent(self):
-        response = self.client.get(
-            f"/api/packages", format="json", HTTP_USER_AGENT="bytedance")
+        response = self.client.get(f"/api/packages", format="json", HTTP_USER_AGENT="bytedance")
         assert 404 == response.status_code
 
 

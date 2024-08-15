@@ -55,8 +55,7 @@ def fork_and_get_files(base_path) -> dict:
         for file in files:
             path = os.path.join(root, file)
             if not file.endswith(".yaml"):
-                logger.warning(
-                    f"Unsupported non-YAML PyPA advisory file: {path}")
+                logger.warning(f"Unsupported non-YAML PyPA advisory file: {path}")
                 continue
             advisory_url = get_advisory_url(
                 file=Path(path),

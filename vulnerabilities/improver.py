@@ -39,8 +39,7 @@ class Inference:
     aliases: Optional[List[str]] = dataclasses.field(default_factory=list)
     confidence: int = MAX_CONFIDENCE
     summary: Optional[str] = ""
-    affected_purls: Optional[List[PackageURL]
-                             ] = dataclasses.field(default_factory=list)
+    affected_purls: Optional[List[PackageURL]] = dataclasses.field(default_factory=list)
     fixed_purl: PackageURL = None
     references: List[Reference] = dataclasses.field(default_factory=list)
     weaknesses: List[int] = dataclasses.field(default_factory=list)

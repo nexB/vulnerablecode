@@ -31,8 +31,7 @@ class TestOSVImporter(TestCase):
     def test_fixed_filter1(self):
         results = list(
             fixed_filter(
-                fixed_range={"type": "SEMVER", "events": [
-                    {"introduced": "0"}, {"fixed": "1.6.0"}]}
+                fixed_range={"type": "SEMVER", "events": [{"introduced": "0"}, {"fixed": "1.6.0"}]}
             )
         )
         assert results == ["1.6.0"]
@@ -73,8 +72,7 @@ class TestOSVImporter(TestCase):
 
     def test_get_published_date1(self):
         results = get_published_date(
-            raw_data={"id": "GHSA-j3f7-7rmc-6wqj",
-                      "published": "2022-01-10T14:12:00Z"}
+            raw_data={"id": "GHSA-j3f7-7rmc-6wqj", "published": "2022-01-10T14:12:00Z"}
         )
         expected = datetime.datetime(2022, 1, 10, 14, 12, 0, 0).replace(
             tzinfo=datetime.timezone.utc
@@ -86,22 +84,18 @@ class TestOSVImporter(TestCase):
             tzinfo=datetime.timezone.utc
         )
         results = get_published_date(
-            raw_data={"id": "GHSA-j3f7-7rmc-6wqj",
-                      "published": "2022-01-10T14:12:00.44444Z"}
+            raw_data={"id": "GHSA-j3f7-7rmc-6wqj", "published": "2022-01-10T14:12:00.44444Z"}
         )
         assert results == expected
 
     def test_get_published_date3(self):
-        assert get_published_date(
-            raw_data={"id": "GHSA-j3f7-7rmc-6wqj"}) is None
+        assert get_published_date(raw_data={"id": "GHSA-j3f7-7rmc-6wqj"}) is None
 
     def test_get_severities1(self):
-        expected = [VulnerabilitySeverity(
-            system=SCORING_SYSTEMS["generic_textual"], value="HIGH")]
+        expected = [VulnerabilitySeverity(system=SCORING_SYSTEMS["generic_textual"], value="HIGH")]
         results = list(
             get_severities(
-                raw_data={"id": "GHSA-j3f7-7rmc-6wqj",
-                          "ecosystem_specific": {"severity": "HIGH"}}
+                raw_data={"id": "GHSA-j3f7-7rmc-6wqj", "ecosystem_specific": {"severity": "HIGH"}}
             )
         )
         assert results == expected
@@ -124,15 +118,13 @@ class TestOSVImporter(TestCase):
             )
         )
         expected = [
-            VulnerabilitySeverity(
-                system=SCORING_SYSTEMS["generic_textual"], value="HIGH"),
+            VulnerabilitySeverity(system=SCORING_SYSTEMS["generic_textual"], value="HIGH"),
         ]
         assert results == expected
 
     def test_get_severities4(self):
         expected = [
-            VulnerabilitySeverity(
-                system=SCORING_SYSTEMS["generic_textual"], value="MODERATE"),
+            VulnerabilitySeverity(system=SCORING_SYSTEMS["generic_textual"], value="MODERATE"),
         ]
         results = list(
             get_severities(
@@ -145,8 +137,7 @@ class TestOSVImporter(TestCase):
         assert results == expected
 
     def test_get_severities5(self):
-        results = list(get_severities(
-            raw_data={"id": "PYSEC-2022-10", "database_specific": {}}))
+        results = list(get_severities(raw_data={"id": "PYSEC-2022-10", "database_specific": {}}))
         assert results == []
 
     def test_get_severities6(self):
@@ -159,8 +150,7 @@ class TestOSVImporter(TestCase):
                 raw_data={
                     "id": "PYSEC-2022-10",
                     "severity": [
-                        {"type": "CVSS_V3",
-                            "score": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N"}
+                        {"type": "CVSS_V3", "score": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N"}
                     ],
                 }
             )
@@ -261,22 +251,18 @@ class TestOSVImporter(TestCase):
         assert results == expected
 
     def test_get_references3(self):
-        assert get_references(
-            raw_data={"id": "PYSEC-2022-10"}, severities=[]) == []
+        assert get_references(raw_data={"id": "PYSEC-2022-10"}, severities=[]) == []
 
     def test_get_affected_purl1(self):
         results = get_affected_purl(
-            affected_pkg={"package": {
-                "purl": "pkg:npm/aws-iot-device-sdk-v2"}},
+            affected_pkg={"package": {"purl": "pkg:npm/aws-iot-device-sdk-v2"}},
             raw_id="PYSEC-2022-10",
         )
-        assert results == PackageURL.from_string(
-            "pkg:npm/aws-iot-device-sdk-v2")
+        assert results == PackageURL.from_string("pkg:npm/aws-iot-device-sdk-v2")
 
     def test_get_affected_purl2(self):
         results = get_affected_purl(
-            affected_pkg={"package": {
-                "name": "aws-iot-device-sdk-v2", "ecosystem": "npm"}},
+            affected_pkg={"package": {"name": "aws-iot-device-sdk-v2", "ecosystem": "npm"}},
             raw_id="GHSA-j3f7-7rmc-6wqj",
         )
         assert results == PackageURL(type="npm", name="aws-iot-device-sdk-v2")
@@ -328,76 +314,41 @@ class TestOSVImporter(TestCase):
 
         expected = PypiVersionRange(
             constraints=[
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="0.2.4")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="0.2.9")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="0.3.0")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.0.2")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.0.3")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.0.5")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.0.6")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.1.0")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.2.0")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.2.1")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.3.0")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.3.1")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.3.2")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.4.0")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.5.0")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.5.1")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.5.2")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.5.3")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.5.4")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.5.5")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.5.6")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.5.7")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.5.8")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.5.10")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.5.11")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.5.12")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.5.13")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.5.14")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.5.15")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.5.16")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.5.17")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.5.18")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.6.0")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.6.1")),
-                VersionConstraint(
-                    comparator="=", version=PypiVersion(string="1.6.2")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="0.2.4")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="0.2.9")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="0.3.0")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.0.2")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.0.3")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.0.5")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.0.6")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.1.0")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.2.0")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.2.1")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.3.0")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.3.1")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.3.2")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.4.0")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.5.0")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.5.1")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.5.2")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.5.3")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.5.4")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.5.5")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.5.6")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.5.7")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.5.8")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.5.10")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.5.11")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.5.12")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.5.13")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.5.14")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.5.15")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.5.16")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.5.17")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.5.18")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.6.0")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.6.1")),
+                VersionConstraint(comparator="=", version=PypiVersion(string="1.6.2")),
             ]
         )
         assert results == expected
@@ -412,8 +363,7 @@ class TestOSVImporter(TestCase):
 
     def test_get_fixed_versions2(self):
         results = get_fixed_versions(
-            fixed_range={"type": "ECOSYSTEM", "events": [
-                {"introduced": "0"}, {"fixed": "1.7.0"}]},
+            fixed_range={"type": "ECOSYSTEM", "events": [{"introduced": "0"}, {"fixed": "1.7.0"}]},
             raw_id="GHSA-j3f7-7rmc-6wqj",
             supported_ecosystem="pypi",
         )

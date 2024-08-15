@@ -119,8 +119,7 @@ class ApacheKafkaImporter(Importer):
             # This is superior, gets only the cve id and no following text.
             cve_id = cve_section_beginning.get("id")
 
-            cve_description_paragraph = cve_section_beginning.find_next_sibling(
-                "p")
+            cve_description_paragraph = cve_section_beginning.find_next_sibling("p")
 
             description = str(cve_description_paragraph.get_text())
             description = " ".join(description.split())
@@ -133,32 +132,25 @@ class ApacheKafkaImporter(Importer):
             # Remove leading white space after initial comma
             affected_versions = affected_versions_row.find_all("td")[1].text
 
-            affected_versions_clean = [v.strip()
-                                       for v in affected_versions.split(",")]
+            affected_versions_clean = [v.strip() for v in affected_versions.split(",")]
             affected_versions_clean = [v for v in affected_versions if v]
 
             fixed_versions = fixed_versions_row.find_all("td")[1].text
 
-            fixed_versions_clean = [v.strip()
-                                    for v in fixed_versions.split(",")]
+            fixed_versions_clean = [v.strip() for v in fixed_versions.split(",")]
             fixed_versions_clean = [v for v in fixed_versions if v]
 
             cve_version_mapping = affected_version_range_mapping.get(cve_id)
             if not cve_version_mapping:
-                logger.error(
-                    f"Data for {cve_id} not found in mapping. Skipping.")
+                logger.error(f"Data for {cve_id} not found in mapping. Skipping.")
             if cve_version_mapping and cve_version_mapping.get("action") == "include":
-                check_affected_versions_key = cve_version_mapping.get(
-                    affected_versions) or []
-                check_fixed_versions_key = cve_version_mapping.get(
-                    fixed_versions) or []
+                check_affected_versions_key = cve_version_mapping.get(affected_versions) or []
+                check_fixed_versions_key = cve_version_mapping.get(fixed_versions) or []
 
                 if not check_affected_versions_key:
-                    logger.error(
-                        f"Affected versions for {cve_id} not found in mapping. Skipping.")
+                    logger.error(f"Affected versions for {cve_id} not found in mapping. Skipping.")
                 if not check_fixed_versions_key:
-                    logger.error(
-                        f"Fixed versions for {cve_id} not found in mapping. Skipping.")
+                    logger.error(f"Fixed versions for {cve_id} not found in mapping. Skipping.")
 
                 references = [
                     Reference(
@@ -176,8 +168,7 @@ class ApacheKafkaImporter(Importer):
                 ]
 
                 affected_packages = []
-                affected_version_range = cve_version_mapping.get(
-                    "affected_version_range")
+                affected_version_range = cve_version_mapping.get("affected_version_range")
                 if cve_version_mapping.get("affected_version_range"):
                     affected_package = AffectedPackage(
                         package=PackageURL(
@@ -192,8 +183,7 @@ class ApacheKafkaImporter(Importer):
                 issue_announced = cve_version_mapping.get("Issue announced")
 
                 if issue_announced:
-                    date_published = parse(
-                        issue_announced).replace(tzinfo=pytz.UTC)
+                    date_published = parse(issue_announced).replace(tzinfo=pytz.UTC)
 
                 advisories.append(
                     AdvisoryData(

@@ -69,8 +69,7 @@ def parse_advisory_data(raw_data) -> AdvisoryData:
     Return AdvisoryData build from a mapping of ``raw_data`` example advisory.
     """
     purl = PackageURL(type="example", name="dummy_package")
-    affected_version_range = NginxVersionRange.from_native(
-        raw_data["vulnerable"])
+    affected_version_range = NginxVersionRange.from_native(raw_data["vulnerable"])
     fixed_version = SemverVersion(raw_data["fixed"])
     affected_package = AffectedPackage(
         package=purl, affected_version_range=affected_version_range, fixed_version=fixed_version

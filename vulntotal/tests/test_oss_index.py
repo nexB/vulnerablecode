@@ -18,8 +18,7 @@ from vulntotal.datasources import oss_index
 
 
 class TestDeps(testcase.FileBasedTesting):
-    test_data_dir = str(Path(__file__).resolve().parent /
-                        "test_data" / "oss_index")
+    test_data_dir = str(Path(__file__).resolve().parent / "test_data" / "oss_index")
 
     def test_parse_advisory(self):
         advisory_file = self.get_test_loc("advisory.json")
@@ -31,6 +30,5 @@ class TestDeps(testcase.FileBasedTesting):
                 advisory, PackageURL("generic", "namespace", "test")
             )
         ]
-        expected_file = self.get_test_loc(
-            "parse_advisory-expected.json", must_exist=False)
+        expected_file = self.get_test_loc("parse_advisory-expected.json", must_exist=False)
         util_tests.check_results_against_json(results, expected_file)

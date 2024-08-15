@@ -35,8 +35,7 @@ def test_parse_advisory_single():
 
     advisory_data = archlinux.ArchlinuxImporter().parse_advisory(record)
     result = [data.to_dict() for data in advisory_data]
-    expected_file = os.path.join(
-        TEST_DATA, f"parse-advisory-archlinux-expected.json")
+    expected_file = os.path.join(TEST_DATA, f"parse-advisory-archlinux-expected.json")
     util_tests.check_results_against_json(result, expected_file)
 
 
@@ -46,6 +45,5 @@ def test_archlinux_importer(mock_response):
         mock_response.return_value = json.load(f)
 
     expected_file = os.path.join(TEST_DATA, f"archlinux-multi-expected.json")
-    result = [data.to_dict() for data in list(
-        archlinux.ArchlinuxImporter().advisory_data())]
+    result = [data.to_dict() for data in list(archlinux.ArchlinuxImporter().advisory_data())]
     util_tests.check_results_against_json(result, expected_file)

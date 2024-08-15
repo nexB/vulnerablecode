@@ -38,8 +38,7 @@ class FireyeImporter(Importer):
             self.vcs_response = self.clone(repo_url=self.repo_url)
             base_path = Path(self.vcs_response.dest_dir)
             files = filter(
-                lambda p: p.suffix in [".md", ".MD"], Path(
-                    self.vcs_response.dest_dir).glob("**/*")
+                lambda p: p.suffix in [".md", ".MD"], Path(self.vcs_response.dest_dir).glob("**/*")
             )
             for file in files:
                 if Path(file).stem == "README":

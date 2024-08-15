@@ -29,10 +29,8 @@ class TestDeps(testcase.FileBasedTesting):
             "pkg:cargo/rand@0.5.4",
         ]
 
-        results = [deps.generate_meta_payload(
-            PackageURL.from_string(purl)) for purl in purls]
-        expected_file = self.get_test_loc(
-            "payloads_meta-expected.json", must_exist=False)
+        results = [deps.generate_meta_payload(PackageURL.from_string(purl)) for purl in purls]
+        expected_file = self.get_test_loc("payloads_meta-expected.json", must_exist=False)
         util_tests.check_results_against_json(results, expected_file)
 
     def test_parse_advisory_from_meta(self):
@@ -50,8 +48,7 @@ class TestDeps(testcase.FileBasedTesting):
         with open(file) as f:
             advisories = json.load(f)
         results = [deps.generate_advisory_payload(adv) for adv in advisories]
-        expected_file = self.get_test_loc(
-            "payloads_advisories-expected.json", must_exist=False)
+        expected_file = self.get_test_loc("payloads_advisories-expected.json", must_exist=False)
         util_tests.check_results_against_json(results, expected_file)
 
     def test_parse_advisory(self):
@@ -62,6 +59,5 @@ class TestDeps(testcase.FileBasedTesting):
             adv.to_dict()
             for adv in deps.parse_advisory(advisory, PackageURL("generic", "namespace", "test"))
         ]
-        expected_file = self.get_test_loc(
-            "parse_advisory-expected.json", must_exist=False)
+        expected_file = self.get_test_loc("parse_advisory-expected.json", must_exist=False)
         util_tests.check_results_against_json(results, expected_file)

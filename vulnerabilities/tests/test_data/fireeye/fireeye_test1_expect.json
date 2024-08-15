@@ -1,9 +1,19 @@
 {
-   "aliases": ["CVE-2019-7245 ", " FEYE-2019-0002"],
-   "summary": "GPU-Z.sys, part of the GPU-Z package from TechPowerUp, exposes the wrmsr instruction to user-mode callers without properly validating the target Model Specific Register (MSR). This can result in arbitrary unsigned code being executed in Ring 0.",
-   "affected_packages": [],
-   "references": [],
-   "date_published": null,
-   "weaknesses": [],
-   "url": "https://github.com/mandiant/Vulnerability-Disclosures/blob/master/fireeye_test1_expect.json"
+  "aliases": [
+    "CVE-2019-7245",
+    " FEYE-2019-0002"
+  ],
+  "summary": "GPU-Z.sys, part of the GPU-Z package from TechPowerUp, exposes the wrmsr instruction to user-mode callers without properly validating the target Model Specific Register (MSR). This can result in arbitrary unsigned code being executed in Ring 0.",
+  "affected_packages": [],
+  "references": [
+    {
+      "reference_id": "",
+      "reference_type": "",
+      "url": "https://downloads.immunityinc.com/infiltrate2019-slidepacks/ryan-warns-timothy-harrison-device-driver-debauchery-msr-madness/MSR_Madness_v2.9_INFILTRATE.pptx",
+      "severities": []
+    }
+  ],
+  "date_published": null,
+  "weaknesses": [],
+  "url": "https://github.com/mandiant/Vulnerability-Disclosures/blob/master/fireeye_test1_expect.json"
 }

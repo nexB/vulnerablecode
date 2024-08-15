@@ -173,8 +173,7 @@ class OvalDocument(object):
         if not tree:
             root = Element("oval_definitions")
             self.tree = ElementTree.ElementTree(root)
-            element = Element(
-                "{" + OvalDocument.NS_DEFAULT.get("def") + "}generator")
+            element = Element("{" + OvalDocument.NS_DEFAULT.get("def") + "}generator")
             gen = OvalGenerator(element)
             gen.setProduct("The CIS OVAL Repository")
             gen.setTimestamp(None)
@@ -184,20 +183,15 @@ class OvalDocument(object):
 
         self.tree = tree
         self.id_to_definition = (
-            {el.getId(): el for el in self.getDefinitions()
-             } if self.getDefinitions() else {}
+            {el.getId(): el for el in self.getDefinitions()} if self.getDefinitions() else {}
         )
-        self.id_to_test = {el.getId(): el for el in self.getTests()
-                           } if self.getTests() else {}
+        self.id_to_test = {el.getId(): el for el in self.getTests()} if self.getTests() else {}
         self.id_to_object = (
-            {el.getId(): el for el in self.getObjects()
-             } if self.getObjects() else {}
+            {el.getId(): el for el in self.getObjects()} if self.getObjects() else {}
         )
-        self.id_to_state = {
-            el.getId(): el for el in self.getStates()} if self.getStates() else {}
+        self.id_to_state = {el.getId(): el for el in self.getStates()} if self.getStates() else {}
         self.id_to_variable = (
-            {el.getId(): el for el in self.getVariables()
-             } if self.getVariables() else {}
+            {el.getId(): el for el in self.getVariables()} if self.getVariables() else {}
         )
 
     def parseFromFile(self, filename):
@@ -253,8 +247,7 @@ class OvalDocument(object):
                 return False
 
             # TODO:  Add all necessary namespaces
-            self.tree.write(filename, "UTF-8", True,
-                            OvalDocument.NS_DEFAULT, "xml")
+            self.tree.write(filename, "UTF-8", True, OvalDocument.NS_DEFAULT, "xml")
 
         except Exception:
             return False
@@ -308,8 +301,7 @@ class OvalDocument(object):
         if not create:
             return None
         else:
-            element = Element(
-                "{" + OvalDocument.NS_DEFAULT.get("def") + "}generator")
+            element = Element("{" + OvalDocument.NS_DEFAULT.get("def") + "}generator")
             gen = OvalGenerator(element)
             gen.setProduct("The CIS OVAL Repository")
             gen.setTimestamp(None)
@@ -492,8 +484,7 @@ class OvalDocument(object):
 
         root = self.tree.getroot()
         if not root:
-            root = Element(
-                "{" + OvalDocument.NS_DEFAULT.get("def") + "}oval_definitions")
+            root = Element("{" + OvalDocument.NS_DEFAULT.get("def") + "}oval_definitions")
             self.tree._setroot(root)
 
         # If replace has been set to False, then we want to exit with no changes
@@ -513,8 +504,7 @@ class OvalDocument(object):
         if oval_type == OvalDefinition.DEFINITION:
             parent = root.find("def:definitions", OvalDocument.NS_DEFAULT)
             if parent is None:
-                parent = Element(
-                    "{" + OvalDocument.NS_DEFAULT.get("def") + "}definitions")
+                parent = Element("{" + OvalDocument.NS_DEFAULT.get("def") + "}definitions")
                 root.append(parent)
 
             parent.append(element.getElement())
@@ -524,8 +514,7 @@ class OvalDocument(object):
         elif oval_type == OvalDefinition.TEST:
             parent = root.find("def:tests", OvalDocument.NS_DEFAULT)
             if parent is None:
-                parent = Element(
-                    "{" + OvalDocument.NS_DEFAULT.get("def") + "}tests")
+                parent = Element("{" + OvalDocument.NS_DEFAULT.get("def") + "}tests")
                 root.append(parent)
 
             parent.append(element.getElement())
@@ -535,8 +524,7 @@ class OvalDocument(object):
         elif oval_type == OvalDefinition.OBJECT:
             parent = root.find("def:objects", OvalDocument.NS_DEFAULT)
             if parent is None:
-                parent = Element(
-                    "{" + OvalDocument.NS_DEFAULT.get("def") + "}objects")
+                parent = Element("{" + OvalDocument.NS_DEFAULT.get("def") + "}objects")
                 root.append(parent)
 
             parent.append(element.getElement())
@@ -546,8 +534,7 @@ class OvalDocument(object):
         elif oval_type == OvalDefinition.STATE:
             parent = root.find("def:states", OvalDocument.NS_DEFAULT)
             if parent is None:
-                parent = Element(
-                    "{" + OvalDocument.NS_DEFAULT.get("def") + "}states")
+                parent = Element("{" + OvalDocument.NS_DEFAULT.get("def") + "}states")
                 root.append(parent)
 
             parent.append(element.getElement())
@@ -557,8 +544,7 @@ class OvalDocument(object):
         elif oval_type == OvalDefinition.VARIABLE:
             parent = root.find("def:variables", OvalDocument.NS_DEFAULT)
             if parent is None:
-                parent = Element(
-                    "{" + OvalDocument.NS_DEFAULT.get("def") + "}variables")
+                parent = Element("{" + OvalDocument.NS_DEFAULT.get("def") + "}variables")
                 root.append(parent)
 
             self.id_to_variable[ovalid] = element
@@ -611,8 +597,7 @@ class OvalGenerator(object):
         if child is not None:
             child.text = product
         else:
-            child = Element(
-                "{" + OvalDocument.NS_DEFAULT.get("def") + "}product_name")
+            child = Element("{" + OvalDocument.NS_DEFAULT.get("def") + "}product_name")
             child.text = product
             self.element.append(child)
 
@@ -643,8 +628,7 @@ class OvalGenerator(object):
         if child is not None:
             child.text = version
         else:
-            child = Element(
-                "{" + OvalDocument.NS_DEFAULT.get("def") + "}schema_version")
+            child = Element("{" + OvalDocument.NS_DEFAULT.get("def") + "}schema_version")
             child.text = version
             self.element.append(child)
 
@@ -677,8 +661,7 @@ class OvalGenerator(object):
         if child is not None:
             child.text = timestamp
         else:
-            child = Element(
-                "{" + OvalDocument.NS_OVAL.get("oval") + "}timestamp")
+            child = Element("{" + OvalDocument.NS_OVAL.get("oval") + "}timestamp")
             child.text = timestamp
             self.element.append(child)
 
@@ -1017,8 +1000,7 @@ class OvalElement(object):
         elif code == "var":
             return OvalElement.VARIABLE
         else:
-            raise ValueError(
-                "Unknown OVAL object type '{0}' in {1}.".format(code, ovalid))
+            raise ValueError("Unknown OVAL object type '{0}' in {1}.".format(code, ovalid))
 
     @staticmethod
     def asOvalElement(element):
@@ -1068,11 +1050,9 @@ class OvalDefinition(OvalElement):
             # self.element = element.getElement()
             self.element = element
         else:
-            self.element = Element(
-                "{" + OvalDocument.NS_DEFAULT.get("def") + "}definition")
+            self.element = Element("{" + OvalDocument.NS_DEFAULT.get("def") + "}definition")
             self.element.set("version", "1")
-            meta = Element(
-                "{" + OvalDocument.NS_DEFAULT.get("def") + "}metadata")
+            meta = Element("{" + OvalDocument.NS_DEFAULT.get("def") + "}metadata")
             self.element.append(meta)
 
     def getType(self):
@@ -1152,8 +1132,7 @@ class OvalMetadata(object):
         if element is not None:
             self.element = element
         else:
-            self.element = Element(
-                "{" + OvalDocument.NS_DEFAULT.get("def") + "}metadata")
+            self.element = Element("{" + OvalDocument.NS_DEFAULT.get("def") + "}metadata")
 
     def getTitle(self):
         if self.element is None:
@@ -1168,8 +1147,7 @@ class OvalMetadata(object):
         if self.element is None:
             return None
 
-        desc_element = self.element.find(
-            "def:description", OvalDocument.NS_DEFAULT)
+        desc_element = self.element.find("def:description", OvalDocument.NS_DEFAULT)
         if desc_element is not None:
             return desc_element.text
         return None
@@ -1178,8 +1156,7 @@ class OvalMetadata(object):
         if self.element is None:
             return None
 
-        aff_element = self.element.find(
-            "def:affected", OvalDocument.NS_DEFAULT)
+        aff_element = self.element.find("def:affected", OvalDocument.NS_DEFAULT)
         if aff_element is not None:
             return OvalAffected(aff_element)
         return None
@@ -1188,8 +1165,7 @@ class OvalMetadata(object):
         if self.element is None:
             return None
 
-        repo_element = self.element.find(
-            "def:oval_repository", OvalDocument.NS_DEFAULT)
+        repo_element = self.element.find("def:oval_repository", OvalDocument.NS_DEFAULT)
         if repo_element is not None:
             return OvalRepositoryInformation(repo_element)
         return None
@@ -1225,8 +1201,7 @@ class OvalRepositoryInformation(object):
         element = self.element.find("def:status", OvalDocument.NS_DEFAULT)
 
         if element is None:
-            element = Element(
-                "{" + OvalDocument.NS_DEFAULT.get("def") + "}status")
+            element = Element("{" + OvalDocument.NS_DEFAULT.get("def") + "}status")
             self.element.append(element)
 
         element.text = status
@@ -1249,12 +1224,10 @@ class OvalRepositoryInformation(object):
         if not version or version is None:
             return
 
-        child = self.element.find(
-            "def:min_schema_version", OvalDocument.NS_DEFAULT)
+        child = self.element.find("def:min_schema_version", OvalDocument.NS_DEFAULT)
 
         if child is None:
-            child = Element(
-                "{" + OvalDocument.NS_DEFAULT.get("def") + "}min_schema_version")
+            child = Element("{" + OvalDocument.NS_DEFAULT.get("def") + "}min_schema_version")
             self.element.append(child)
 
         child.text = version
@@ -1270,8 +1243,7 @@ class OvalRepositoryInformation(object):
                 results["Date"] = sub.get("date")
 
                 contributors = []
-                contribs = sub.findall(
-                    "def:contributor", OvalDocument.NS_DEFAULT)
+                contribs = sub.findall("def:contributor", OvalDocument.NS_DEFAULT)
                 for c in contribs:
                     curr = {}
                     curr["Organization"] = c.get("organization")
@@ -1295,8 +1267,7 @@ class OvalRepositoryInformation(object):
         status_change = {}
 
         if self.element is not None:
-            scs = self.element.findall(
-                "def:dates/def:status_change", OvalDocument.NS_DEFAULT)
+            scs = self.element.findall("def:dates/def:status_change", OvalDocument.NS_DEFAULT)
             if scs is not None and len(scs) > 0:
                 sc = scs[(len(scs) - 1)]
                 status_change["Date"] = sc.get("date")

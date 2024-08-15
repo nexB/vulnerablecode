@@ -90,8 +90,7 @@ class ApacheHTTPDImporter(Importer):
                     fixed_versions.append(split_timeline_value[-1])
 
         affected_packages = []
-        affected_version_range = self.to_version_ranges(
-            versions_data, fixed_versions)
+        affected_version_range = self.to_version_ranges(versions_data, fixed_versions)
         if affected_version_range:
             affected_packages.append(
                 AffectedPackage(
@@ -117,8 +116,7 @@ class ApacheHTTPDImporter(Importer):
             version_value = version_data["version_value"]
             range_expression = version_data["version_affected"]
             if range_expression not in {"<=", ">=", "?=", "!<", "="}:
-                raise ValueError(
-                    f"unknown comparator found! {range_expression}")
+                raise ValueError(f"unknown comparator found! {range_expression}")
             comparator_by_range_expression = {
                 ">=": ">=",
                 "!<": ">=",
@@ -128,8 +126,7 @@ class ApacheHTTPDImporter(Importer):
             comparator = comparator_by_range_expression.get(range_expression)
             if comparator:
                 constraints.append(
-                    VersionConstraint(comparator=comparator,
-                                      version=SemverVersion(version_value))
+                    VersionConstraint(comparator=comparator, version=SemverVersion(version_value))
                 )
 
         for fixed_version in fixed_versions:

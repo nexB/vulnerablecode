@@ -28,8 +28,7 @@ class Command(BaseCommand):
         parser.add_argument(
             "--all", action="store_true", help="Improve data from all available improvers"
         )
-        parser.add_argument("sources", nargs="*",
-                            help="Fully qualified improver name to run")
+        parser.add_argument("sources", nargs="*", help="Fully qualified improver name to run")
 
     def handle(self, *args, **options):
         try:
@@ -49,16 +48,14 @@ class Command(BaseCommand):
 
     def list_sources(self):
         improvers = list(IMPROVERS_REGISTRY)
-        self.stdout.write(
-            "Vulnerability data can be processed by these available improvers:\n")
+        self.stdout.write("Vulnerability data can be processed by these available improvers:\n")
         self.stdout.write("\n".join(improvers))
 
     def improve_data(self, improvers):
         failed_improvers = []
 
         for improver in improvers:
-            self.stdout.write(
-                f"Improving data using {improver.qualified_name}")
+            self.stdout.write(f"Improving data using {improver.qualified_name}")
             try:
                 ImproveRunner(improver_class=improver).run()
                 self.stdout.write(
@@ -76,8 +73,7 @@ class Command(BaseCommand):
                 )
 
         if failed_improvers:
-            raise CommandError(
-                f"{len(failed_improvers)} failed!: {','.join(failed_improvers)}")
+            raise CommandError(f"{len(failed_improvers)} failed!: {','.join(failed_improvers)}")
 
 
 def validate_improvers(sources):

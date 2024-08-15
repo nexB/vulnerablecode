@@ -71,7 +71,6 @@ class DebianOvalImporter(OvalImporter):
             resp = requests.get(file_url).content
             extracted = bz2.decompress(resp)
             yield (
-                {"type": "deb", "namespace": "debian",
-                    "qualifiers": {"distro": release}},
+                {"type": "deb", "namespace": "debian", "qualifiers": {"distro": release}},
                 ET.ElementTree(ET.fromstring(extracted.decode("utf-8"))),
             )

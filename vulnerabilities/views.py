@@ -74,8 +74,7 @@ class VulnerabilitySearch(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         request_query = self.request.GET
-        context["vulnerability_search_form"] = VulnerabilitySearchForm(
-            request_query)
+        context["vulnerability_search_form"] = VulnerabilitySearchForm(request_query)
         context["search"] = request_query.get("search")
         return context
 
@@ -94,10 +93,8 @@ class PackageDetails(DetailView):
         context = super().get_context_data(**kwargs)
         package = self.object
         context["package"] = package
-        context["affected_by_vulnerabilities"] = package.affected_by.order_by(
-            "vulnerability_id")
-        context["fixing_vulnerabilities"] = package.fixing.order_by(
-            "vulnerability_id")
+        context["affected_by_vulnerabilities"] = package.affected_by.order_by("vulnerability_id")
+        context["fixing_vulnerabilities"] = package.fixing.order_by("vulnerability_id")
         context["package_search_form"] = PackageSearchForm(self.request.GET)
         context["fixed_package_details"] = package.fixed_package_details
 
@@ -149,8 +146,7 @@ class VulnerabilityDetails(DetailView):
 
             if s.scoring_elements and s.scoring_system in SCORING_SYSTEMS:
                 try:
-                    vector_values = SCORING_SYSTEMS[s.scoring_system].get(
-                        s.scoring_elements)
+                    vector_values = SCORING_SYSTEMS[s.scoring_system].get(s.scoring_elements)
                     severity_vectors.append(vector_values)
                 except (
                     CVSS2MalformedError,
@@ -158,8 +154,7 @@ class VulnerabilityDetails(DetailView):
                     CVSS4MalformedError,
                     NotImplementedError,
                 ):
-                    logging.error(
-                        f"CVSSMalformedError for {s.scoring_elements}")
+                    logging.error(f"CVSSMalformedError for {s.scoring_elements}")
 
             if s.value:
                 severity_values.add(s.value)

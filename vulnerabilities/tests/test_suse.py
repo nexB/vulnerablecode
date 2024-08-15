@@ -33,12 +33,10 @@ class TestSUSEOvalParser(unittest.TestCase):
 
         assert len(self.parsed_oval.all_definitions) == 2
         assert (
-            self.parsed_oval.all_definitions[0].getId(
-            ) == "oval:org.opensuse.security:def:20094112"
+            self.parsed_oval.all_definitions[0].getId() == "oval:org.opensuse.security:def:20094112"
         )
         assert (
-            self.parsed_oval.all_definitions[1].getId(
-            ) == "oval:org.opensuse.security:def:20112767"
+            self.parsed_oval.all_definitions[1].getId() == "oval:org.opensuse.security:def:20112767"
         )
 
     def test_get_tests_of_definition(self):
@@ -65,10 +63,8 @@ class TestSUSEOvalParser(unittest.TestCase):
         vuln_id_1 = "CVE-2009-4112"
         vuln_id_2 = "CVE-2011-2767"
 
-        assert vuln_id_1 == self.parsed_oval.get_vuln_id_from_definition(
-            self.definition_1)
-        assert vuln_id_2 == self.parsed_oval.get_vuln_id_from_definition(
-            self.definition_2)
+        assert vuln_id_1 == self.parsed_oval.get_vuln_id_from_definition(self.definition_1)
+        assert vuln_id_2 == self.parsed_oval.get_vuln_id_from_definition(self.definition_2)
 
     def test_get_object_state_of_test(self):
 
@@ -115,10 +111,8 @@ class TestSUSEOvalParser(unittest.TestCase):
         exp_range_2 = "<1.2.11-lp151.3.6"
         # In a full run we wont get exp_range1 because we won't obtain
         # it's state due to filters to  avoid such tests in  the first place
-        assert self.parsed_oval.get_version_range_from_state(
-            state_1) == exp_range_1
-        assert self.parsed_oval.get_version_range_from_state(
-            state_2) == exp_range_2
+        assert self.parsed_oval.get_version_range_from_state(state_1) == exp_range_1
+        assert self.parsed_oval.get_version_range_from_state(state_2) == exp_range_2
 
     def test_get_urls_from_definition(self):
 
@@ -129,8 +123,7 @@ class TestSUSEOvalParser(unittest.TestCase):
             "https://bugzilla.suse.com/558664",
         }
 
-        assert def1_urls == self.parsed_oval.get_urls_from_definition(
-            self.definition_1)
+        assert def1_urls == self.parsed_oval.get_urls_from_definition(self.definition_1)
 
         def2_urls = {
             "http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2011-2767",
@@ -138,8 +131,7 @@ class TestSUSEOvalParser(unittest.TestCase):
             "https://www.suse.com/security/cve/CVE-2011-2767.html",
         }
 
-        assert def2_urls == self.parsed_oval.get_urls_from_definition(
-            self.definition_2)
+        assert def2_urls == self.parsed_oval.get_urls_from_definition(self.definition_2)
 
     def test_get_data(self):
 

@@ -58,8 +58,7 @@ class MockGitImporter(Importer):
 def test_create_purl():
     purl1 = PackageURL(name="ffmpeg", type="test")
 
-    assert purl1 == MockOvalImporter().create_purl(
-        pkg_name="ffmpeg", pkg_data={"type": "test"})
+    assert purl1 == MockOvalImporter().create_purl(pkg_name="ffmpeg", pkg_data={"type": "test"})
 
     purl2 = PackageURL(
         name="notepad",
@@ -82,8 +81,7 @@ def test_create_purl():
 def test__collect_pkgs():
     xmls = load_oval_data()
 
-    expected_suse_pkgs = {"cacti-spine",
-                          "apache2-mod_perl", "cacti", "apache2-mod_perl-devel"}
+    expected_suse_pkgs = {"cacti-spine", "apache2-mod_perl", "cacti", "apache2-mod_perl-devel"}
     expected_ubuntu_pkgs = {"potrace", "tor"}
 
     translations = {"less than": "<"}
@@ -149,11 +147,9 @@ def test_git_importer_clone(git_importer):
 # Here we use a modified copy of org.opensuse.CVE-2008-5679.xml -- the test versions are modified to illustrate sort order.
 def test_ovaltest_sorting():
     xml_doc = ET.parse(
-        os.path.join(
-            TEST_DATA_01, "org.opensuse.CVE-2008-5679-modified-versions.xml")
+        os.path.join(TEST_DATA_01, "org.opensuse.CVE-2008-5679-modified-versions.xml")
     )
-    translations = {"less than": "<", "equals": "=",
-                    "greater than or equal": ">="}
+    translations = {"less than": "<", "equals": "=", "greater than or equal": ">="}
     parsed_oval = OvalParser(translations, xml_doc)
 
     # Get the list of all tests and check the total number of tests.

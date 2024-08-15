@@ -94,19 +94,16 @@ def parse_advisory(response, purl) -> Iterable[VendorData]:
         aliases.append(vuln_id) if vuln_id else None
 
         try:
-            affected_versions.extend(
-                get_item(vuln, "affected", 0, "versions") or [])
+            affected_versions.extend(get_item(vuln, "affected", 0, "versions") or [])
         except (KeyError, TypeError, IndexError) as e:
             logger.error(f"Error while parsing affected versions: {e}")
 
         try:
             events = get_item(vuln, "affected", 0, "ranges", 0, "events") or []
             affected_versions.extend(
-                [event.get("introduced")
-                 for event in events if event.get("introduced")]
+                [event.get("introduced") for event in events if event.get("introduced")]
             )
-            fixed.extend([event.get("fixed")
-                         for event in events if event.get("fixed")])
+            fixed.extend([event.get("fixed") for event in events if event.get("fixed")])
         except (KeyError, TypeError, IndexError) as e:
             logger.error(f"Error while parsing events: {e}")
 

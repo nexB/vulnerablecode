@@ -1,26 +1,31 @@
 [
-   {
-      "vulnerability_id": null,
-      "aliases": ["GMS-2018-26"],
-      "confidence": 100,
-      "summary": "Incorrect header injection check\namphp/http isn't properly protected against HTTP header injection.",
-      "affected_purls": [],
-      "fixed_purl": {
-         "type": "composer",
-         "namespace": "amphp",
-         "name": "http",
-         "version": "1.0.1",
-         "qualifiers": "",
-         "subpath": ""
-      },
-      "references": [
-         {
-            "reference_id": "",
-            "reference_type": "",
-            "url": "https://github.com/amphp/http/pull/4",
-            "severities": []
-         }
-      ],
-      "weaknesses": [1035, 937]
-   }
+  {
+    "vulnerability_id": null,
+    "aliases": [
+      "GMS-2018-26"
+    ],
+    "confidence": 100,
+    "summary": "Incorrect header injection check\namphp/http isn't properly protected against HTTP header injection.",
+    "affected_purls": [],
+    "fixed_purl": {
+      "type": "composer",
+      "namespace": "amphp",
+      "name": "http",
+      "version": "1.0.1",
+      "qualifiers": "",
+      "subpath": ""
+    },
+    "references": [
+      {
+        "reference_id": "",
+        "reference_type": "",
+        "url": "https://github.com/amphp/http/pull/4",
+        "severities": []
+      }
+    ],
+    "weaknesses": [
+      1035,
+      937
+    ]
+  }
 ]

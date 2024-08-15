@@ -36,8 +36,7 @@ def test_affected_package_merge_fail():
                         )
                     ),
                 ),
-                AffectedPackage(package=PackageURL(
-                    type="npm", name="bar"), fixed_version="1.0.0"),
+                AffectedPackage(package=PackageURL(type="npm", name="bar"), fixed_version="1.0.0"),
             ]
         )
 
@@ -50,16 +49,14 @@ def test_affected_package_merge():
                 fixed_version="1.0.0",
                 affected_version_range=GemVersionRange(
                     constraints=(
-                        VersionConstraint(
-                            comparator=">=", version=RubygemsVersion(string="5.2.0")),
+                        VersionConstraint(comparator=">=", version=RubygemsVersion(string="5.2.0")),
                         VersionConstraint(
                             comparator="<=", version=RubygemsVersion(string="5.2.6.2")
                         ),
                     )
                 ),
             ),
-            AffectedPackage(package=PackageURL(
-                type="npm", name="foo"), fixed_version="2.0.0"),
+            AffectedPackage(package=PackageURL(type="npm", name="foo"), fixed_version="2.0.0"),
             AffectedPackage(
                 package=PackageURL(type="npm", name="foo"),
                 affected_version_range=GemVersionRange(
@@ -82,18 +79,14 @@ def test_affected_package_merge():
         [
             GemVersionRange(
                 constraints=(
-                    VersionConstraint(
-                        comparator=">=", version=RubygemsVersion(string="5.2.0")),
-                    VersionConstraint(
-                        comparator="<=", version=RubygemsVersion(string="5.2.6.2")),
+                    VersionConstraint(comparator=">=", version=RubygemsVersion(string="5.2.0")),
+                    VersionConstraint(comparator="<=", version=RubygemsVersion(string="5.2.6.2")),
                 )
             ),
             GemVersionRange(
                 constraints=(
-                    VersionConstraint(
-                        comparator=">=", version=RubygemsVersion(string="10.2.0")),
-                    VersionConstraint(
-                        comparator="<=", version=RubygemsVersion(string="10.5.0")),
+                    VersionConstraint(comparator=">=", version=RubygemsVersion(string="10.2.0")),
+                    VersionConstraint(comparator="<=", version=RubygemsVersion(string="10.5.0")),
                 )
             ),
         ],

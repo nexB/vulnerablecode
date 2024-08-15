@@ -163,8 +163,7 @@ def get_references(record) -> [Reference]:
                 Reference(
                     url=record.get("url"),
                     severities=[
-                        VulnerabilitySeverity(
-                            system=SCORING_SYSTEMS["cvssv3"], value=cvss_v3)
+                        VulnerabilitySeverity(system=SCORING_SYSTEMS["cvssv3"], value=cvss_v3)
                     ],
                 )
             )

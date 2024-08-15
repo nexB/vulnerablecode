@@ -33,5 +33,4 @@ def test_import_yml():
     advisories_from_yml = [
         adv.to_dict() for adv in to_advisories(Path(yml_file), Path(yml_file).parent)
     ]
-    util_tests.check_results_against_json(
-        advisories_from_yml, expected_file_yml)
+    util_tests.check_results_against_json(advisories_from_yml, expected_file_yml)

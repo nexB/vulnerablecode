@@ -49,18 +49,15 @@ def test_advisories(filename, expected_filename, schema_type):
 
 @patch("vulnerabilities.improvers.valid_versions.RubyImprover.get_package_versions")
 def test_ruby_improver(mock_response):
-    advisory_file = os.path.join(
-        TEST_DATA, f"parse-advisory-ruby-expected.json")
+    advisory_file = os.path.join(TEST_DATA, f"parse-advisory-ruby-expected.json")
     with open(advisory_file) as exp:
         advisories = [AdvisoryData.from_dict(adv) for adv in (json.load(exp))]
-    mock_response.return_value = [
-        "0.2.6", "1.2.7", "1.3.6", "2.2.1", "3.0.2", "3.0.5"]
+    mock_response.return_value = ["0.2.6", "1.2.7", "1.3.6", "2.2.1", "3.0.2", "3.0.5"]
     improvers = [RubyImprover(), DefaultImprover()]
     result = []
     for improver in improvers:
         for advisory in advisories:
-            inference = [data.to_dict()
-                         for data in improver.get_inferences(advisory)]
+            inference = [data.to_dict() for data in improver.get_inferences(advisory)]
             result.extend(inference)
     expected_file = os.path.join(TEST_DATA, f"ruby-improver-expected.json")
     util_tests.check_results_against_json(result, expected_file)
@@ -75,25 +72,21 @@ def test_ruby_improver(mock_response):
             [
                 AffectedPackage(
                     package=PackageURL(type="gem", name="jruby"),
-                    affected_version_range=GemVersionRange.from_string(
-                        "vers:gem/<1.6.5.1"),
+                    affected_version_range=GemVersionRange.from_string("vers:gem/<1.6.5.1"),
                 )
             ],
         ),
         (
-            {"patched_versions": [">= 1.1.3"],
-                "unaffected_versions": ["< 0.1.33"]},
+            {"patched_versions": [">= 1.1.3"], "unaffected_versions": ["< 0.1.33"]},
             PackageURL(type="gem", name="'devise_token_auth'"),
             [
                 AffectedPackage(
                     package=PackageURL(type="gem", name="'devise_token_auth'"),
-                    affected_version_range=GemVersionRange.from_string(
-                        "vers:gem/<1.1.3"),
+                    affected_version_range=GemVersionRange.from_string("vers:gem/<1.1.3"),
                 ),
                 AffectedPackage(
                     package=PackageURL(type="gem", name="'devise_token_auth'"),
-                    affected_version_range=GemVersionRange.from_string(
-                        "vers:gem/>=0.1.33"),
+                    affected_version_range=GemVersionRange.from_string("vers:gem/>=0.1.33"),
                 ),
             ],
         ),
