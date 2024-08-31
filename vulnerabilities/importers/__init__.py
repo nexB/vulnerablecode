@@ -8,6 +8,7 @@
 #
 
 from vulnerabilities.importers import alpine_linux
+from vulnerabilities.importers import amazon_linux
 from vulnerabilities.importers import apache_httpd
 from vulnerabilities.importers import apache_kafka
 from vulnerabilities.importers import apache_tomcat
@@ -74,6 +75,7 @@ IMPORTERS_REGISTRY = [
     github_osv.GithubOSVImporter,
     epss.EPSSImporter,
     vulnrichment.VulnrichImporter,
+    amazon_linux.AmazonLinuxImporter,
     pypa_importer.PyPaImporterPipeline,
 ]
 
