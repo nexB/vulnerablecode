@@ -12,7 +12,7 @@ services:
     deploy:
       placement:
         constraints:
-          - node.labels.role == primary
+          - node.labels.role == standby
 
 
   vulnerablecode:
